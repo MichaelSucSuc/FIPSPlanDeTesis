@@ -19,6 +19,10 @@
     --color-text: #2D2D2D;
     --color-text-muted: #666660;
     
+    /* Tooltip Variables */
+    --tooltip-bg: #2D2D2D;
+    --tooltip-text: #FFFFFF;
+    
     /* Category Badges (Light) */
     --badge-bg-problema: rgba(139, 0, 0, 0.1);
     --badge-text-problema: #8B0000;
@@ -69,6 +73,10 @@
     --color-border: #2D2D33;          /* Darker Muted Borders */
     --color-text: #F1F1F5;
     --color-text-muted: #A0A0AB;
+    
+    /* Tooltip Variables */
+    --tooltip-bg: #F1F1F5;
+    --tooltip-text: #121214;
     
     /* Category Badges (Dark) */
     --badge-bg-problema: rgba(194, 64, 64, 0.2);
@@ -832,8 +840,8 @@ button {
     position: absolute;
     bottom: 100%; /* Positions the tooltip above the circle */
     margin-bottom: 12px; /* Space between circle and tooltip */
-    background: var(--color-secondary);
-    color: #FFFFFF;
+    background: var(--tooltip-bg);
+    color: var(--tooltip-text);
     padding: 6px 12px;
     border-radius: var(--radius-sm);
     font-size: 0.75rem;
@@ -855,7 +863,7 @@ button {
     transform: translateX(-50%) rotate(45deg);
     width: 8px;
     height: 8px;
-    background: var(--color-secondary);
+    background: var(--tooltip-bg);
 }
 
 .roadmap-step-node:hover .node-tooltip {
@@ -1505,7 +1513,7 @@ button {
    FOOTER
    ========================================================================== */
 .main-footer {
-    background-color: var(--color-secondary);
+    background-color: #1A1A1E; /* Always elegant deep dark background for both themes */
     color: #CCCCCC;
     padding: 80px 0 0 0;
     border-top: 1px solid var(--color-border);
