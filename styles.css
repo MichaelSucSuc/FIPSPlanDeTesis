@@ -733,7 +733,7 @@ button {
 
 .roadmap-line {
     position: absolute;
-    top: 25px;
+    top: 85px; /* Shifted down to align with circles (padding-top: 60px + 25px center) */
     left: 40px;
     right: 40px;
     height: 4px;
@@ -752,8 +752,8 @@ button {
 
 .roadmap-scroll-wrapper {
     overflow-x: auto;
-    padding-bottom: 24px;
-    margin-bottom: -24px;
+    padding-top: 60px; /* Provides breathing room for tooltips and circle scales */
+    padding-bottom: 30px;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -767,6 +767,7 @@ button {
     min-width: 1000px;
     position: relative;
     z-index: 2;
+    padding: 0 20px; /* Prevent clipping at left/right edges when scaling first/last circles */
 }
 
 .roadmap-step-node {
@@ -829,7 +830,8 @@ button {
 /* Tooltip on hover */
 .node-tooltip {
     position: absolute;
-    bottom: -45px;
+    bottom: 100%; /* Positions the tooltip above the circle */
+    margin-bottom: 12px; /* Space between circle and tooltip */
     background: var(--color-secondary);
     color: #FFFFFF;
     padding: 6px 12px;
@@ -839,7 +841,7 @@ button {
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-5px);
+    transform: translateY(5px); /* Slide up effect on hover */
     transition: opacity var(--transition-fast), transform var(--transition-fast);
     box-shadow: var(--shadow-sm);
     z-index: 10;
@@ -848,7 +850,7 @@ button {
 .node-tooltip::after {
     content: '';
     position: absolute;
-    top: -4px;
+    bottom: -4px; /* Positions the arrow pointing down at the bottom of the tooltip */
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
     width: 8px;
