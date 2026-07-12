@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructura de Plan de Tesis | EPIS - UNSA</title>
+    <meta name="description" content="Guía interactiva paso a paso para estructurar tu Plan de Tesis en la Escuela Profesional de Ingeniería de Sistemas - UNSA.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Favicon (Inline SVG) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%238B0000%22/><text y=%2270%22 x=%2220%22 font-family=%22Poppins%22 font-weight=%22bold%22 font-size=%2260%22 fill=%22white%22>T</text></svg>">
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-container">
+            <a href="#" class="logo-area">
+                <!-- University-themed SVG Shield -->
+                <svg class="logo-svg" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 5L8 12C8 25 15 38 25 45C35 38 42 25 42 12L25 5Z" fill="var(--color-primary)" />
+                    <path d="M25 9L11 14.8C11 25.5 16.8 36 25 41.8C33.2 36 39 25.5 39 14.8L25 9Z" fill="var(--color-primary-dark)" />
+                    <circle cx="25" cy="23" r="7" fill="var(--color-accent-gold)" />
+                    <path d="M20 23L23.5 26.5L30 19.5" stroke="var(--color-bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="logo-text">
+                    <span class="logo-title">UNSA</span>
+                    <span class="logo-subtitle">Sistemas • FIPS</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="#inicio" class="nav-link active" id="nav-inicio">Inicio</a>
+                <a href="#ruta" class="nav-link" id="nav-ruta">Ruta</a>
+                <a href="#estructura" class="nav-link" id="nav-estructura">Estructura</a>
+                <a href="#checklist" class="nav-link" id="nav-checklist">Checklist</a>
+                <a href="#recursos" class="nav-link" id="nav-recursos">Recursos</a>
+                <a href="#contacto" class="nav-link" id="nav-contacto">Asesoría</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                    <i data-lucide="moon" class="toggle-icon-moon"></i>
+                    <i data-lucide="sun" class="toggle-icon-sun"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                    <i data-lucide="menu" class="menu-icon"></i>
+                    <i data-lucide="x" class="close-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="inicio">
+        <!-- Tech background pattern overlay -->
+        <div class="hero-grid-pattern"></div>
+        <div class="hero-particles" id="heroParticles"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="faculty-tag animate-fade-in">
+                    <span class="badge-gold">FIPS 2026</span>
+                    <span class="tag-separator">•</span>
+                    <span>Ingeniería de Sistemas</span>
+                </div>
+                <h1 class="hero-title animate-slide-up">¿Cómo estructurar tu <span class="highlight-text">Plan de Tesis</span>?</h1>
+                <p class="hero-subtitle animate-slide-up">Guía metodológica interactiva y paso a paso para consolidar tu propuesta de investigación académica en la UNSA.</p>
+                <div class="hero-ctas animate-fade-in">
+                    <a href="#estructura" class="btn btn-accent ripple">
+                        <span>Explorar Guía</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                    <a href="#checklist" class="btn btn-secondary">
+                        <span>Ver Checklist</span>
+                        <i data-lucide="check-square"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual animate-fade-in">
+                <!-- Abstract tech/academic illustration -->
+                <div class="illustration-wrapper">
+                    <div class="glowing-circle"></div>
+                    <div class="glass-illustration-card">
+                        <div class="card-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="window-title">plan_de_tesis.json</span>
+                        </div>
+                        <div class="card-body-code">
+                            <pre><code>{
+  <span class="key">"universidad"</span>: <span class="val">"UNSA"</span>,
+  <span class="key">"escuela"</span>: <span class="val">"Ingeniería de Sistemas"</span>,
+  <span class="key">"año"</span>: <span class="num">2026</span>,
+  <span class="key">"estado"</span>: <span class="val">"En Desarrollo"</span>,
+  <span class="key">"pasos_totales"</span>: <span class="num">13</span>,
+  <span class="key">"progreso"</span>: <span class="val">"<span class="dynamic-percent">0%</span>"</span>
+}</code></pre>
+                        </div>
+                    </div>
+                    <!-- Decorative Floating Badges -->
+                    <div class="floating-badge badge-1">
+                        <i data-lucide="database" class="badge-icon"></i>
+                        <span>Scopus</span>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <i data-lucide="cpu" class="badge-icon"></i>
+                        <span>Sistemas</span>
+                    </div>
+                    <div class="floating-badge badge-3">
+                        <i data-lucide="graduation-cap" class="badge-icon"></i>
+                        <span>Tesis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress / Roadmap Section -->
+    <section class="roadmap-section" id="ruta">
+        <div class="section-header text-center">
+            <span class="section-tag">Metodología</span>
+            <h2 class="section-title">Tu ruta hacia la tesis</h2>
+            <p class="section-subtitle">Sigue secuencialmente estos 13 pasos indispensables para formular un plan de tesis robusto y viable.</p>
+        </div>
+
+        <div class="roadmap-container">
+            <div class="roadmap-line">
+                <div class="roadmap-progress-indicator" id="roadmapProgress"></div>
+            </div>
+            <div class="roadmap-scroll-wrapper">
+                <div class="roadmap-steps-grid" id="roadmapStepsGrid">
+                    <!-- Steps will be generated by JS or defined statically for perfect responsiveness -->
+                    <div class="roadmap-step-node active" data-step="1" onclick="scrollToStep(1)">
+                        <div class="node-circle">01</div>
+                        <span class="node-label">Problema</span>
+                        <div class="node-tooltip">Descripción del Problema</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="2" onclick="scrollToStep(2)">
+                        <div class="node-circle">02</div>
+                        <span class="node-label">Formulación</span>
+                        <div class="node-tooltip">Formulación del Problema</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="3" onclick="scrollToStep(3)">
+                        <div class="node-circle">03</div>
+                        <span class="node-label">Estado Arte</span>
+                        <div class="node-tooltip">Estado del Arte</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="4" onclick="scrollToStep(4)">
+                        <div class="node-circle">04</div>
+                        <span class="node-label">Objetivos</span>
+                        <div class="node-tooltip">Objetivos</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="5" onclick="scrollToStep(5)">
+                        <div class="node-circle">05</div>
+                        <span class="node-label">Hipótesis</span>
+                        <div class="node-tooltip">Hipótesis</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="6" onclick="scrollToStep(6)">
+                        <div class="node-circle">06</div>
+                        <span class="node-label">Metodología</span>
+                        <div class="node-tooltip">Metodología</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="7" onclick="scrollToStep(7)">
+                        <div class="node-circle">07</div>
+                        <span class="node-label">Justificación</span>
+                        <div class="node-tooltip">Justificación</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="8" onclick="scrollToStep(8)">
+                        <div class="node-circle">08</div>
+                        <span class="node-label">Alcance</span>
+                        <div class="node-tooltip">Alcance</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="9" onclick="scrollToStep(9)">
+                        <div class="node-circle">09</div>
+                        <span class="node-label">Esquema</span>
+                        <div class="node-tooltip">Esquema Propuesta</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="10" onclick="scrollToStep(10)">
+                        <div class="node-circle">10</div>
+                        <span class="node-label">Validación</span>
+                        <div class="node-tooltip">Validación</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="11" onclick="scrollToStep(11)">
+                        <div class="node-circle">11</div>
+                        <span class="node-label">Cronograma</span>
+                        <div class="node-tooltip">Cronograma</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="12" onclick="scrollToStep(12)">
+                        <div class="node-circle">12</div>
+                        <span class="node-label">Índice</span>
+                        <div class="node-tooltip">Propuesta de Índice</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="13" onclick="scrollToStep(13)">
+                        <div class="node-circle">13</div>
+                        <span class="node-label">Referencias</span>
+                        <div class="node-tooltip">Referencias</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards / Content Section -->
+    <section class="structure-section" id="estructura">
+        <div class="container">
+            <div class="section-header flex-header">
+                <div>
+                    <span class="section-tag">Guía de Secciones</span>
+                    <h2 class="section-title">Estructura Detallada</h2>
+                </div>
+                <div class="search-box-container">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="sectionSearch" placeholder="Buscar por tema, palabra clave..." class="search-input" aria-label="Buscar secciones">
+                    <button class="clear-search-btn" id="clearSearch" aria-label="Limpiar búsqueda" style="display: none;">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-search-state" id="emptySearchState" style="display: none;">
+                <i data-lucide="alert-circle" class="empty-icon"></i>
+                <h3>No se encontraron resultados</h3>
+                <p>Intenta buscando otros términos como "referencias", "validación", "hipótesis" o "justificación".</p>
+                <button class="btn btn-secondary btn-sm" onclick="resetSearch()">Restaurar búsqueda</button>
+            </div>
+
+            <div class="cards-grid" id="cardsGrid">
+                
+                <!-- Card 01 -->
+                <div class="thesis-card reveal" data-step="1" data-category="problema">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">01</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="search" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Problema</span>
+                            <span class="card-badge badge-important">Importante</span>
+                        </div>
+                        <h3 class="card-title">Descripción del Problema</h3>
+                        <p class="card-description">Demuestra la existencia de un problema real. Analiza contexto global, nacional e institucional. Identifica brechas tecnológicas y deficiencias. Sustenta con evidencia científica (estadísticas, informes recientes). Delimita el proceso, servicio o sistema.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Enfoque deductivo: de lo general (global) a lo particular (local).</li>
+                                <li>Respaldar con datos empíricos de fuentes primarias.</li>
+                                <li>Delimitar claramente el entorno físico, lógico e institucional.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 02 -->
+                <div class="thesis-card reveal" data-step="2" data-category="problema">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">02</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="help-circle" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Problema</span>
+                            <span class="card-badge badge-important">Clave</span>
+                        </div>
+                        <h3 class="card-title">Formulación del Problema</h3>
+                        <p class="card-description">Formula una pregunta de investigación clara, específica y medible. Debe poder responderse de manera directa mediante la investigación y el desarrollo tecnológico propuesto.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Evitar preguntas que se respondan con un simple "sí" o "no".</li>
+                                <li>Relacionar directamente la pregunta con la variable de estudio.</li>
+                                <li>Definir la delimitación espacial y temporal en la interrogante.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 03 -->
+                <div class="thesis-card reveal" data-step="3" data-category="teoria">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">03</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="book-open" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Teoría</span>
+                            <span class="card-badge badge-tip">Tip</span>
+                        </div>
+                        <h3 class="card-title">Estado del Arte y Marco Teórico</h3>
+                        <p class="card-description">Construye a partir de artículos científicos recientes (últimos 5 años). Usa Scopus, WoS, IEEE Xplore. Analiza: ¿Qué solución propone? ¿Qué metodología usa? ¿Qué limitaciones tiene? Define tu propuesta de valor o factor diferenciador.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Revisar al menos 15-20 artículos de alto impacto recientes.</li>
+                                <li>Diseñar tablas comparativas de metodologías existentes.</li>
+                                <li>Explicar con precisión el vacío científico o tecnológico a cubrir.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 04 -->
+                <div class="thesis-card reveal" data-step="4" data-category="direccion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">04</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="target" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Dirección</span>
+                            <span class="card-badge badge-important">Importante</span>
+                        </div>
+                        <h3 class="card-title">Objetivos de la Investigación</h3>
+                        <p class="card-description"><strong>General:</strong> ¿Qué se pretende lograr? (Usa verbos en infinitivo: Desarrollar, Diseñar, Optimizar, Evaluar, Implementar). <strong>Específicos:</strong> Definen los pasos técnicos indispensables para alcanzar el objetivo general.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>El objetivo general debe solucionar la pregunta de investigación.</li>
+                                <li>Los objetivos específicos siguen la secuencia del ciclo de vida de desarrollo.</li>
+                                <li>No confundir objetivos de investigación con actividades operativas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 05 -->
+                <div class="thesis-card reveal" data-step="5" data-category="direccion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">05</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="test-tube" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Dirección</span>
+                            <span class="card-badge badge-tip">Condicional</span>
+                        </div>
+                        <h3 class="card-title">Hipótesis</h3>
+                        <p class="card-description">Propuesta de respuesta tentativa al problema de investigación. Solo se formula para estudios explicativos, causales o experimentales. No todas las tesis de ingeniería lo necesitan.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Debe redactarse de forma afirmativa y operacionalizable.</li>
+                                <li>Contener variables claras: Independiente y Dependiente.</li>
+                                <li>En proyectos puramente tecnológicos, se puede reemplazar por metas tecnológicas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 06 -->
+                <div class="thesis-card reveal" data-step="6" data-category="metodo">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">06</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="settings" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Método</span>
+                            <span class="card-badge badge-important">Clave</span>
+                        </div>
+                        <h3 class="card-title">Metodología</h3>
+                        <p class="card-description"><strong>Tipo:</strong> Básica, Aplicada o Desarrollo Tecnológico. <strong>Enfoque:</strong> Cuantitativo, Cualitativo o Mixto. <strong>Alcance:</strong> Exploratorio, Descriptivo, Correlacional o Explicativo.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Elegir metodologías ágiles de ingeniería de software/sistemas si aplica.</li>
+                                <li>Definir la población, muestra y técnicas de recolección de datos.</li>
+                                <li>Detallar el diseño experimental o no experimental utilizado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 07 -->
+                <div class="thesis-card reveal" data-step="7" data-category="impacto">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">07</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="lightbulb" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Impacto</span>
+                            <span class="card-badge badge-tip">Tip</span>
+                        </div>
+                        <h3 class="card-title">Justificación de la Investigación</h3>
+                        <p class="card-description"><strong>Teórica:</strong> Aporta nuevos conocimientos teóricos en sistemas. <strong>Práctica:</strong> Resuelve problemas directos de la sociedad, industria o la universidad. <strong>Metodológica:</strong> Propone un nuevo método o instrumento de evaluación.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>¿Por qué es relevante hacer este estudio en el 2026?</li>
+                                <li>Especificar los beneficiarios directos e indirectos.</li>
+                                <li>Vincular con las líneas de investigación oficiales de la EPIS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 08 -->
+                <div class="thesis-card reveal" data-step="8" data-category="delimitacion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">08</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="maximize-2" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Delimitación</span>
+                            <span class="card-badge badge-important">Clave</span>
+                        </div>
+                        <h3 class="card-title">Alcance</h3>
+                        <p class="card-description">Define con precisión los límites de la investigación. ¿Hasta dónde llega el proyecto? ¿Es un diseño conceptual, una simulación validada, un prototipo funcional, o pruebas a escala industrial? Declara explícitamente lo que NO va a incluir.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Establecer los requisitos mínimos del sistema que se va a implementar.</li>
+                                <li>Mencionar restricciones físicas, de presupuesto o de acceso a datos.</li>
+                                <li>Evitar falsas expectativas al comité de tesis.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 09 -->
+                <div class="thesis-card reveal" data-step="9" data-category="propuesta">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">09</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="bar-chart-2" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Propuesta</span>
+                            <span class="card-badge badge-important">Técnico</span>
+                        </div>
+                        <h3 class="card-title">Esquema de la Propuesta</h3>
+                        <p class="card-description">Representación gráfica o descriptiva de tu propuesta de solución. Debes usar diagramas de bloques, diagramas de arquitectura de software, flujos de datos o tecnologías interconectadas que muestren los elementos constitutivos de la solución.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Incluir esquemas conceptuales con la suite de tecnologías (Cloud, AI, etc.).</li>
+                                <li>Representar las interacciones de los usuarios y componentes principales.</li>
+                                <li>Utilizar notación estándar (UML, C4 Model o SysML).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="thesis-card reveal" data-step="10" data-category="validacion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">10</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="check-square" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Validación</span>
+                            <span class="card-badge badge-important">Importante</span>
+                        </div>
+                        <h3 class="card-title">Propuesta de Validación</h3>
+                        <p class="card-description">Especifica el método para validar que tu propuesta soluciona el problema inicial. Define qué se validará (indicadores), cómo (métricas, instrumentos) y bajo qué criterios estadísticos se declarará exitosa la propuesta.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Definir escenarios de prueba e hipótesis estadísticas (p-valor, T-Student).</li>
+                                <li>Detallar instrumentos de medición con validación por juicio de expertos.</li>
+                                <li>Incluir métricas de ingeniería (latencia, precisión, throughput, etc.).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="thesis-card reveal" data-step="11" data-category="planificacion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">11</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="calendar" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Planificación</span>
+                            <span class="card-badge badge-tip">Tip</span>
+                        </div>
+                        <h3 class="card-title">Cronograma</h3>
+                        <p class="card-description">Esquema temporal que muestra el listado de actividades clave requeridas para el desarrollo del plan y la tesis, estimando su duración y entregables mensuales.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Planificar usualmente para un rango de 6 a 12 meses.</li>
+                                <li>Utilizar un diagrama de Gantt simple y legible.</li>
+                                <li>Vincular actividades con los objetivos específicos definidos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="thesis-card reveal" data-step="12" data-category="planificacion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">12</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="file-text" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Planificación</span>
+                            <span class="card-badge badge-important">Técnico</span>
+                        </div>
+                        <h3 class="card-title">Propuesta de Índice</h3>
+                        <p class="card-description">Estructura tentativa de los capítulos, secciones y subsecciones que conformarán el informe final de la tesis. Sirve como mapa conceptual de redacción.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Seguir la estructura reglamentada oficial vigente de la FIPS / EPIS.</li>
+                                <li>Debe incluir capítulos de marco teórico, desarrollo, validación y conclusiones.</li>
+                                <li>Mantener consistencia numérica (1.1, 1.1.1, etc.).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 13 -->
+                <div class="thesis-card reveal" data-step="13" data-category="sustento">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">13</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="book" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Sustento</span>
+                            <span class="card-badge badge-important">Crítico</span>
+                        </div>
+                        <h3 class="card-title">Referencias</h3>
+                        <p class="card-description">Listado formal de todas las fuentes científicas consultadas (artículos, patentes, normas técnicas). En ingeniería de sistemas se prioriza el formato IEEE, o en su defecto APA 7ª edición. Mayoría debe ser de los últimos 5 años.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Utilizar gestores de referencias (Mendeley, Zotero) para evitar errores.</li>
+                                <li>Verificar que cada cita en el texto tenga su correspondiente referencia.</li>
+                                <li>Al menos el 70% de las fuentes deben ser artículos científicos indexados.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Section -->
+    <section class="checklist-section" id="checklist">
+        <div class="container">
+            <div class="checklist-card reveal">
+                <div class="checklist-header">
+                    <div class="checklist-header-text">
+                        <span class="section-tag">Autoevaluación</span>
+                        <h2 class="section-title">Antes de entregar tu Plan de Tesis</h2>
+                        <p>Completa esta lista de verificación interactiva para validar la calidad metodológica de tu documento antes del envío al comité evaluador.</p>
+                    </div>
+                    <div class="checklist-progress-circle-container">
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring__circle-bg" stroke="var(--color-bg-alt)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                            <circle class="progress-ring__circle" id="checklistProgressCircle" stroke="var(--color-accent)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                        </svg>
+                        <div class="progress-ring-text" id="checklistProgressText">0%</div>
+                    </div>
+                </div>
+
+                <div class="checklist-grid">
+                    <div class="checklist-col">
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="1">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">El problema de investigación es medible e identificable cuantitativamente.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="2">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">Existe evidencia científica, estadística o de patentes que respalde la existencia del problema.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="3">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">El problema está claramente delimitado (organización, sistema, área, periodo).</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="4">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">La investigación tiene un impacto significativo y es viable realizarla en los plazos fijados.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="5">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">Se justifica explícitamente a nivel práctico, teórico o metodológico.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="6">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">La pregunta de investigación formulada responde de manera exacta al problema principal.</span>
+                        </label>
+                    </div>
+                    <div class="checklist-col">
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="7">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">El objetivo general y específicos se redactan con verbos en infinitivo de investigación.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="8">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">Los objetivos específicos se alinean directamente con las fases lógicas de solución técnica.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="9">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">Se describe una metodología coherente indicando tipo, enfoque, alcance y fases.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="10">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">La propuesta tecnológica de solución es completamente viable de implementar.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="11">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">La validación planteada es objetiva e incluye métricas y análisis estadísticos robustos.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="checklist-cb" data-id="12">
+                            <span class="custom-cb"></span>
+                            <span class="item-text">Las referencias bibliográficas son recientes (últimos 5 años) y proceden de fuentes indexadas de calidad.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checklist-footer">
+                    <div class="checklist-status-bar">
+                        <div class="checklist-status-fill" id="checklistBarFill" style="width: 0%"></div>
+                    </div>
+                    <div class="checklist-actions">
+                        <button class="btn btn-secondary" onclick="resetChecklist()">
+                            <i data-lucide="refresh-cw"></i>
+                            <span>Reiniciar Lista</span>
+                        </button>
+                        <button class="btn btn-accent ripple" onclick="downloadChecklist()">
+                            <i data-lucide="download"></i>
+                            <span>Descargar Checklist</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources-section" id="recursos">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">Material de Apoyo</span>
+                <h2 class="section-title">Recursos para tu investigación</h2>
+                <p class="section-subtitle">Herramientas esenciales, bases de datos y normativas recomendadas por la escuela profesional de sistemas.</p>
+            </div>
+
+            <div class="resources-grid">
+                
+                <!-- Resource 1 -->
+                <div class="resource-card reveal">
+                    <div class="resource-icon-box orange">
+                        <i data-lucide="database"></i>
+                    </div>
+                    <h3>Bases de Datos Científicas</h3>
+                    <p>Accede a artículos científicos arbitrados e indexados de alto impacto tecnológico.</p>
+                    <ul class="resource-list">
+                        <li><strong>Scopus:</strong> Mayor cobertura de citas mundiales.</li>
+                        <li><strong>IEEE Xplore:</strong> Referente en ingeniería eléctrica y sistemas.</li>
+                        <li><strong>ScienceDirect / WoS:</strong> Publicaciones científicas globales.</li>
+                    </ul>
+                </div>
+
+                <!-- Resource 2 -->
+                <div class="resource-card reveal">
+                    <div class="resource-icon-box gold">
+                        <i data-lucide="book-marked"></i>
+                    </div>
+                    <h3>Estilos de Citación</h3>
+                    <p>Organiza tus referencias bibliográficas según el formato requerido para sistemas.</p>
+                    <ul class="resource-list">
+                        <li><strong>IEEE Style:</strong> Recomendado en Sistemas (citas numéricas [1]).</li>
+                        <li><strong>APA 7ª Edición:</strong> Usado en investigaciones aplicadas de enfoque social (Autor, Año).</li>
+                    </ul>
+                </div>
+
+                <!-- Resource 3 -->
+                <div class="resource-card reveal">
+                    <div class="resource-icon-box red">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3>Normas Técnicas y Estándares</h3>
+                    <p>Garantiza la calidad de tu propuesta aplicando marcos de trabajo y estándares internacionales.</p>
+                    <ul class="resource-list">
+                        <li><strong>ISO / IEC:</strong> Calidad de software, seguridad de información, etc.</li>
+                        <li><strong>IEEE Standard:</strong> Modelado y arquitectura de sistemas.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisory / Contact Section -->
+    <section class="advisory-section" id="contacto">
+        <div class="container">
+            <div class="advisory-wrapper reveal">
+                <div class="advisory-content">
+                    <span class="section-tag">Asesoría Académica</span>
+                    <h2 class="section-title">¿Necesitas ayuda con tu Plan de Tesis?</h2>
+                    <p>La Escuela Profesional de Ingeniería de Sistemas te ofrece acompañamiento continuo mediante tutorías individuales con asesores acreditados en metodología de investigación.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i data-lucide="map-pin" class="contact-icon"></i>
+                            <div>
+                                <h4>Ubicación</h4>
+                                <p>Pabellón de Sistemas, FIPS - UNSA. Arequipa, Perú.</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i data-lucide="mail" class="contact-icon"></i>
+                            <div>
+                                <h4>Contacto</h4>
+                                <p>epis@unsa.edu.pe | fips.investigacion@unsa.edu.pe</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advisory-form-container">
+                    <h3>Agendar Asesoría Académica</h3>
+                    <p class="form-desc">Completa los campos para programar una reunión presencial o virtual.</p>
+                    
+                    <form class="advisory-form" id="bookingForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label for="studentName">Nombre Completo</label>
+                            <input type="text" id="studentName" required placeholder="Escribe tu nombre completo">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentCui">CUI (Código de Estudiante)</label>
+                                <input type="text" id="studentCui" required placeholder="8 dígitos" pattern="\d{8}">
+                            </div>
+                            <div class="form-group">
+                                <label for="bookingDate">Fecha Sugerida</label>
+                                <input type="date" id="bookingDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="thesisTopic">Línea de Investigación / Tema General</label>
+                            <input type="text" id="thesisTopic" required placeholder="Ej: Inteligencia Artificial aplicada a salud, IoT">
+                        </div>
+                        <button type="submit" class="btn btn-accent full-width ripple">
+                            <span>Agendar Asesoría</span>
+                            <i data-lucide="calendar"></i>
+                        </button>
+                    </form>
+                    
+                    <!-- Success message -->
+                    <div class="booking-success-msg" id="bookingSuccess" style="display: none;">
+                        <i data-lucide="check-circle" class="success-icon"></i>
+                        <h4>¡Asesoría Solicitada con Éxito!</h4>
+                        <p>Hemos enviado un correo a tu cuenta institucional con la confirmación de la cita académica.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="brand-logo-row">
+                    <svg class="logo-svg" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 5L8 12C8 25 15 38 25 45C35 38 42 25 42 12L25 5Z" fill="var(--color-primary)" />
+                        <circle cx="25" cy="23" r="7" fill="var(--color-accent-gold)" />
+                        <path d="M20 23L23.5 26.5L30 19.5" stroke="var(--color-bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <h3>UNSA</h3>
+                </div>
+                <p>Universidad Nacional de San Agustín de Arequipa<br>Facultad de Ingeniería de Producción y Servicios<br>Escuela Profesional de Ingeniería de Sistemas</p>
+                <div class="academic-year">Año Académico: 2026</div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#ruta">Ruta de Tesis</a></li>
+                    <li><a href="#estructura">Guía de Estructura</a></li>
+                    <li><a href="#checklist">Autoevaluación</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Recursos Externos</h4>
+                <ul>
+                    <li><a href="https://www.unsa.edu.pe" target="_blank" rel="noopener noreferrer">Portal UNSA</a></li>
+                    <li><a href="https://fips.unsa.edu.pe" target="_blank" rel="noopener noreferrer">FIPS</a></li>
+                    <li><a href="https://epis.unsa.edu.pe" target="_blank" rel="noopener noreferrer">EPIS</a></li>
+                    <li><a href="https://scopus.com" target="_blank" rel="noopener noreferrer">Scopus</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-flex">
+                <p>&copy; 2026 Escuela Profesional de Ingeniería de Sistemas - FIPS - UNSA. Arequipa, Perú. Todos los derechos reservados.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                    <a href="#" aria-label="Linkedin"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+</body>
+</html>

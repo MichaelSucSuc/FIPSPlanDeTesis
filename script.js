@@ -1,0 +1,424 @@
+/**
+ * Plan de Tesis EPIS - UNSA
+ * Interactive Scripting (2026)
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
+    initScrollProgress();
+    initStickyHeader();
+    initThemeToggle();
+    initMobileMenu();
+    initScrollReveal();
+    initSearchFilter();
+    initChecklist();
+    initRoadmapSync();
+    initBackToTop();
+});
+
+/* ==========================================================================
+   SCROLL PROGRESS INDICATOR
+   ========================================================================== */
+function initScrollProgress() {
+    const progressBar = document.getElementById('scrollProgressBar');
+    if (!progressBar) return;
+
+    window.addEventListener('scroll', () => {
+        const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        progressBar.style.width = scrolled + '%';
+    });
+}
+
+/* ==========================================================================
+   STICKY HEADER TRANSITIONS
+   ========================================================================== */
+function initStickyHeader() {
+    const header = document.getElementById('mainHeader');
+    if (!header) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+}
+
+/* ==========================================================================
+   DARK / LIGHT THEME TOGGLE
+   ========================================================================== */
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    // Check for saved theme preference, otherwise check system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        let newTheme = 'light';
+
+        if (currentTheme === 'light') {
+            newTheme = 'dark';
+        }
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+}
+
+/* ==========================================================================
+   MOBILE MENU TOGGLE
+   ========================================================================== */
+function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    if (!mobileMenuBtn || !navMenu) return;
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navMenu.classList.toggle('open');
+    });
+
+    // Close menu when a navigation link is clicked
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuBtn.classList.remove('active');
+            navMenu.classList.remove('open');
+        });
+    });
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+   ========================================================================== */
+function initScrollReveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Stop observing after anim triggers
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    reveals.forEach(reveal => {
+        revealObserver.observe(reveal);
+    });
+}
+
+/* ==========================================================================
+   CARD REAL-TIME SEARCH FILTER
+   ========================================================================== */
+function initSearchFilter() {
+    const searchInput = document.getElementById('sectionSearch');
+    const clearBtn = document.getElementById('clearSearch');
+    const cardsGrid = document.getElementById('cardsGrid');
+    const cards = cardsGrid ? cardsGrid.querySelectorAll('.thesis-card') : [];
+    const emptyState = document.getElementById('emptySearchState');
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase().trim();
+        
+        if (query.length > 0) {
+            clearBtn.style.display = 'block';
+        } else {
+            clearBtn.style.display = 'none';
+        }
+
+        let matchCount = 0;
+
+        cards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const desc = card.querySelector('.card-description').textContent.toLowerCase();
+            const category = card.querySelector('.card-category').textContent.toLowerCase();
+            const badge = card.querySelector('.card-badge') ? card.querySelector('.card-badge').textContent.toLowerCase() : '';
+            const keyPoints = Array.from(card.querySelectorAll('.card-key-points li'))
+                .map(li => li.textContent.toLowerCase())
+                .join(' ');
+
+            const isMatch = title.includes(query) || 
+                            desc.includes(query) || 
+                            category.includes(query) || 
+                            badge.includes(query) ||
+                            keyPoints.includes(query);
+
+            if (isMatch) {
+                card.style.display = 'flex';
+                matchCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Toggle empty state if no matches
+        if (matchCount === 0 && query.length > 0) {
+            emptyState.style.display = 'block';
+            cardsGrid.style.display = 'none';
+        } else {
+            emptyState.style.display = 'none';
+            cardsGrid.style.display = 'grid';
+        }
+    });
+
+    clearBtn.addEventListener('click', resetSearch);
+}
+
+function resetSearch() {
+    const searchInput = document.getElementById('sectionSearch');
+    const clearBtn = document.getElementById('clearSearch');
+    const cardsGrid = document.getElementById('cardsGrid');
+    const cards = cardsGrid ? cardsGrid.querySelectorAll('.thesis-card') : [];
+    const emptyState = document.getElementById('emptySearchState');
+
+    if (searchInput) {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        
+        cards.forEach(card => {
+            card.style.display = 'flex';
+        });
+
+        emptyState.style.display = 'none';
+        cardsGrid.style.display = 'grid';
+        searchInput.focus();
+    }
+}
+
+/* ==========================================================================
+   INTERACTIVE CHECKLIST LOGIC (PERSISTENT STATE)
+   ========================================================================== */
+function initChecklist() {
+    const checkboxes = document.querySelectorAll('.checklist-cb');
+    if (checkboxes.length === 0) return;
+
+    // Load saved checklist states
+    checkboxes.forEach(cb => {
+        const id = cb.getAttribute('data-id');
+        const savedState = localStorage.getItem(`checklist-item-${id}`);
+        if (savedState === 'checked') {
+            cb.checked = true;
+        }
+
+        cb.addEventListener('change', () => {
+            const state = cb.checked ? 'checked' : 'unchecked';
+            localStorage.setItem(`checklist-item-${id}`, state);
+            updateChecklistProgress();
+        });
+    });
+
+    updateChecklistProgress();
+}
+
+function updateChecklistProgress() {
+    const checkboxes = document.querySelectorAll('.checklist-cb');
+    const circle = document.getElementById('checklistProgressCircle');
+    const text = document.getElementById('checklistProgressText');
+    const barFill = document.getElementById('checklistBarFill');
+    const dynamicPercent = document.querySelector('.dynamic-percent');
+
+    if (checkboxes.length === 0) return;
+
+    const total = checkboxes.length;
+    let checkedCount = 0;
+
+    checkboxes.forEach(cb => {
+        if (cb.checked) checkedCount++;
+    });
+
+    const percent = Math.round((checkedCount / total) * 100);
+
+    // Update Text
+    if (text) text.textContent = `${percent}%`;
+    if (dynamicPercent) dynamicPercent.textContent = `${percent}%`;
+
+    // Update Progress Bar
+    if (barFill) barFill.style.width = `${percent}%`;
+
+    // Update SVG Circle (dashoffset)
+    if (circle) {
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius; // 314.16
+        const offset = circumference - (percent / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+    }
+}
+
+function resetChecklist() {
+    const checkboxes = document.querySelectorAll('.checklist-cb');
+    checkboxes.forEach(cb => {
+        const id = cb.getAttribute('data-id');
+        cb.checked = false;
+        localStorage.removeItem(`checklist-item-${id}`);
+    });
+    updateChecklistProgress();
+}
+
+function downloadChecklist() {
+    // Generate beautiful text report of the checklist state
+    const checkboxes = document.querySelectorAll('.checklist-cb');
+    let content = "=== EVALUACIÓN PLAN DE TESIS - EPIS UNSA 2026 ===\n\n";
+    
+    checkboxes.forEach((cb, idx) => {
+        const text = cb.nextElementSibling.nextElementSibling.textContent;
+        const status = cb.checked ? "[X] CUMPLIDO" : "[ ] PENDIENTE";
+        content += `${String(idx + 1).padStart(2, '0')}. ${status} - ${text}\n`;
+    });
+
+    // Calculate percent
+    const total = checkboxes.length;
+    const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+    const percent = Math.round((checkedCount / total) * 100);
+    content += `\nProgreso de revisión: ${percent}%\n`;
+    content += `Fecha de exportación: ${new Date().toLocaleDateString()}\n`;
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Checklist_Plan_De_Tesis_EPIS.txt';
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+/* ==========================================================================
+   ROADMAP TIMELINE SYNC ON SCROLL & CLICKS
+   ========================================================================== */
+function initRoadmapSync() {
+    const nodes = document.querySelectorAll('.roadmap-step-node');
+    const cards = document.querySelectorAll('.thesis-card');
+    const progress = document.getElementById('roadmapProgress');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (nodes.length === 0 || cards.length === 0) return;
+
+    // Click handler for Node clicks
+    window.scrollToStep = function(stepNumber) {
+        const targetCard = Array.from(cards).find(card => card.getAttribute('data-step') === String(stepNumber));
+        if (targetCard) {
+            const headerOffset = 100;
+            const elementPosition = targetCard.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    // Scroll tracker to sync active timeline states
+    window.addEventListener('scroll', () => {
+        let currentStep = 1;
+        const triggerPoint = window.innerHeight / 2;
+
+        cards.forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+            if (cardTop < triggerPoint) {
+                currentStep = parseInt(card.getAttribute('data-step'));
+            }
+        });
+
+        // Update timeline nodes
+        nodes.forEach(node => {
+            const nodeStep = parseInt(node.getAttribute('data-step'));
+            if (nodeStep <= currentStep) {
+                node.classList.add('active');
+            } else {
+                node.classList.remove('active');
+            }
+        });
+
+        // Update progress line length
+        if (progress) {
+            // Percent ranges from 1/13 (7.69%) to 13/13 (100%)
+            const percent = ((currentStep) / nodes.length) * 100;
+            progress.style.width = `${percent}%`;
+        }
+
+        // Active navigation link syncing
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+            const top = section.getBoundingClientRect().top;
+            const height = section.offsetHeight;
+            const id = section.getAttribute('id');
+
+            if (top < 150 && top + height > 150) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+}
+
+/* ==========================================================================
+   BACK TO TOP BUTTON
+   ========================================================================== */
+function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+/* ==========================================================================
+   ADVISORY / BOOKING FORM SUBMISSION
+   ========================================================================== */
+function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('bookingForm');
+    const successMsg = document.getElementById('bookingSuccess');
+    if (!form || !successMsg) return;
+
+    // Simulate server side request
+    form.style.display = 'none';
+    successMsg.style.display = 'flex';
+    successMsg.classList.add('animate-fade-in');
+
+    // Reset form after delay
+    setTimeout(() => {
+        form.reset();
+        form.style.display = 'flex';
+        successMsg.style.display = 'none';
+    }, 6000);
+}
