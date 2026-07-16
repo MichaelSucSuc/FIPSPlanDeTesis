@@ -279,7 +279,7 @@ function resetChecklist() {
 function downloadChecklist() {
     // Generate beautiful text report of the checklist state
     const checkboxes = document.querySelectorAll('.checklist-cb');
-    let content = "=== EVALUACIÓN PLAN DE TESIS - EPIS UNSA 2026 ===\n\n";
+    let content = "=== EVALUACIÓN PLAN DE TESIS - FIPS UNSA 2026 ===\n\n";
     
     checkboxes.forEach((cb, idx) => {
         const text = cb.nextElementSibling.nextElementSibling.textContent;
@@ -298,7 +298,7 @@ function downloadChecklist() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Checklist_Plan_De_Tesis_EPIS.txt';
+    link.download = 'Checklist_Plan_De_Tesis_FIPS.txt';
     link.click();
     URL.revokeObjectURL(url);
 }
@@ -400,25 +400,4 @@ function initBackToTop() {
     });
 }
 
-/* ==========================================================================
-   ADVISORY / BOOKING FORM SUBMISSION
-   ========================================================================== */
-function handleFormSubmit(event) {
-    event.preventDefault();
 
-    const form = document.getElementById('bookingForm');
-    const successMsg = document.getElementById('bookingSuccess');
-    if (!form || !successMsg) return;
-
-    // Simulate server side request
-    form.style.display = 'none';
-    successMsg.style.display = 'flex';
-    successMsg.classList.add('animate-fade-in');
-
-    // Reset form after delay
-    setTimeout(() => {
-        form.reset();
-        form.style.display = 'flex';
-        successMsg.style.display = 'none';
-    }, 6000);
-}
