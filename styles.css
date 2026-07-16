@@ -367,9 +367,14 @@ button {
 }
 
 .logo-img {
-    height: 38px;
+    height: 55px;
     width: auto;
     object-fit: contain;
+    transition: height var(--transition-normal);
+}
+
+.main-header.scrolled .logo-img {
+    height: 42px;
 }
 
 .logo-text {
