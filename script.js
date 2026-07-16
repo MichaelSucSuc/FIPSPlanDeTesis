@@ -351,11 +351,23 @@ function initRoadmapSync() {
             }
         });
 
-        // Update progress line length
+        // Update progress line length (0% at first circle center, 100% at last circle center)
         if (progress) {
-            // Percent ranges from 1/13 (7.69%) to 13/13 (100%)
-            const percent = ((currentStep) / nodes.length) * 100;
+            const percent = ((currentStep - 1) / (nodes.length - 1)) * 100;
             progress.style.width = `${percent}%`;
+        }
+
+        // Center active node inside scroll wrapper for a comfortable visual experience
+        const activeNode = document.querySelector(`.roadmap-step-node[data-step="${currentStep}"]`);
+        const scrollWrapper = document.querySelector('.roadmap-scroll-wrapper');
+        if (activeNode && scrollWrapper) {
+            const wrapperWidth = scrollWrapper.offsetWidth;
+            const nodeLeft = activeNode.offsetLeft;
+            const nodeWidth = activeNode.offsetWidth;
+            scrollWrapper.scrollTo({
+                left: nodeLeft - (wrapperWidth / 2) + (nodeWidth / 2),
+                behavior: 'smooth'
+            });
         }
 
         // Active navigation link syncing

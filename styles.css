@@ -366,6 +366,12 @@ button {
     animation: pulseLogo 3s infinite ease-in-out;
 }
 
+.logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+}
+
 .logo-text {
     display: flex;
     flex-direction: column;
@@ -399,9 +405,10 @@ button {
     font-family: var(--font-heading);
     font-weight: 500;
     font-size: 0.9rem;
-    color: var(--color-text-muted);
+    color: #374151; /* Darker charcoal gray for better legibility and contrast in light mode */
     position: relative;
     padding: 8px 0;
+    transition: color var(--transition-normal);
 }
 
 .nav-link::after {
@@ -426,6 +433,22 @@ button {
 
 .nav-link.active::after {
     width: 100%;
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--color-text-muted); /* Fallback to theme variable in dark mode */
+}
+
+[data-theme="dark"] .nav-link::after {
+    background: var(--color-primary-light);
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .nav-link.active {
+    color: var(--color-primary-light);
 }
 
 /* Header Actions */
@@ -741,9 +764,9 @@ button {
 
 .roadmap-line {
     position: absolute;
-    top: 85px; /* Shifted down to align with circles (padding-top: 60px + 25px center) */
-    left: 40px;
-    right: 40px;
+    top: 25px; /* Aligned with the center of the 50px circles */
+    left: 65px; /* Offset to center of first circle (padding 40px + 25px half circle) */
+    right: 65px; /* Offset to center of last circle */
     height: 4px;
     background: var(--color-border);
     z-index: 1;
@@ -751,7 +774,7 @@ button {
 }
 
 .roadmap-progress-indicator {
-    width: 8.33%; /* Corresponding to step 1/13 initially */
+    width: 0%; /* Aligned exactly to the active step by JS */
     height: 100%;
     background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
     border-radius: var(--radius-full);
@@ -772,10 +795,10 @@ button {
 .roadmap-steps-grid {
     display: flex;
     justify-content: space-between;
-    min-width: 1000px;
+    min-width: 1500px; /* Expanded for comfortable spacing and to avoid text overlapping */
     position: relative;
     z-index: 2;
-    padding: 0 20px; /* Prevent clipping at left/right edges when scaling first/last circles */
+    padding: 0 40px; /* Space for first and last circles */
 }
 
 .roadmap-step-node {
@@ -785,6 +808,7 @@ button {
     gap: 12px;
     cursor: pointer;
     position: relative;
+    z-index: 2; /* Render node circles on top of the progress line */
 }
 
 .node-circle {
@@ -1632,6 +1656,12 @@ button {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.footer-logo-img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
 }
 
 .brand-logo-row h3 {
