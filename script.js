@@ -277,22 +277,41 @@ function resetChecklist() {
 }
 
 function downloadChecklist() {
-    // Generate beautiful text report of the checklist state
-    const checkboxes = document.querySelectorAll('.checklist-cb');
-    let content = "=== EVALUACIÓN PLAN DE TESIS - FIPS UNSA 2026 ===\n\n";
+    // Generate beautiful text report of the checklist state, grouped by section
+    const categoryCards = document.querySelectorAll('.checklist-category-card');
+    let content = "========================================================\n";
+    content += "   REPORTE DE AUTOEVALUACIÓN: PLAN DE TESIS - FIPS 2026\n";
+    content += "========================================================\n\n";
     
-    checkboxes.forEach((cb, idx) => {
-        const text = cb.nextElementSibling.nextElementSibling.textContent;
-        const status = cb.checked ? "[X] CUMPLIDO" : "[ ] PENDIENTE";
-        content += `${String(idx + 1).padStart(2, '0')}. ${status} - ${text}\n`;
+    let totalCheckboxes = 0;
+    let checkedCount = 0;
+
+    categoryCards.forEach(card => {
+        const titleEl = card.querySelector('.category-header h3');
+        if (!titleEl) return;
+        
+        const title = titleEl.textContent.trim();
+        content += `## ${title}\n`;
+        content += `${"-".repeat(title.length + 3)}\n`;
+
+        const cbs = card.querySelectorAll('.checklist-cb');
+        cbs.forEach(cb => {
+            totalCheckboxes++;
+            const text = cb.parentNode.querySelector('.item-text').textContent.trim();
+            const status = cb.checked ? "[X] CUMPLIDO " : "[ ] PENDIENTE";
+            if (cb.checked) checkedCount++;
+            content += `   ${status} - ${text}\n`;
+        });
+        content += `\n`;
     });
 
-    // Calculate percent
-    const total = checkboxes.length;
-    const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-    const percent = Math.round((checkedCount / total) * 100);
-    content += `\nProgreso de revisión: ${percent}%\n`;
-    content += `Fecha de exportación: ${new Date().toLocaleDateString()}\n`;
+    const percent = totalCheckboxes > 0 ? Math.round((checkedCount / totalCheckboxes) * 100) : 0;
+    content += "========================================================\n";
+    content += `RESUMEN DE PROGRESO:\n`;
+    content += `- Ítems Completados: ${checkedCount} de ${totalCheckboxes}\n`;
+    content += `- Porcentaje de Avance: ${percent}%\n`;
+    content += `- Fecha de Exportación: ${new Date().toLocaleString()}\n`;
+    content += "========================================================\n";
 
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);

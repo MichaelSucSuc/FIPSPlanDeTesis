@@ -79,22 +79,13 @@
                 <!-- Abstract tech/academic illustration -->
                 <div class="illustration-wrapper">
                     <div class="glowing-circle"></div>
-                    <div class="glass-illustration-card">
-                        <div class="card-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="window-title">plan_de_tesis.json</span>
-                        </div>
-                        <div class="card-body-code">
-                            <pre><code>{
-  <span class="key">"universidad"</span>: <span class="val">"UNSA"</span>,
-  <span class="key">"facultad"</span>: <span class="val">"FIPS"</span>,
-  <span class="key">"año"</span>: <span class="num">2026</span>,
-  <span class="key">"estado"</span>: <span class="val">"En Desarrollo"</span>,
-  <span class="key">"pasos_totales"</span>: <span class="num">14</span>,
-  <span class="key">"progreso"</span>: <span class="val">"<span class="dynamic-percent">0%</span>"</span>
-}</code></pre>
+                    <div class="academic-portrait-frame">
+                        <div class="frame-inner">
+                            <img src="Logos/graduated_student.png" alt="Estudiante graduado FIPS" class="hero-student-img">
+                            <div class="frame-overlay-badge">
+                                <i data-lucide="award"></i>
+                                <span>Éxito FIPS 2026</span>
+                            </div>
                         </div>
                     </div>
                     <!-- Decorative Floating Badges -->
@@ -247,15 +238,14 @@
                             <span class="card-badge badge-important">Importante</span>
                         </div>
                         <h3 class="card-title">Descripción del Problema</h3>
-                        <p class="card-description">Demuestra la existencia de un problema real. Analiza el contexto mostrando tendencias, cambios tecnológicos o problemáticas actuales relacionadas con el tema. Describe el escenario específico donde se desarrollará la investigación identificando brechas tecnológicas, deficiencias u oportunidades de mejoras. Sustenta con evidencia científica (estadísticas, informes recientes). Delimita el proceso, servicio o sistema. Explique por qué este problema merece ser investigado.</p>
+                        <p class="card-description">Analiza el contexto mostrando tendencias o problemáticas relacionadas con el tema. Describe el escenario específico de la investigación identificando brechas tecnológicas, deficiencias u oportunidades de mejoras. Delimita el proceso, servicio o sistema. Explique por qué este problema merece ser investigado.</p>
                         
                         <div class="card-key-points">
                             <h4>Puntos Clave:</h4>
                             <ul>
-                                <li>Enfoque deductivo: de lo general (global) a lo particular (empresa/proceso, etc).</li>
-                                <li>Sustente la información utilizando estadísticas, informes o publicaciones científicas recientes (preferentemente de los últimos cinco años).</li>
+                                <li>Enfoque deductivo: de lo general a lo particular.</li>
+                                <li>Sustente la información utilizando estadísticas, informes o publicaciones científicas recientes.</li>
                                 <li>Defina claramente el proceso, servicio o sistema donde ocurre el problema (escenario específico).</li>
-                                <li>Identifique el vacío/problema/mejora que la investigación pretende abordar.</li>
                             </ul>
                         </div>
                     </div>
@@ -648,70 +638,365 @@
                     </div>
                 </div>
 
-                <div class="checklist-grid">
-                    <div class="checklist-col">
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="1">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">El problema de investigación es medible e identificable cuantitativamente.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="2">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">Existe evidencia científica, estadística o de patentes que respalde la existencia del problema.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="3">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">El problema está claramente delimitado (organización, sistema, área, periodo).</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="4">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">La investigación tiene un impacto significativo y es viable realizarla en los plazos fijados.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="5">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">Se justifica explícitamente a nivel práctico, teórico o metodológico.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="6">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">La pregunta de investigación formulada responde de manera exacta al problema principal.</span>
-                        </label>
+                <div class="checklist-grid-grouped">
+                    <!-- 1. Título -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="tag" class="category-icon"></i>
+                            <h3>1. Título</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="titulo-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Describe claramente el problema de investigación.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="titulo-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Delimita el contexto de estudio.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="titulo-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Es específico y no ambiguo.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="titulo-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Refleja el objetivo principal de la investigación.</span>
+                            </label>
+                        </div>
                     </div>
-                    <div class="checklist-col">
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="7">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">El objetivo general y específicos se redactan con verbos en infinitivo de investigación.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="8">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">Los objetivos específicos se alinean directamente con las fases lógicas de solución técnica.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="9">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">Se describe una metodología coherente indicando tipo, enfoque, alcance y fases.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="10">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">La propuesta tecnológica de solución es completamente viable de implementar.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="11">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">La validación planteada es objetiva e incluye métricas y análisis estadísticos robustos.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox" class="checklist-cb" data-id="12">
-                            <span class="custom-cb"></span>
-                            <span class="item-text">Las referencias bibliográficas son recientes (últimos 5 años) y proceden de fuentes indexadas de calidad.</span>
-                        </label>
+
+                    <!-- 2. Realidad problemática -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="alert-circle" class="category-icon"></i>
+                            <h3>2. Realidad problemática</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="realidad-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Explica la situación problemática mediante evidencia.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="realidad-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Presenta información desde el contexto internacional hasta el específico.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="realidad-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Utiliza información actual y fuentes científicas.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="realidad-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Justifica por qué el problema merece ser investigado.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 3. Pregunta de investigación -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="help-circle" class="category-icon"></i>
+                            <h3>3. Pregunta de investigación</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="pregunta-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Es clara, específica y delimitada.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="pregunta-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Puede responderse mediante un proceso científico.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="pregunta-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Mantiene coherencia con el problema planteado.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 4. Objetivos -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="target" class="category-icon"></i>
+                            <h3>4. Objetivos</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="objetivos-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Existe un único objetivo general.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="objetivos-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Los objetivos específicos conducen al logro del objetivo general.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="objetivos-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Todos comienzan con verbos en infinitivo.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="objetivos-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Son medibles y alcanzables.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 5. Justificación -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="lightbulb" class="category-icon"></i>
+                            <h3>5. Justificación</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="justificacion-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Explica la importancia científica o tecnológica del estudio.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="justificacion-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Describe el aporte esperado.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="justificacion-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Indica quiénes serán los beneficiarios.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 6. Marco teórico -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="book-open" class="category-icon"></i>
+                            <h3>6. Marco teórico</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="marco-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Incluye antecedentes recientes y relevantes.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="marco-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Desarrolla los conceptos fundamentales.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="marco-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Organiza la información de lo general a lo específico.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="marco-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Toda la información está correctamente citada.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 7. Hipótesis -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="git-commit" class="category-icon"></i>
+                            <h3>7. Hipótesis (si corresponde)</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="hipotesis-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Es coherente con la pregunta de investigación.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="hipotesis-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Relaciona claramente las variables.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="hipotesis-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Es verificable mediante los datos.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="hipotesis-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Solo se incluye cuando el alcance metodológico lo requiere.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 8.1 Metodología: Tipo de investigación -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="settings" class="category-icon"></i>
+                            <h3>8.1 Metodología: Tipo</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-tipo-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se seleccionó entre Básica, Aplicada o Desarrollo Tecnológico.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-tipo-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">La elección está correctamente justificada.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-tipo-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Existe coherencia con el objetivo del estudio.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 8.2 Metodología: Enfoque -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="sliders" class="category-icon"></i>
+                            <h3>8.2 Metodología: Enfoque</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-enfoque-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se definió como Cuantitativo, Cualitativo o Mixto.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-enfoque-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se explica cómo se obtendrán los datos.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-enfoque-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se describen las técnicas e instrumentos de recolección.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 8.3 Metodología: Alcance -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="compass" class="category-icon"></i>
+                            <h3>8.3 Metodología: Alcance</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-alcance-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se seleccionó entre Exploratorio, Descriptivo, Correlacional o Explicativo.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-alcance-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se justifica el nivel de profundidad del estudio.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="metodologia-alcance-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Es coherente con la pregunta y los objetivos.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 9. Cronograma -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="calendar" class="category-icon"></i>
+                            <h3>9. Cronograma</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="cronograma-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Incluye todas las actividades principales.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="cronograma-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Las actividades siguen una secuencia lógica.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="cronograma-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">El tiempo asignado es realista.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 11. Referencias -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="link" class="category-icon"></i>
+                            <h3>11. Referencias</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="referencias-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Todas las citas aparecen en la lista de referencias.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="referencias-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Todas las referencias fueron citadas en el documento.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="referencias-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se utiliza correctamente el formato APA 7 o IEEE.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="referencias-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Predominan documentos de calidad (últimos 5 años, salvo clásicos).</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 12. Revisión final -->
+                    <div class="checklist-category-card revision-card">
+                        <div class="category-header">
+                            <i data-lucide="clipboard-check" class="category-icon"></i>
+                            <h3>12. Revisión final</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="revision-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Existe coherencia entre el título, problema, pregunta, objetivos y metodología.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="revision-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">El documento mantiene una redacción clara y objetiva.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="revision-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Se respetan las normas de formato establecidas por la Facultad.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="revision-4">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">El plan puede comprenderse sin necesidad de explicaciones adicionales.</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -795,8 +1080,9 @@
                         <div class="resource-item">
                             <div class="resource-info">
                                 <span class="resource-item-title">APA 7ª Edición</span>
-                                <span class="resource-item-desc">Estilo oficial usado en investigaciones académicas de enfoque social.</span>
+                                <span class="resource-item-desc">Estilo oficial usado en investigaciones académicas. Guía digital en PDF.</span>
                             </div>
+                            <a href="https://normas-apa.org/wp-content/uploads/Guia-Normas-APA-7ma-edicion.pdf" target="_blank" rel="noopener noreferrer" class="resource-link">Guía Oficial APA (PDF)</a>
                         </div>
                     </div>
                 </div>
