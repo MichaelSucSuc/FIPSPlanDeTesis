@@ -153,41 +153,46 @@
                     </div>
                     <div class="roadmap-step-node" data-step="7" onclick="scrollToStep(7)">
                         <div class="node-circle">07</div>
-                        <span class="node-label">Tipo</span>
-                        <div class="node-tooltip">Tipo de Investigación</div>
+                        <span class="node-label">Hipótesis</span>
+                        <div class="node-tooltip">Hipótesis (cuando corresponda)</div>
                     </div>
                     <div class="roadmap-step-node" data-step="8" onclick="scrollToStep(8)">
                         <div class="node-circle">08</div>
-                        <span class="node-label">Enfoque</span>
-                        <div class="node-tooltip">Enfoque de Investigación</div>
+                        <span class="node-label">Tipo</span>
+                        <div class="node-tooltip">Tipo de Investigación</div>
                     </div>
                     <div class="roadmap-step-node" data-step="9" onclick="scrollToStep(9)">
                         <div class="node-circle">09</div>
-                        <span class="node-label">Alcance</span>
-                        <div class="node-tooltip">Alcance de Investigación</div>
+                        <span class="node-label">Enfoque</span>
+                        <div class="node-tooltip">Enfoque de Investigación</div>
                     </div>
                     <div class="roadmap-step-node" data-step="10" onclick="scrollToStep(10)">
                         <div class="node-circle">10</div>
-                        <span class="node-label">Justificación</span>
-                        <div class="node-tooltip">Justificación</div>
+                        <span class="node-label">Alcance</span>
+                        <div class="node-tooltip">Alcance de Investigación</div>
                     </div>
                     <div class="roadmap-step-node" data-step="11" onclick="scrollToStep(11)">
                         <div class="node-circle">11</div>
-                        <span class="node-label">Delimitación</span>
-                        <div class="node-tooltip">Alcance de la Propuesta</div>
+                        <span class="node-label">Justificación</span>
+                        <div class="node-tooltip">Justificación</div>
                     </div>
                     <div class="roadmap-step-node" data-step="12" onclick="scrollToStep(12)">
                         <div class="node-circle">12</div>
-                        <span class="node-label">Esquema</span>
-                        <div class="node-tooltip">Esquema de la Propuesta</div>
+                        <span class="node-label">Delimitación</span>
+                        <div class="node-tooltip">Alcance de la Propuesta</div>
                     </div>
                     <div class="roadmap-step-node" data-step="13" onclick="scrollToStep(13)">
                         <div class="node-circle">13</div>
-                        <span class="node-label">Validación</span>
-                        <div class="node-tooltip">Propuesta de Validación</div>
+                        <span class="node-label">Esquema</span>
+                        <div class="node-tooltip">Esquema de la Propuesta</div>
                     </div>
                     <div class="roadmap-step-node" data-step="14" onclick="scrollToStep(14)">
                         <div class="node-circle">14</div>
+                        <span class="node-label">Validación</span>
+                        <div class="node-tooltip">Propuesta de Validación</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="15" onclick="scrollToStep(15)">
+                        <div class="node-circle">15</div>
                         <span class="node-label">Índice</span>
                         <div class="node-tooltip">Propuesta de Índice</div>
                     </div>
@@ -392,10 +397,52 @@
                 </div>
 
                 <!-- Card 07 -->
-                <div class="thesis-card reveal" data-step="7" data-category="metodo">
+                <div class="thesis-card reveal" data-step="7" data-category="direccion">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
                         <span class="card-number">07</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="help-circle" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Dirección</span>
+                            <span class="card-badge badge-important" style="background: rgba(212, 175, 55, 0.15); color: var(--color-accent-gold);">Opcional</span>
+                        </div>
+                        <h3 class="card-title">Hipótesis (cuando corresponda)</h3>
+                        <p class="card-description">Proposición que da respuesta tentativa a la pregunta de investigación. Establece la relación entre la variable independiente (la solución propuesta) y la variable dependiente (el problema o resultado que se desea mejorar). Debe ser comprobable mediante datos obtenidos durante la investigación.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Formularla únicamente cuando la investigación requiera comprobar estadísticamente una relación o efecto entre variables.</li>
+                                <li>Definir claramente la variable independiente y la variable dependiente.</li>
+                                <li>Operacionalizar las variables mediante sus dimensiones e indicadores, los cuales servirán para medir y validar los resultados.</li>
+                            </ul>
+                        </div>
+
+                        <div class="pdf-links-container" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                            <h4 style="font-size: 0.9rem; margin-bottom: 4px; font-family: var(--font-heading); color: var(--color-text);">Ejemplos de Hipótesis (abrir en pestaña nueva):</h4>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                <a href="EjemplosdeHipotesis/Ejemplo%20Plan%20de%20Tesis%201%20_%20Causal.pdf" target="_blank" class="btn btn-secondary btn-sm ripple" style="display: inline-flex; align-items: center; gap: 8px;">
+                                    <i data-lucide="file-text" style="width: 16px; height: 16px; color: var(--color-accent);"></i>
+                                    <span>Ejemplo Causal 1</span>
+                                </a>
+                                <a href="EjemplosdeHipotesis/Ejemplo%20Plan%20de%20Tesis%202%20_%20Causal.pdf" target="_blank" class="btn btn-secondary btn-sm ripple" style="display: inline-flex; align-items: center; gap: 8px;">
+                                    <i data-lucide="file-text" style="width: 16px; height: 16px; color: var(--color-accent);"></i>
+                                    <span>Ejemplo Causal 2</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 08 -->
+                <div class="thesis-card reveal" data-step="8" data-category="metodo">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">08</span>
                         <div class="card-icon-container">
                             <i data-lucide="settings" class="card-icon"></i>
                         </div>
@@ -419,11 +466,11 @@
                     </div>
                 </div>
 
-                <!-- Card 08 -->
-                <div class="thesis-card reveal" data-step="8" data-category="metodo">
+                <!-- Card 09 -->
+                <div class="thesis-card reveal" data-step="9" data-category="metodo">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">08</span>
+                        <span class="card-number">09</span>
                         <div class="card-icon-container">
                             <i data-lucide="sliders" class="card-icon"></i>
                         </div>
@@ -447,11 +494,11 @@
                     </div>
                 </div>
 
-                <!-- Card 09 -->
-                <div class="thesis-card reveal" data-step="9" data-category="metodo">
+                <!-- Card 10 -->
+                <div class="thesis-card reveal" data-step="10" data-category="metodo">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">09</span>
+                        <span class="card-number">10</span>
                         <div class="card-icon-container">
                             <i data-lucide="compass" class="card-icon"></i>
                         </div>
@@ -475,11 +522,11 @@
                     </div>
                 </div>
 
-                <!-- Card 10 -->
-                <div class="thesis-card reveal" data-step="10" data-category="impacto">
+                <!-- Card 11 -->
+                <div class="thesis-card reveal" data-step="11" data-category="impacto">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">10</span>
+                        <span class="card-number">11</span>
                         <div class="card-icon-container">
                             <i data-lucide="lightbulb" class="card-icon"></i>
                         </div>
@@ -503,11 +550,11 @@
                     </div>
                 </div>
 
-                <!-- Card 11 -->
-                <div class="thesis-card reveal" data-step="11" data-category="propuesta">
+                <!-- Card 12 -->
+                <div class="thesis-card reveal" data-step="12" data-category="propuesta">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">11</span>
+                        <span class="card-number">12</span>
                         <div class="card-icon-container">
                             <i data-lucide="maximize-2" class="card-icon"></i>
                         </div>
@@ -518,7 +565,7 @@
                             <span class="card-badge badge-important">Límites</span>
                         </div>
                         <h3 class="card-title">Alcance de la Propuesta</h3>
-                        <p class="card-description">Define con precisión los límites de la investigación. ¿Hasta dónde llega? Debe indicar claramente si la investigación culminará en un modelo conceptual, un diseño, una simulación, un algoritmo, un prototipo funcional o un sistema implementado, y el entorno de evaluación. Declara explícitamente lo que NO va a incluir.</p>
+                        <p class="card-description">Define con precisión los límites de la investigación. ¿Hasta dónde llega? Debe indicar claramente si la investigación culminará en un modelo conceptual, un diseño, una simulación, un algoritmo, un prototipo functional o un sistema implementado, y el entorno de evaluación. Declara explícitamente lo que NO va a incluir.</p>
                         
                         <div class="card-key-points">
                             <h4>Puntos Clave:</h4>
@@ -531,11 +578,11 @@
                     </div>
                 </div>
 
-                <!-- Card 12 -->
-                <div class="thesis-card reveal" data-step="12" data-category="propuesta">
+                <!-- Card 13 -->
+                <div class="thesis-card reveal" data-step="13" data-category="propuesta">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">12</span>
+                        <span class="card-number">13</span>
                         <div class="card-icon-container">
                             <i data-lucide="cpu" class="card-icon"></i>
                         </div>
@@ -559,11 +606,11 @@
                     </div>
                 </div>
 
-                <!-- Card 13 -->
-                <div class="thesis-card reveal" data-step="13" data-category="propuesta">
+                <!-- Card 14 -->
+                <div class="thesis-card reveal" data-step="14" data-category="propuesta">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">13</span>
+                        <span class="card-number">14</span>
                         <div class="card-icon-container">
                             <i data-lucide="check-square" class="card-icon"></i>
                         </div>
@@ -587,11 +634,11 @@
                     </div>
                 </div>
 
-                <!-- Card 14 -->
-                <div class="thesis-card reveal" data-step="14" data-category="planificacion">
+                <!-- Card 15 -->
+                <div class="thesis-card reveal" data-step="15" data-category="planificacion">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">14</span>
+                        <span class="card-number">15</span>
                         <div class="card-icon-container">
                             <i data-lucide="file-text" class="card-icon"></i>
                         </div>
