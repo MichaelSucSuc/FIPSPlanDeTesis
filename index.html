@@ -111,7 +111,7 @@
         <div class="section-header text-center">
             <span class="section-tag">Metodología</span>
             <h2 class="section-title">Tu ruta hacia la tesis</h2>
-            <p class="section-subtitle">Sigue secuencialmente estos 14 pasos indispensables para formular un plan de tesis robusto y viable.</p>
+            <p class="section-subtitle">Sigue secuencialmente estos 21 pasos indispensables para formular un plan de tesis robusto y viable.</p>
         </div>
 
         <div class="roadmap-container">
@@ -203,11 +203,26 @@
                     </div>
                     <div class="roadmap-step-node" data-step="17" onclick="scrollToStep(17)">
                         <div class="node-circle">17</div>
-                        <span class="node-label">Título</span>
-                        <div class="node-tooltip">Título de tu Plan de Tesis</div>
+                        <span class="node-label">Cronograma</span>
+                        <div class="node-tooltip">Cronograma</div>
                     </div>
                     <div class="roadmap-step-node" data-step="18" onclick="scrollToStep(18)">
                         <div class="node-circle">18</div>
+                        <span class="node-label">Presupuesto</span>
+                        <div class="node-tooltip">Presupuesto (Opcional)</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="19" onclick="scrollToStep(19)">
+                        <div class="node-circle">19</div>
+                        <span class="node-label">Matriz</span>
+                        <div class="node-tooltip">Matriz de Consistencia</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="20" onclick="scrollToStep(20)">
+                        <div class="node-circle">20</div>
+                        <span class="node-label">Título</span>
+                        <div class="node-tooltip">Título de tu Plan de Tesis</div>
+                    </div>
+                    <div class="roadmap-step-node" data-step="21" onclick="scrollToStep(21)">
+                        <div class="node-circle">21</div>
                         <span class="node-label">Referencias</span>
                         <div class="node-tooltip">Referencias</div>
                     </div>
@@ -705,10 +720,94 @@
                 </div>
 
                 <!-- Card 17 -->
-                <div class="thesis-card reveal" data-step="17" data-category="propuesta">
+                <div class="thesis-card reveal" data-step="17" data-category="planificacion">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
                         <span class="card-number">17</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="calendar" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Administración</span>
+                            <span class="card-badge badge-important">Cronograma</span>
+                        </div>
+                        <h3 class="card-title">Cronograma</h3>
+                        <p class="card-description">El cronograma permite planificar las actividades necesarias para desarrollar la tesis y el tiempo requerido para realizarlas. Permite identificar las principales actividades de tu investigación y organizarlas en un orden lógico, representando la planificación mediante un Diagrama de Gantt en meses.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Plantea tiempos realistas y alcanzables. Considera que algunas actividades pueden desarrollarse simultáneamente.</li>
+                                <li>Considera tiempo para pruebas, correcciones e imprevistos.</li>
+                                <li>Verifica que el cronograma sea coherente con tus objetivos y metodología.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 18 -->
+                <div class="thesis-card reveal" data-step="18" data-category="planificacion">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">18</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="dollar-sign" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Administración</span>
+                            <span class="card-badge badge-important" style="background: rgba(212, 175, 55, 0.15); color: var(--color-accent-gold);">Opcional</span>
+                        </div>
+                        <h3 class="card-title">Presupuesto</h3>
+                        <p class="card-description">El presupuesto permite estimar los recursos económicos necesarios para ejecutar la tesis. Considera equipos, materiales, software, servicios, transporte y otros gastos necesarios para calcular el costo total de la investigación.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Utiliza costos realistas y actualizados del mercado.</li>
+                                <li>Verifica que el presupuesto sea viable y coherente con las actividades estimadas.</li>
+                                <li>Determina qué recursos ya están disponibles y cuáles deberás adquirir o contratar.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 19 -->
+                <div class="thesis-card reveal" data-step="19" data-category="metodo">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">19</span>
+                        <div class="card-icon-container">
+                            <i data-lucide="table" class="card-icon"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge-row">
+                            <span class="card-category">Metodología</span>
+                            <span class="card-badge badge-important">Consistencia</span>
+                        </div>
+                        <h3 class="card-title">Matriz de Consistencia</h3>
+                        <p class="card-description">Herramienta fundamental que presenta de forma resumida, integrada y coherente los elementos clave del proyecto de investigación (problemas, objetivos, hipótesis, variables e indicadores). Permite evaluar y asegurar la consistencia interna y validez lógica del plan de tesis.</p>
+                        
+                        <div class="card-key-points">
+                            <h4>Puntos Clave:</h4>
+                            <ul>
+                                <li>Debe haber una correspondencia directa entre el problema general, el objetivo general y la hipótesis general.</li>
+                                <li>Los elementos específicos deben alinearse perfectamente con sus contrapartes generales.</li>
+                                <li>Sirve como mapa lógico de la investigación que facilita la evaluación por parte del jurado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 20 -->
+                <div class="thesis-card reveal" data-step="20" data-category="propuesta">
+                    <div class="card-border-glow"></div>
+                    <div class="card-header">
+                        <span class="card-number">20</span>
                         <div class="card-icon-container">
                             <i data-lucide="tag" class="card-icon"></i>
                         </div>
@@ -734,11 +833,11 @@
                     </div>
                 </div>
 
-                <!-- Card 18 -->
-                <div class="thesis-card reveal" data-step="18" data-category="sustento">
+                <!-- Card 21 -->
+                <div class="thesis-card reveal" data-step="21" data-category="sustento">
                     <div class="card-border-glow"></div>
                     <div class="card-header">
-                        <span class="card-number">18</span>
+                        <span class="card-number">21</span>
                         <div class="card-icon-container">
                             <i data-lucide="link" class="card-icon"></i>
                         </div>
@@ -1071,26 +1170,71 @@
                             <label class="checklist-item">
                                 <input type="checkbox" class="checklist-cb" data-id="cronograma-1">
                                 <span class="custom-cb"></span>
-                                <span class="item-text">Incluye todas las actividades principales.</span>
+                                <span class="item-text">Incluye todas las actividades principales en un orden secuencial lógico.</span>
                             </label>
                             <label class="checklist-item">
                                 <input type="checkbox" class="checklist-cb" data-id="cronograma-2">
                                 <span class="custom-cb"></span>
-                                <span class="item-text">Las actividades siguen una secuencia lógica.</span>
+                                <span class="item-text">Está representado gráficamente mediante un Diagrama de Gantt en meses.</span>
                             </label>
                             <label class="checklist-item">
                                 <input type="checkbox" class="checklist-cb" data-id="cronograma-3">
                                 <span class="custom-cb"></span>
-                                <span class="item-text">El tiempo asignado es realista.</span>
+                                <span class="item-text">Los tiempos asignados son realistas y contemplan imprevistos.</span>
                             </label>
                         </div>
                     </div>
 
-                    <!-- 11. Referencias -->
+                    <!-- 10. Presupuesto (Opcional) -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="dollar-sign" class="category-icon"></i>
+                            <h3>10. Presupuesto (Opcional)</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="presupuesto-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Estima los costos detallados de equipos, materiales, software y transporte.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="presupuesto-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Los costos presentados son realistas, vigentes y viables.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 11. Matriz de Consistencia -->
+                    <div class="checklist-category-card">
+                        <div class="category-header">
+                            <i data-lucide="table" class="category-icon"></i>
+                            <h3>11. Matriz de Consistencia</h3>
+                        </div>
+                        <div class="category-items">
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="matriz-1">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Presenta de forma integrada el problema, objetivos, hipótesis y variables.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="matriz-2">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Muestra coherencia directa entre el problema general, el objetivo general y la hipótesis.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox" class="checklist-cb" data-id="matriz-3">
+                                <span class="custom-cb"></span>
+                                <span class="item-text">Las variables están correctamente operacionalizadas con dimensiones e indicadores.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 12. Referencias -->
                     <div class="checklist-category-card">
                         <div class="category-header">
                             <i data-lucide="link" class="category-icon"></i>
-                            <h3>11. Referencias</h3>
+                            <h3>12. Referencias</h3>
                         </div>
                         <div class="category-items">
                             <label class="checklist-item">
@@ -1116,11 +1260,11 @@
                         </div>
                     </div>
 
-                    <!-- 12. Revisión final -->
+                    <!-- 13. Revisión final -->
                     <div class="checklist-category-card revision-card">
                         <div class="category-header">
                             <i data-lucide="clipboard-check" class="category-icon"></i>
-                            <h3>12. Revisión final</h3>
+                            <h3>13. Revisión final</h3>
                         </div>
                         <div class="category-items">
                             <label class="checklist-item">

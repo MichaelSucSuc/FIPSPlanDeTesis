@@ -809,7 +809,7 @@ button {
 .roadmap-steps-grid {
     display: flex;
     justify-content: space-between;
-    min-width: 1500px; /* Expanded for comfortable spacing and to avoid text overlapping */
+    min-width: 2100px; /* Increased from 1500px to accommodate 21 steps comfortably */
     position: relative;
     z-index: 2;
     padding: 0 40px; /* Space for first and last circles */
@@ -848,7 +848,9 @@ button {
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
+    max-width: 90px;
     transition: color var(--transition-fast);
 }
 
