@@ -440,20 +440,15 @@ function initDisclaimerModal() {
     const closeBtn = document.getElementById('closeDisclaimerBtn');
     if (!modal || !closeBtn) return;
 
-    // Check if accepted in current browser session
-    const accepted = sessionStorage.getItem('disclaimerAccepted');
-    if (!accepted) {
-        // Subtle delay for premium feel
-        setTimeout(() => {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Lock scrolling
-        }, 400);
-    }
+    // Subtle delay for premium feel
+    setTimeout(() => {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Lock scrolling
+    }, 400);
 
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('active');
         document.body.style.overflow = ''; // Unlock scrolling
-        sessionStorage.setItem('disclaimerAccepted', 'true');
     });
 }
 
