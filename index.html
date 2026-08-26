@@ -74,6 +74,12 @@
                         <i data-lucide="check-square"></i>
                     </a>
                 </div>
+                <div class="hero-disclaimer animate-fade-in" style="margin-top: 24px; display: flex; align-items: center; gap: 10px; background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--color-accent-gold); padding: 12px 16px; border-radius: 6px; max-width: 540px;">
+                    <i data-lucide="info" style="color: var(--color-accent-gold); width: 20px; height: 20px; flex-shrink: 0;"></i>
+                    <span style="font-size: 0.85rem; line-height: 1.4; color: var(--color-text-muted); font-style: italic;">
+                        Esta página funciona como herramienta de orientación y apoyo. No reemplaza la asesoría del asesor de tesis.
+                    </span>
+                </div>
             </div>
             <div class="hero-visual animate-fade-in">
                 <!-- Abstract tech/academic illustration -->
@@ -214,7 +220,7 @@
                     <div class="roadmap-step-node" data-step="19" onclick="scrollToStep(19)">
                         <div class="node-circle">19</div>
                         <span class="node-label">Matriz</span>
-                        <div class="node-tooltip">Matriz de Consistencia</div>
+                        <div class="node-tooltip">Matriz de Consistencia (Opcional)</div>
                     </div>
                     <div class="roadmap-step-node" data-step="20" onclick="scrollToStep(20)">
                         <div class="node-circle">20</div>
@@ -761,7 +767,7 @@
                             <span class="card-category">Administración</span>
                             <span class="card-badge badge-important" style="background: rgba(212, 175, 55, 0.15); color: var(--color-accent-gold);">Opcional</span>
                         </div>
-                        <h3 class="card-title">Presupuesto</h3>
+                        <h3 class="card-title">Presupuesto (Opcional)</h3>
                         <p class="card-description">El presupuesto permite estimar los recursos económicos necesarios para ejecutar la tesis. Considera equipos, materiales, software, servicios, transporte y otros gastos necesarios para calcular el costo total de la investigación.</p>
                         
                         <div class="card-key-points">
@@ -787,9 +793,9 @@
                     <div class="card-content">
                         <div class="card-badge-row">
                             <span class="card-category">Metodología</span>
-                            <span class="card-badge badge-important">Consistencia</span>
+                            <span class="card-badge badge-important" style="background: rgba(212, 175, 55, 0.15); color: var(--color-accent-gold);">Opcional</span>
                         </div>
-                        <h3 class="card-title">Matriz de Consistencia</h3>
+                        <h3 class="card-title">Matriz de Consistencia (Opcional)</h3>
                         <p class="card-description">Herramienta fundamental que presenta de forma resumida, integrada y coherente los elementos clave del proyecto de investigación (problemas, objetivos, hipótesis, variables e indicadores). Permite evaluar y asegurar la consistencia interna y validez lógica del plan de tesis.</p>
                         
                         <div class="card-key-points">
@@ -799,6 +805,20 @@
                                 <li>Los elementos específicos deben alinearse perfectamente con sus contrapartes generales.</li>
                                 <li>Sirve como mapa lógico de la investigación que facilita la evaluación por parte del jurado.</li>
                             </ul>
+                        </div>
+
+                        <div class="pdf-links-container" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                            <h4 style="font-size: 0.9rem; margin-bottom: 4px; font-family: var(--font-heading); color: var(--color-text);">Ejemplos de Matriz de Consistencia (abrir en pestaña nueva):</h4>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                <a href="EjemploMatrizConsistencia/Matriz_de_Consistencia_Tesis_IoT_Ejemplo1.pdf" target="_blank" class="btn btn-secondary btn-sm ripple" style="display: inline-flex; align-items: center; gap: 8px;">
+                                    <i data-lucide="file-text" style="width: 16px; height: 16px; color: var(--color-accent);"></i>
+                                    <span>Ejemplo Matriz de Consistencia 1</span>
+                                </a>
+                                <a href="EjemploMatrizConsistencia/Matriz_de_Consistencia_Ejemplo2.pdf" target="_blank" class="btn btn-secondary btn-sm ripple" style="display: inline-flex; align-items: center; gap: 8px;">
+                                    <i data-lucide="file-text" style="width: 16px; height: 16px; color: var(--color-accent);"></i>
+                                    <span>Ejemplo Matriz de Consistencia 2</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1209,7 +1229,7 @@
                     <div class="checklist-category-card">
                         <div class="category-header">
                             <i data-lucide="table" class="category-icon"></i>
-                            <h3>11. Matriz de Consistencia</h3>
+                            <h3>11. Matriz de Consistencia (Opcional)</h3>
                         </div>
                         <div class="category-items">
                             <label class="checklist-item">
@@ -1399,51 +1419,39 @@
                     </div>
                 </div>
 
-                <!-- Resource 3 -->
+                <!-- Resource 3: Matriz de Consistencia -->
                 <div class="resource-card reveal">
-                    <div class="resource-icon-box red">
-                        <i data-lucide="shield-check"></i>
+                    <div class="resource-icon-box gold">
+                        <i data-lucide="table"></i>
                     </div>
-                    <h3>Normas Técnicas y Estándares</h3>
-                    <p>Garantiza la calidad de tu propuesta aplicando marcos de trabajo y estándares internacionales.</p>
+                    <h3>Ejemplos de Matriz de Consistencia</h3>
+                    <p>Descarga ejemplos prácticos en formato PDF para guiar la elaboración de tu propia matriz.</p>
                     <div class="resource-list-container">
                         <div class="resource-item">
                             <div class="resource-info">
-                                <span class="resource-item-title">ISO / IEC</span>
-                                <span class="resource-item-desc">Normativas de calidad de procesos y seguridad TI.</span>
+                                <span class="resource-item-title">Ejemplo Matriz de Consistencia 1</span>
+                                <span class="resource-item-desc">Ejemplo de matriz enfocado en un proyecto de IoT.</span>
                             </div>
+                            <a href="EjemploMatrizConsistencia/Matriz_de_Consistencia_Tesis_IoT_Ejemplo1.pdf" download class="resource-link">Descargar</a>
                         </div>
                         <div class="resource-item">
                             <div class="resource-info">
-                                <span class="resource-item-title">Estándares IEEE</span>
-                                <span class="resource-item-desc">Recomendaciones globales para el desarrollo de ingeniería.</span>
+                                <span class="resource-item-title">Ejemplo Matriz de Consistencia 2</span>
+                                <span class="resource-item-desc">Ejemplo de matriz de consistencia general.</span>
                             </div>
+                            <a href="EjemploMatrizConsistencia/Matriz_de_Consistencia_Ejemplo2.pdf" download class="resource-link">Descargar</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Resource 4: Carátulas -->
+                <!-- Resource 4: Carátula -->
                 <div class="resource-card reveal">
                     <div class="resource-icon-box orange">
                         <i data-lucide="file-text"></i>
                     </div>
-                    <h3>Ejemplos de Carátulas</h3>
-                    <p>Descarga las plantillas oficiales en formato Word para la carátula de tu documento.</p>
+                    <h3>Carátula</h3>
+                    <p>Descarga la plantilla oficial en formato Word para la carátula de tu documento.</p>
                     <div class="resource-list-container">
-                        <div class="resource-item">
-                            <div class="resource-info">
-                                <span class="resource-item-title">Modelo Caratula Articulo Publicado en Revista Indexada.docx</span>
-                                <span class="resource-item-desc">Plantilla oficial para artículos publicados en revistas científicas.</span>
-                            </div>
-                            <a href="EjemplosdeCaratulas/Modelo%20Caratula%20Articulo%20Publicado%20en%20Revista%20Indexada.docx" download class="resource-link">Descargar</a>
-                        </div>
-                        <div class="resource-item">
-                            <div class="resource-info">
-                                <span class="resource-item-title">Modelo Caratula TDS.docx</span>
-                                <span class="resource-item-desc">Plantilla de carátula para Trabajo de Suficiencia Profesional.</span>
-                            </div>
-                            <a href="EjemplosdeCaratulas/Modelo%20Caratula%20TDS.docx" download class="resource-link">Descargar</a>
-                        </div>
                         <div class="resource-item">
                             <div class="resource-info">
                                 <span class="resource-item-title">Modelo Caratula Tesis.docx</span>
@@ -1510,6 +1518,12 @@
                     <li><i data-lucide="mail" class="footer-contact-icon"></i> fips.investigacion@unsa.edu.pe</li>
                 </ul>
             </div>
+        </div>
+
+        <div class="container" style="border-top: 1px solid var(--color-border); padding-top: 20px; margin-top: 20px; text-align: center;">
+            <p style="font-size: 0.85rem; color: var(--color-text-muted); font-style: italic; max-width: 800px; margin: 0 auto; line-height: 1.5;">
+                Esta página funciona como herramienta de orientación y apoyo. No reemplaza la asesoría del asesor de tesis.
+            </p>
         </div>
 
         <div class="footer-bottom">
