@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initChecklist();
     initRoadmapSync();
     initBackToTop();
+    initDisclaimerModal();
 });
 
 /* ==========================================================================
@@ -428,6 +429,31 @@ function initBackToTop() {
             top: 0,
             behavior: 'smooth'
         });
+    });
+}
+
+/* ==========================================================================
+   DISCLAIMER MODAL (SESSION-BASED POPUP)
+   ========================================================================== */
+function initDisclaimerModal() {
+    const modal = document.getElementById('disclaimerModal');
+    const closeBtn = document.getElementById('closeDisclaimerBtn');
+    if (!modal || !closeBtn) return;
+
+    // Check if accepted in current browser session
+    const accepted = sessionStorage.getItem('disclaimerAccepted');
+    if (!accepted) {
+        // Subtle delay for premium feel
+        setTimeout(() => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }, 400);
+    }
+
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Unlock scrolling
+        sessionStorage.setItem('disclaimerAccepted', 'true');
     });
 }
 
