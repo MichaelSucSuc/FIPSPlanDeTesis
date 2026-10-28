@@ -164,25 +164,54 @@
                     </div>
                 </div>
 
-                <!-- Interactive Filters Bar -->
-                <div class="docentes-toolbar glass-panel">
-                    <div class="search-input-wrapper">
-                        <i data-lucide="search" class="toolbar-search-icon"></i>
-                        <input type="text" id="docentesSearchInput" placeholder="Buscar por nombre de docente, grado académico o línea..." class="toolbar-search-input" aria-label="Buscar docentes">
-                        <button id="btnClearDocSearch" class="toolbar-clear-btn" aria-label="Limpiar búsqueda" style="display: none;">
-                            <i data-lucide="x"></i>
-                        </button>
+                <!-- Modern Interactive Filters Hub (Didáctico & Anti-oficina) -->
+                <div class="docentes-filter-hub glass-panel">
+                    <!-- Top Search Bar & Counter -->
+                    <div class="filter-top-bar">
+                        <div class="search-input-modern-wrapper">
+                            <i data-lucide="search" class="search-icon-modern"></i>
+                            <input type="text" id="docentesSearchInput" placeholder="Buscar por docente, apellido o tema de tesis..." class="search-input-modern" aria-label="Buscar docentes">
+                            <button id="btnClearDocSearch" class="search-clear-modern" aria-label="Limpiar búsqueda" style="display: none;">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                        <div class="filter-stats-badge" id="toolbarStats">
+                            <i data-lucide="users"></i>
+                            <span><strong id="statsDocCount">0</strong> docentes activos</span>
+                        </div>
                     </div>
 
-                    <div class="toolbar-filter-select-wrapper">
-                        <i data-lucide="filter" class="toolbar-filter-icon"></i>
-                        <select id="lineFilterSelect" class="toolbar-select" aria-label="Filtrar por línea de investigación">
-                            <option value="all">Todas las Líneas de Investigación</option>
-                        </select>
+                    <!-- Degree Quick Filters (Didáctico: Identificar Asesores) -->
+                    <div class="filter-pills-section">
+                        <span class="filter-section-label">Filtrar por Grado Académico:</span>
+                        <div class="degree-pills-row" id="degreePillsContainer">
+                            <button type="button" class="degree-pill active" data-grado="all">
+                                <span>Todos los Grados</span>
+                            </button>
+                            <button type="button" class="degree-pill pill-dr" data-grado="dr">
+                                <span class="dot-indicator dot-dr"></span>
+                                <span>Doctores (Dr./Dra.)</span>
+                            </button>
+                            <button type="button" class="degree-pill pill-mg" data-grado="mg">
+                                <span class="dot-indicator dot-mg"></span>
+                                <span>Magísteres (Mg.)</span>
+                            </button>
+                            <button type="button" class="degree-pill pill-ing" data-grado="ing">
+                                <span class="dot-indicator dot-ing"></span>
+                                <span>Ingenieros (Ing.)</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="toolbar-stats-pill" id="toolbarStats">
-                        <span id="statsDocCount">0</span> docentes encontrados
+                    <!-- Research Lines Chips Bar (Explorador Horizontal Interactivo) -->
+                    <div class="filter-lines-section">
+                        <div class="filter-lines-header">
+                            <span class="filter-section-label">Líneas de Investigación Aprobadas:</span>
+                            <span class="filter-lines-hint">Haz clic en una línea para ver solo sus docentes</span>
+                        </div>
+                        <div class="lines-chips-wrapper" id="linesChipsContainer">
+                            <!-- Inyectado dinámicamente según la carrera -->
+                        </div>
                     </div>
                 </div>
 

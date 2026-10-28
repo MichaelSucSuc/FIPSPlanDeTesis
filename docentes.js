@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCarreraKey = 'DAISI';
     let searchQuery = '';
     let selectedLine = 'all';
+    let selectedGrado = 'all';
     let isSyncing = false;
 
     const careerTabsContainer = document.getElementById('careerTabsContainer');
@@ -167,7 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bannerDriveLink = document.getElementById('bannerDriveLink');
     const searchInput = document.getElementById('docentesSearchInput');
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
-    const lineFilterSelect = document.getElementById('lineFilterSelect');
+    const degreePillsContainer = document.getElementById('degreePillsContainer');
+    const linesChipsContainer = document.getElementById('linesChipsContainer');
     const statsDocCount = document.getElementById('statsDocCount');
     const loadingState = document.getElementById('docentesLoadingState');
     const errorState = document.getElementById('docentesErrorState');
@@ -199,9 +201,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentCarreraKey = carreraKey;
         searchQuery = '';
         selectedLine = 'all';
+        selectedGrado = 'all';
         if (searchInput) {
             searchInput.value = '';
             if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+        }
+
+        // Restaurar estado visual de los botones de grado
+        if (degreePillsContainer) {
+            degreePillsContainer.querySelectorAll('.degree-pill').forEach(p => {
+                p.classList.toggle('active', p.getAttribute('data-grado') === 'all');
+            });
         }
 
         // Actualizar pestañas activas
@@ -227,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si ya fueron descargados los docentes de esta carrera, renderizar de inmediato
         if (data && data.docentes && data.docentes.length > 0) {
             showResults();
-            populateLineFilter();
+            populateLineChips();
             renderDocentes();
         } else {
             // Cargar en vivo desde Google Drive (prioritario)
@@ -260,10 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 6. Población del Filtro de Líneas (Dropdown Formateado Limpio)
+    // 6. Población del Filtro de Líneas (Chips Interactivos Horizontales)
     // ==========================================================================
-    function populateLineFilter() {
-        if (!lineFilterSelect) return;
+    function populateLineChips() {
+        if (!linesChipsContainer) return;
         const data = FIPS_CARRERAS[currentCarreraKey];
         if (!data || !data.docentes) return;
 
@@ -281,19 +291,33 @@ document.addEventListener('DOMContentLoaded', () => {
             return a.localeCompare(b, 'es');
         });
 
-        lineFilterSelect.innerHTML = '<option value="all">Todas las Líneas de Investigación</option>';
-        linesArray.forEach(l => {
-            const count = data.docentes.filter(d => d.linea === l).length;
-            const opt = document.createElement('option');
-            opt.value = l;
-            opt.textContent = `${l} (${count} ${count === 1 ? 'docente' : 'docentes'})`;
-            lineFilterSelect.appendChild(opt);
+        let html = `
+            <button type="button" class="line-chip ${selectedLine === 'all' ? 'active' : ''}" data-line="all">
+                <i data-lucide="layers" class="chip-icon"></i>
+                <span class="chip-text">Todas las Líneas</span>
+                <span class="chip-badge">${data.docentes.length}</span>
+            </button>
+        `;
+
+        linesArray.forEach(lineName => {
+            const count = data.docentes.filter(d => d.linea === lineName).length;
+            const isActive = (selectedLine === lineName);
+            html += `
+            <button type="button" class="line-chip ${isActive ? 'active' : ''}" data-line="${escapeHtml(lineName)}" title="${escapeHtml(lineName)}">
+                <span class="chip-text">${escapeHtml(lineName)}</span>
+                <span class="chip-badge">${count}</span>
+            </button>
+            `;
         });
-        lineFilterSelect.value = selectedLine || 'all';
+
+        linesChipsContainer.innerHTML = html;
+        if (window.lucide) {
+            lucide.createIcons();
+        }
     }
 
     // ==========================================================================
-    // 7. Renderizado de Tarjetas de Docentes
+    // 7. Renderizado de Listas Horizontales de Docentes (Didáctico & Anti-cajitas)
     // ==========================================================================
     function renderDocentes() {
         if (!resultsContainer) return;
@@ -301,16 +325,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!carreraData || !carreraData.docentes) return;
 
         const filtered = carreraData.docentes.filter(d => {
+            // Filtro por línea
             if (selectedLine !== 'all' && d.linea !== selectedLine) {
                 return false;
             }
+            // Filtro por grado académico
+            if (selectedGrado !== 'all') {
+                const g = (d.grado || '').toUpperCase();
+                if (selectedGrado === 'dr' && !g.includes('DR')) return false;
+                if (selectedGrado === 'mg' && !g.includes('MG')) return false;
+                if (selectedGrado === 'ing' && !g.includes('ING')) return false;
+            }
+            // Filtro por texto de búsqueda
             if (searchQuery) {
                 const q = searchQuery.toLowerCase();
                 const matchDocente = (d.docente || '').toLowerCase().includes(q);
                 const matchGrado = (d.grado || '').toLowerCase().includes(q);
                 const matchLinea = (d.linea || '').toLowerCase().includes(q);
-                const matchNum = (d.num || '').toLowerCase().includes(q);
-                return matchDocente || matchGrado || matchLinea || matchNum;
+                return matchDocente || matchGrado || matchLinea;
             }
             return true;
         });
@@ -327,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (emptyState) emptyState.style.display = 'none';
         }
 
-        // Agrupar por línea
+        // Agrupar docentes por línea de investigación
         const groups = {};
         filtered.forEach(d => {
             const l = d.linea || 'Línea de Investigación';
@@ -343,17 +375,34 @@ document.addEventListener('DOMContentLoaded', () => {
             return a.localeCompare(b, 'es');
         }).forEach(lineaName => {
             const docs = groups[lineaName];
+            const countDr = docs.filter(d => (d.grado || '').toUpperCase().includes('DR')).length;
+            const countMg = docs.filter(d => (d.grado || '').toUpperCase().includes('MG')).length;
+            const countIng = docs.filter(d => (d.grado || '').toUpperCase().includes('ING')).length;
+
             html += `
-            <div class="linea-group-block">
-                <div class="linea-group-header">
-                    <div class="linea-title-row">
-                        <i data-lucide="book-open" class="linea-icon"></i>
-                        <h3 class="linea-name">${escapeHtml(lineaName)}</h3>
+            <div class="linea-section-card glass-panel">
+                <div class="linea-section-header">
+                    <div class="linea-header-info">
+                        <div class="linea-icon-circle">
+                            <i data-lucide="compass"></i>
+                        </div>
+                        <div class="linea-title-col">
+                            <h3 class="linea-title">${escapeHtml(lineaName)}</h3>
+                            <div class="linea-meta-row">
+                                <span class="linea-doc-total">${docs.length} ${docs.length === 1 ? 'docente adscrito' : 'docentes adscritos'}</span>
+                                <span class="meta-dot">·</span>
+                                <div class="linea-breakdown-tags">
+                                    ${countDr > 0 ? `<span class="badge-mini badge-dr">${countDr} Dr.</span>` : ''}
+                                    ${countMg > 0 ? `<span class="badge-mini badge-mg">${countMg} Mg.</span>` : ''}
+                                    ${countIng > 0 ? `<span class="badge-mini badge-ing">${countIng} Ing.</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <span class="linea-count-tag">${docs.length} ${docs.length === 1 ? 'docente' : 'docentes'}</span>
                 </div>
-                <div class="docentes-cards-grid">
-                    ${docs.map(doc => renderDocenteCard(doc)).join('')}
+
+                <div class="docentes-horizontal-list">
+                    ${docs.map(doc => renderDocenteRow(doc)).join('')}
                 </div>
             </div>
             `;
@@ -365,28 +414,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function renderDocenteCard(doc) {
+    function renderDocenteRow(doc) {
         const grado = doc.grado || 'Docente';
         const gradoClass = getGradoBadgeClass(grado);
         const cleanName = doc.docente;
         const scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(cleanName + ' UNSA')}`;
 
         return `
-        <div class="docente-card glass-panel">
-            <div class="docente-card-top">
-                <div class="docente-meta-row">
-                    <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
-                </div>
-                <h4 class="docente-name" title="${escapeHtml(cleanName)}">${escapeHtml(cleanName)}</h4>
+        <div class="docente-row">
+            <div class="docente-row-main">
+                <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
+                <span class="docente-row-name">${escapeHtml(cleanName)}</span>
             </div>
-
-            <div class="docente-card-footer">
-                <a href="${scholarUrl}" target="_blank" rel="noopener noreferrer" class="btn-scholar-card" title="Buscar publicaciones e investigaciones de ${escapeHtml(cleanName)} en Google Académico">
-                    <div class="btn-scholar-label">
-                        <i data-lucide="graduation-cap"></i>
-                        <span>Google Académico</span>
-                    </div>
-                    <i data-lucide="arrow-up-right" class="scholar-arrow"></i>
+            <div class="docente-row-action">
+                <a href="${scholarUrl}" target="_blank" rel="noopener noreferrer" class="btn-scholar-row" title="Ver publicaciones e investigaciones de ${escapeHtml(cleanName)} en Google Académico">
+                    <i data-lucide="graduation-cap"></i>
+                    <span>Google Académico</span>
+                    <i data-lucide="arrow-up-right" class="row-arrow"></i>
                 </a>
             </div>
         </div>
@@ -412,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 8. Buscador & Filtros
+    // 8. Eventos de Buscador & Filtros Interactivos
     // ==========================================================================
     if (searchInput) {
         searchInput.addEventListener('input', () => {
@@ -436,10 +480,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (lineFilterSelect) {
-        lineFilterSelect.addEventListener('change', () => {
-            selectedLine = lineFilterSelect.value;
-            renderDocentes();
+    if (linesChipsContainer) {
+        linesChipsContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.line-chip');
+            if (!btn) return;
+            const line = btn.getAttribute('data-line');
+            if (line) {
+                selectedLine = line;
+                linesChipsContainer.querySelectorAll('.line-chip').forEach(c => {
+                    c.classList.toggle('active', c.getAttribute('data-line') === line);
+                });
+                renderDocentes();
+            }
+        });
+    }
+
+    if (degreePillsContainer) {
+        degreePillsContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.degree-pill');
+            if (!btn) return;
+            const grado = btn.getAttribute('data-grado');
+            if (grado) {
+                selectedGrado = grado;
+                degreePillsContainer.querySelectorAll('.degree-pill').forEach(p => {
+                    p.classList.toggle('active', p.getAttribute('data-grado') === grado);
+                });
+                renderDocentes();
+            }
         });
     }
 
@@ -447,12 +514,20 @@ document.addEventListener('DOMContentLoaded', () => {
         btnResetDocFilter.addEventListener('click', () => {
             searchQuery = '';
             selectedLine = 'all';
+            selectedGrado = 'all';
             if (searchInput) {
                 searchInput.value = '';
                 if (clearSearchBtn) clearSearchBtn.style.display = 'none';
             }
-            if (lineFilterSelect) {
-                lineFilterSelect.value = 'all';
+            if (degreePillsContainer) {
+                degreePillsContainer.querySelectorAll('.degree-pill').forEach(p => {
+                    p.classList.toggle('active', p.getAttribute('data-grado') === 'all');
+                });
+            }
+            if (linesChipsContainer) {
+                linesChipsContainer.querySelectorAll('.line-chip').forEach(c => {
+                    c.classList.toggle('active', c.getAttribute('data-line') === 'all');
+                });
             }
             renderDocentes();
         });
@@ -603,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si el usuario sigue en esta carrera, renderizar de inmediato
             if (currentCarreraKey === carreraKey) {
                 showResults();
-                populateLineFilter();
+                populateLineChips();
                 renderDocentes();
             }
         } catch (err) {
