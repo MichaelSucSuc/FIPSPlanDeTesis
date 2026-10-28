@@ -114,7 +114,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cleanTeacherName(raw) {
         if (!raw) return '';
-        return String(raw).replace(/\//g, ' ').replace(/\s+/g, ' ').trim();
+        let str = String(raw).replace(/\//g, ' ').replace(/\s+/g, ' ').trim();
+        // Remover prefijos de grado si vinieran erróneamente en la celda de nombre
+        str = str.replace(/^(DR\.|DRA\.|MG\.|ING\.)\s*/i, '').trim();
+
+        const smallWords = new Set(['de', 'del', 'la', 'las', 'los', 'y', 'e', 'san']);
+        const words = str.split(' ');
+        return words.map((w, i) => {
+            if (!w) return '';
+            const lower = w.toLowerCase();
+            if (i > 0 && smallWords.has(lower)) {
+                return lower;
+            }
+            return lower.charAt(0).toUpperCase() + lower.slice(1);
+        }).join(' ');
+    }
+
+    function getTeacherInitials(name) {
+        if (!name) return 'D';
+        const words = name.trim().split(/\s+/).filter(Boolean);
+        if (words.length === 1) return words[0].charAt(0).toUpperCase();
+        return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
     }
 
     // ==========================================================================
@@ -354,39 +374,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderDocenteCard(doc) {
         const grado = doc.grado || 'Docente';
         const gradoClass = getGradoBadgeClass(grado);
+        const avatarClass = getGradoAvatarClass(grado);
         const cleanName = doc.docente;
+        const initials = getTeacherInitials(cleanName);
         const scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(cleanName + ' UNSA')}`;
 
         return `
         <div class="docente-card glass-panel">
-            <div class="docente-card-header">
-                <div class="docente-avatar">
-                    <i data-lucide="user-check"></i>
+            <div class="docente-card-top">
+                <div class="docente-avatar-box ${avatarClass}">
+                    <span>${escapeHtml(initials)}</span>
                 </div>
-                <div class="docente-title-col">
+                <div class="docente-info">
                     <div class="docente-meta-row">
                         <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
-                        ${doc.num ? `<span class="tag-condicion">N° ${escapeHtml(doc.num)}</span>` : ''}
+                        ${doc.num ? `<span class="docente-num-badge">N° ${escapeHtml(doc.num)}</span>` : ''}
                     </div>
                     <h4 class="docente-name" title="${escapeHtml(cleanName)}">${escapeHtml(cleanName)}</h4>
                 </div>
             </div>
 
-            <div class="docente-card-body">
-                <div class="docente-detail-item">
-                    <i data-lucide="compass" class="detail-icon"></i>
-                    <span class="detail-text" title="${escapeHtml(doc.linea)}">${escapeHtml(doc.linea)}</span>
-                </div>
-            </div>
-
             <div class="docente-card-footer">
-                <button type="button" class="btn-doc-action btn-copy-name" data-name="${escapeHtml(cleanName)}" title="Copiar nombre completo">
-                    <i data-lucide="copy"></i>
-                    <span>Copiar Nombre</span>
-                </button>
-                <a href="${scholarUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-action btn-scholar" title="Buscar publicaciones en Google Scholar">
-                    <i data-lucide="graduation-cap"></i>
-                    <span>Google Académico</span>
+                <a href="${scholarUrl}" target="_blank" rel="noopener noreferrer" class="btn-scholar-card" title="Buscar publicaciones e investigaciones de ${escapeHtml(cleanName)} en Google Académico">
+                    <div class="btn-scholar-label">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Google Académico</span>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="scholar-arrow"></i>
                 </a>
             </div>
         </div>
@@ -399,6 +413,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (g.includes('MG') || g.includes('MAG')) return 'badge-mg';
         if (g.includes('ING')) return 'badge-ing';
         return 'badge-default';
+    }
+
+    function getGradoAvatarClass(grado) {
+        const g = (grado || '').toUpperCase();
+        if (g.includes('DR') || g.includes('DRA')) return 'avatar-dr';
+        if (g.includes('MG') || g.includes('MAG')) return 'avatar-mg';
+        if (g.includes('ING')) return 'avatar-ing';
+        return 'avatar-default';
     }
 
     function escapeHtml(str) {
@@ -459,22 +481,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 9. Copiar Nombre
+    // 9. Notificaciones Toast (Feedback de Sincronización)
     // ==========================================================================
-    document.addEventListener('click', async (e) => {
-        const copyBtn = e.target.closest('.btn-copy-name');
-        if (copyBtn) {
-            const name = copyBtn.getAttribute('data-name');
-            if (name) {
-                try {
-                    await navigator.clipboard.writeText(name);
-                    showToast(`Copiado: "${name}"`);
-                } catch (err) {
-                    showToast(`Copiado al portapapeles`);
-                }
-            }
-        }
-    });
 
     function showToast(msg) {
         if (!toastNotification) return;
