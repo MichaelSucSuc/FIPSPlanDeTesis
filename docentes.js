@@ -62,41 +62,44 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatTitleCase(strIn) {
         if (!strIn) return '';
         const smallWords = new Set(['de', 'y', 'e', 'en', 'los', 'las', 'la', 'el', 'del', 'para', 'o', 'al']);
-        return strIn.toLowerCase().split(' ').map((w, i) => {
+        const acronyms = new Set(['RER', 'DAIE', 'DAISI', 'DAII', 'DAIEL', 'DAIME', 'TIC', 'IOT', 'IA']);
+
+        return strIn.split(' ').map((w, i) => {
             if (!w) return '';
-            if (i === 0 || !smallWords.has(w)) {
-                return w.charAt(0).toUpperCase() + w.slice(1);
+            const cleanUpper = w.replace(/[^A-Za-zÁÉÍÓÚÑ]/g, '').toUpperCase();
+            if (acronyms.has(cleanUpper)) {
+                return w.toUpperCase();
             }
-            return w;
+            const lower = w.toLowerCase();
+            if (i > 0 && smallWords.has(lower)) {
+                return lower;
+            }
+            return lower.charAt(0).toUpperCase() + lower.slice(1);
         }).join(' ');
     }
 
-    function formatLineaTitle(raw) {
-        if (!raw) return 'Línea de Investigación';
+    function cleanRawLineName(raw) {
+        if (!raw) return '';
         let str = String(raw).replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+        // Eliminar numeración existente previa (ej. "1.-", "1.", "1 -", "1)")
+        str = str.replace(/^\d+[\.\s\-\)]+\s*/, '').trim();
 
         // Corrección puntual de la primera línea de Industrial
         if (str.startsWith('Diseño y Desarrollo')) {
             return 'Diseño y Desarrollo de Bienes y Servicios';
         }
 
-        // Si ya está numerada (e.g. "1.- ...")
-        if (/^\d+[\.\-]/.test(str)) {
-            return str;
-        }
-
         // Si está en MAYÚSCULAS completas, convertir a Title Case preservando siglas
         if (str === str.toUpperCase() && str.length > 3) {
-            const words = str.split(' ');
-            const acronyms = new Set(['RER', 'DAIE', 'DAISI', 'DAII', 'DAIEL', 'DAIME', 'TIC', 'IoT', 'IA']);
-            return words.map((w, i) => {
-                if (acronyms.has(w)) return w;
-                if (w.includes('.')) return w;
-                return formatTitleCase(w);
-            }).join(' ');
+            return formatTitleCase(str);
         }
 
         return str;
+    }
+
+    function extractLineNumber(lineName) {
+        const m = (lineName || '').match(/^(\d+)[\.\-]/);
+        return m ? parseInt(m[1], 10) : 999;
     }
 
     function formatGrado(raw) {
@@ -257,7 +260,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        const linesArray = Array.from(linesSet).sort((a, b) => a.localeCompare(b, 'es'));
+        const linesArray = Array.from(linesSet).sort((a, b) => {
+            const numA = extractLineNumber(a);
+            const numB = extractLineNumber(b);
+            if (numA !== numB) return numA - numB;
+            return a.localeCompare(b, 'es');
+        });
 
         lineFilterSelect.innerHTML = '<option value="all">Todas las Líneas de Investigación</option>';
         linesArray.forEach(l => {
@@ -314,7 +322,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let html = '';
-        Object.keys(groups).sort((a, b) => a.localeCompare(b, 'es')).forEach(lineaName => {
+        Object.keys(groups).sort((a, b) => {
+            const numA = extractLineNumber(a);
+            const numB = extractLineNumber(b);
+            if (numA !== numB) return numA - numB;
+            return a.localeCompare(b, 'es');
+        }).forEach(lineaName => {
             const docs = groups[lineaName];
             html += `
             <div class="linea-group-block">
@@ -525,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Parsea la tabla de Google Sheets con el formato UNIFICADO para las 5 carreras:
-     * Col 0: Línea de Investigación
+     * Col 0: Línea de Investigación (Enumerada automáticamente 1.-, 2.-, ...)
      * Col 1: No
      * Col 2: Grado Académico
      * Col 3: Docentes Adscritos
@@ -533,6 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function parseUnifiedCareerTable(key, table) {
         const rows = table.rows || [];
         const docentes = [];
+        const lineMap = new Map();
         let currentLinea = '';
 
         for (const r of rows) {
@@ -541,9 +555,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const rawGrado = getGVizCell(r, 2);
             const rawDoc = getGVizCell(r, 3);
 
-            // Forward-fill de la línea de investigación ignorando encabezados
+            // Forward-fill y numeración secuencial de las líneas de investigación oficiales
             if (rawLinea && rawLinea.length > 2 && !rawLinea.toUpperCase().includes('LINEAS DE INVESTIGAC')) {
-                currentLinea = formatLineaTitle(rawLinea);
+                const cleanName = cleanRawLineName(rawLinea);
+                if (cleanName) {
+                    if (!lineMap.has(cleanName)) {
+                        const num = lineMap.size + 1;
+                        lineMap.set(cleanName, `${num}.- ${cleanName}`);
+                    }
+                    currentLinea = lineMap.get(cleanName);
+                }
             }
 
             // Filtro de filas válidas de docentes
@@ -552,7 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 docentes.push({
                     docente: cleanTeacherName(rawDoc),
                     grado: formatGrado(rawGrado),
-                    linea: currentLinea || 'Línea de Investigación General',
+                    linea: currentLinea || '1.- Línea de Investigación General',
                     num: numClean
                 });
             }
