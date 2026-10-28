@@ -1,12 +1,12 @@
 /**
  * FIPSPlanDeTesis - Directorio de Docentes y Líneas de Investigación
- * Controlador 100% EN VIVO desde Google Drive vía Google Visualization API (JSONP sin bloqueo de CORS)
- * Con normalización inteligente de líneas de investigación para todas las carreras.
+ * Controlador 100% EN VIVO desde Google Drive (Google Sheets Unificados)
+ * Formato unificado: Col 0 (Línea) · Col 1 (No) · Col 2 (Grado) · Col 3 (Docentes)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
-    // 1. Configuración de Carreras (Metadatos & Enlaces Oficiales de Google Drive)
+    // 1. Configuración de Carreras (Metadatos & Nuevos Enlaces Nativos de Google Sheets)
     // ==========================================================================
     const FIPS_CARRERAS = {
         DAISI: {
@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería de Sistemas',
             depto: 'Departamento Académico de Ingeniería de Sistemas e Informática',
             icon: 'laptop',
-            drive_id: '1S4ss9Qzk36JsUynJutjDDgZoiQvIkXrN',
-            drive_url: 'https://drive.google.com/file/d/1S4ss9Qzk36JsUynJutjDDgZoiQvIkXrN/view?usp=sharing',
+            drive_id: '1LnJ_XgzQfcZi3gHHOCN61ThnkmYgD7LKtXT1ARD64B0',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1LnJ_XgzQfcZi3gHHOCN61ThnkmYgD7LKtXT1ARD64B0/edit?usp=sharing',
             docentes: null
         },
         DAII: {
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Industrial',
             depto: 'Departamento Académico de Ingeniería Industrial',
             icon: 'factory',
-            drive_id: '1CXS0i31DmiRzJ48RVhUfVtO04o6hDUOe',
-            drive_url: 'https://drive.google.com/file/d/1CXS0i31DmiRzJ48RVhUfVtO04o6hDUOe/view?usp=sharing',
+            drive_id: '1z6kWRxgaT40pNSaUOb9GRRNlLRVsra8uFyooznEuZ1U',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1z6kWRxgaT40pNSaUOb9GRRNlLRVsra8uFyooznEuZ1U/edit?usp=sharing',
             docentes: null
         },
         DAIE: {
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Electrónica',
             depto: 'Departamento Académico de Ingeniería Electrónica',
             icon: 'cpu',
-            drive_id: '1LwWEuqLCI4_U7vcmHTdgu9UABjkmuXTh',
-            drive_url: 'https://drive.google.com/file/d/1LwWEuqLCI4_U7vcmHTdgu9UABjkmuXTh/view?usp=sharing',
+            drive_id: '1FGs4n3ioVhXAKKeY4Kw1625Af2qa_GjWqJXdJBB994c',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1FGs4n3ioVhXAKKeY4Kw1625Af2qa_GjWqJXdJBB994c/edit?usp=sharing',
             docentes: null
         },
         DAIEL: {
@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Eléctrica',
             depto: 'Departamento Académico de Ingeniería Eléctrica',
             icon: 'zap',
-            drive_id: '1hYjjTbuiP1TBEbmRI7iJCQxwUfbnl97h',
-            drive_url: 'https://drive.google.com/file/d/1hYjjTbuiP1TBEbmRI7iJCQxwUfbnl97h/view?usp=sharing',
+            drive_id: '1sxJ53ZQy-ZbU_ME7kUZUFFsHCh4tl9r_8BMHZcTcnZU',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1sxJ53ZQy-ZbU_ME7kUZUFFsHCh4tl9r_8BMHZcTcnZU/edit?usp=sharing',
             docentes: null
         },
         DAIME: {
@@ -50,49 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Mecánica',
             depto: 'Departamento Académico de Ingeniería Mecánica',
             icon: 'cog',
-            drive_id: '1Kh9XLwtl-4hznuoBibUs4wqsJRqwCtuU',
-            drive_url: 'https://drive.google.com/file/d/1Kh9XLwtl-4hznuoBibUs4wqsJRqwCtuU/view?usp=sharing',
+            drive_id: '1WKKLwITbHF63VnGZ6CPFiDH10BWj1LRTmAYQWYdDWZQ',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1WKKLwITbHF63VnGZ6CPFiDH10BWj1LRTmAYQWYdDWZQ/edit?usp=sharing',
             docentes: null
         }
     };
 
     // ==========================================================================
-    // Patrones de Normalización de Líneas de Investigación Oficiales
+    // 2. Funciones de Limpieza y Normalización Unificadas
     // ==========================================================================
-    const DAII_LINE_PATTERNS = [
-        { regex: /bienes|diseño/i, name: 'Diseño y Desarrollo de Bienes y Servicios' },
-        { regex: /mejora|productivo/i, name: 'Mejora Continua de los Procesos Productivos' },
-        { regex: /operacion/i, name: 'Gestión de Operaciones' },
-        { regex: /calidad|seguridad|ambiente|responsabilidad/i, name: 'Calidad, Seguridad, Medio Ambiente y Responsabilidad Social' },
-        { regex: /emprend|innovaci/i, name: 'Emprendurismo e Innovación' },
-        { regex: /tecnolog|informaci|comunicaci/i, name: 'Tecnologías de la Información y Comunicación' },
-        { regex: /manufactura|avanzada/i, name: 'Manufactura Avanzada' },
-        { regex: /direcci|estrat[eé]gica/i, name: 'Dirección Estratégica' },
-        { regex: /inversi[oó]n|financiera/i, name: 'Proyectos de Inversión y Gestión Financiera' }
-    ];
-
-    const DAIEL_LINE_PATTERNS = [
-        { regex: /generaci[oó]n/i, name: 'Generación Eléctrica: Planeamiento, Operación, Automatización y Mantenimiento' },
-        { regex: /conversi[oó]n|m[aá]quinas/i, name: 'Conversión Electromecánica (Máquinas Eléctricas)' },
-        { regex: /accionamiento|potencia/i, name: 'Accionamientos Eléctricos, Electrónica de Potencia' },
-        { regex: /automati|industrial|dom[oó]tica|rer/i, name: 'Automatización Industrial y de Sistemas Eléctricos de Potencia' },
-        { regex: /planeamiento|subestacion|transmisi/i, name: 'Planeamiento, Operación y Control de Sistemas Eléctricos' },
-        { regex: /mercado|tarifaci|legislaci/i, name: 'Mercados Eléctricos, Valuación y Tarifación Eléctrica' },
-        { regex: /renovable|energ[ií]as/i, name: 'Sistemas de Energías Renovables: Diseño, Operación y Mantenimiento' },
-        { regex: /distribuci|utilizaci|minera/i, name: 'Sistemas de Distribución y Utilización, Electricidad Industrial' }
-    ];
-
-    const DAIE_AREA_PATTERNS = [
-        { regex: /electr[oó]nica general|electrot[eé]cnica/i, name: 'Electrónica General y Electrotecnia' },
-        { regex: /telecomunicaci/i, name: 'Telecomunicaciones' },
-        { regex: /inform[aá]tica|computaci/i, name: 'Informática y Ciencias de la Computación' },
-        { regex: /instrumentaci|control/i, name: 'Instrumentación y Control' }
-    ];
-
-    function formatTitleCase(str) {
-        if (!str) return '';
+    function formatTitleCase(strIn) {
+        if (!strIn) return '';
         const smallWords = new Set(['de', 'y', 'e', 'en', 'los', 'las', 'la', 'el', 'del', 'para', 'o', 'al']);
-        return str.toLowerCase().split(' ').map((w, i) => {
+        return strIn.toLowerCase().split(' ').map((w, i) => {
             if (!w) return '';
             if (i === 0 || !smallWords.has(w)) {
                 return w.charAt(0).toUpperCase() + w.slice(1);
@@ -101,8 +71,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join(' ');
     }
 
+    function formatLineaTitle(raw) {
+        if (!raw) return 'Línea de Investigación';
+        let str = String(raw).replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+
+        // Corrección puntual de la primera línea de Industrial
+        if (str.startsWith('Diseño y Desarrollo')) {
+            return 'Diseño y Desarrollo de Bienes y Servicios';
+        }
+
+        // Si ya está numerada (e.g. "1.- ...")
+        if (/^\d+[\.\-]/.test(str)) {
+            return str;
+        }
+
+        // Si está en MAYÚSCULAS completas, convertir a Title Case preservando siglas
+        if (str === str.toUpperCase() && str.length > 3) {
+            const words = str.split(' ');
+            const acronyms = new Set(['RER', 'DAIE', 'DAISI', 'DAII', 'DAIEL', 'DAIME', 'TIC', 'IoT', 'IA']);
+            return words.map((w, i) => {
+                if (acronyms.has(w)) return w;
+                if (w.includes('.')) return w;
+                return formatTitleCase(w);
+            }).join(' ');
+        }
+
+        return str;
+    }
+
+    function formatGrado(raw) {
+        if (!raw) return 'Docente';
+        const g = String(raw).toUpperCase().trim();
+        if (g.includes('DRA')) return 'Dra.';
+        if (g.includes('DR')) return 'Dr.';
+        if (g.includes('MG') || g.includes('MAG')) return 'Mg.';
+        if (g.includes('ING')) return 'Ing.';
+        return String(raw).trim() || 'Docente';
+    }
+
+    function cleanTeacherName(raw) {
+        if (!raw) return '';
+        return String(raw).replace(/\//g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
     // ==========================================================================
-    // 2. Gestión de Tema (Oscuro / Claro)
+    // 3. Gestión de Tema (Oscuro / Claro)
     // ==========================================================================
     const themeToggleBtn = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || localStorage.getItem('fips_theme') || 'light';
@@ -123,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 3. Estado & Elementos del DOM
+    // 4. Estado & Elementos del DOM
     // ==========================================================================
     let currentCarreraKey = 'DAISI';
     let searchQuery = '';
@@ -152,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toastNotification = document.getElementById('toastNotification');
 
     // ==========================================================================
-    // 4. Cambio de Carrera (Tabs)
+    // 5. Cambio de Carrera (Tabs)
     // ==========================================================================
     if (careerTabsContainer) {
         careerTabsContainer.addEventListener('click', (e) => {
@@ -230,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 5. Población del Filtro de Líneas (Dropdown Formateado Limpio)
+    // 6. Población del Filtro de Líneas (Dropdown Formateado Limpio)
     // ==========================================================================
     function populateLineFilter() {
         if (!lineFilterSelect) return;
@@ -258,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 6. Renderizado de Tarjetas de Docentes
+    // 7. Renderizado de Tarjetas de Docentes
     // ==========================================================================
     function renderDocentes() {
         if (!resultsContainer) return;
@@ -274,9 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const matchDocente = (d.docente || '').toLowerCase().includes(q);
                 const matchGrado = (d.grado || '').toLowerCase().includes(q);
                 const matchLinea = (d.linea || '').toLowerCase().includes(q);
-                const matchCondicion = (d.condicion || '').toLowerCase().includes(q);
-                const matchArea = (d.area || '').toLowerCase().includes(q);
-                return matchDocente || matchGrado || matchLinea || matchCondicion || matchArea;
+                const matchNum = (d.num || '').toLowerCase().includes(q);
+                return matchDocente || matchGrado || matchLinea || matchNum;
             }
             return true;
         });
@@ -329,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderDocenteCard(doc) {
         const grado = doc.grado || 'Docente';
         const gradoClass = getGradoBadgeClass(grado);
-        const cleanName = formatTeacherName(doc.docente);
+        const cleanName = doc.docente;
         const scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(cleanName + ' UNSA')}`;
 
         return `
@@ -341,9 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="docente-title-col">
                     <div class="docente-meta-row">
                         <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
-                        ${doc.condicion ? `<span class="tag-condicion">${escapeHtml(doc.condicion)}</span>` : ''}
-                        ${doc.categoria ? `<span class="tag-categoria">${escapeHtml(doc.categoria)}</span>` : ''}
-                        ${doc.regimen ? `<span class="tag-regimen">${escapeHtml(doc.regimen)}</span>` : ''}
+                        ${doc.num ? `<span class="tag-condicion">N° ${escapeHtml(doc.num)}</span>` : ''}
                     </div>
                     <h4 class="docente-name" title="${escapeHtml(cleanName)}">${escapeHtml(cleanName)}</h4>
                 </div>
@@ -354,11 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <i data-lucide="compass" class="detail-icon"></i>
                     <span class="detail-text" title="${escapeHtml(doc.linea)}">${escapeHtml(doc.linea)}</span>
                 </div>
-                ${doc.area && doc.area !== 'Lineas de Investigación' && doc.area !== 'Área Académica' && doc.area !== 'Líneas de Investigación' ? `
-                <div class="docente-detail-item area-item">
-                    <i data-lucide="layers" class="detail-icon"></i>
-                    <span class="detail-text">${escapeHtml(doc.area)}</span>
-                </div>` : ''}
             </div>
 
             <div class="docente-card-footer">
@@ -383,11 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'badge-default';
     }
 
-    function formatTeacherName(name) {
-        if (!name) return '';
-        return name.replace(/\//g, ' ').replace(/\s+/g, ' ').trim();
-    }
-
     function escapeHtml(str) {
         if (!str) return '';
         return String(str)
@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 7. Buscador & Filtros
+    // 8. Buscador & Filtros
     // ==========================================================================
     if (searchInput) {
         searchInput.addEventListener('input', () => {
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 8. Copiar Nombre
+    // 9. Copiar Nombre
     // ==========================================================================
     document.addEventListener('click', async (e) => {
         const copyBtn = e.target.closest('.btn-copy-name');
@@ -473,9 +473,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 9. MOTOR EN VIVO: GOOGLE SPREADSHEET VISUALIZATION API (JSONP SIN CORS)
+    // 10. MOTOR EN VIVO: GOOGLE SPREADSHEET VISUALIZATION API (JSONP SIN CORS)
     // ==========================================================================
-
     function fetchGoogleSheetGViz(driveId) {
         return new Promise((resolve, reject) => {
             const callbackName = 'fipsGvizCb_' + Math.floor(Math.random() * 10000000);
@@ -525,161 +524,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Parsea la tabla de Google Sheets y normaliza de forma inteligente las líneas de investigación
+     * Parsea la tabla de Google Sheets con el formato UNIFICADO para las 5 carreras:
+     * Col 0: Línea de Investigación
+     * Col 1: No
+     * Col 2: Grado Académico
+     * Col 3: Docentes Adscritos
      */
-    function parseGVizCareerTable(key, table) {
+    function parseUnifiedCareerTable(key, table) {
         const rows = table.rows || [];
         const docentes = [];
-        let currentArea = '';
         let currentLinea = '';
 
-        if (key === 'DAISI') {
-            for (const r of rows) {
-                const cArea = getGVizCell(r, 0);
-                const cLinea = getGVizCell(r, 1);
-                const cNum = getGVizCell(r, 2);
-                const cGrado = getGVizCell(r, 3);
-                const cDoc = getGVizCell(r, 4);
+        for (const r of rows) {
+            const rawLinea = getGVizCell(r, 0);
+            const rawNum = getGVizCell(r, 1);
+            const rawGrado = getGVizCell(r, 2);
+            const rawDoc = getGVizCell(r, 3);
 
-                if (cArea && (cArea.includes('Linea') || cArea.includes('Investiga') || cArea.includes('Area'))) {
-                    currentArea = cArea;
-                }
-                if (cLinea && cLinea.length > 3) {
-                    currentLinea = cLinea;
-                }
-                if (cDoc && cDoc.length > 3 && !cDoc.includes('Docente')) {
-                    docentes.push({
-                        docente: cDoc,
-                        grado: cGrado,
-                        linea: currentLinea || 'Línea de Investigación',
-                        area: currentArea || 'Líneas de Investigación',
-                        num: cNum
-                    });
-                }
+            // Forward-fill de la línea de investigación ignorando encabezados
+            if (rawLinea && rawLinea.length > 2 && !rawLinea.toUpperCase().includes('LINEAS DE INVESTIGAC')) {
+                currentLinea = formatLineaTitle(rawLinea);
             }
-        } else if (key === 'DAII') {
-            currentLinea = 'Diseño y Desarrollo de Bienes y Servicios';
-            for (const r of rows) {
-                const cArea = getGVizCell(r, 4);
-                const cLinea = getGVizCell(r, 5);
-                const cNum = getGVizCell(r, 6);
-                const cGrado = getGVizCell(r, 7);
-                const cDoc = getGVizCell(r, 8);
 
-                if (cArea && (cArea.includes('Área') || cArea.includes('PRODUCCIÓN') || cArea.includes('GESTIÓN') || cArea.includes('FINANZAS') || cArea.includes('LOGÍSTICA') || cArea.length > 3)) {
-                    currentArea = cArea;
-                }
-                if (cLinea && cLinea.length > 2 && !cLinea.includes('Línea de Investig')) {
-                    // Emparejar con nombre oficial completo consolidando celdas rotas
-                    for (const pat of DAII_LINE_PATTERNS) {
-                        if (pat.regex.test(cLinea)) {
-                            currentLinea = pat.name;
-                            break;
-                        }
-                    }
-                }
-                if (cDoc && cDoc.length > 3 && !cDoc.includes('Docentes')) {
-                    docentes.push({
-                        docente: cDoc,
-                        grado: cGrado,
-                        linea: currentLinea,
-                        area: currentArea || 'Área Académica',
-                        num: cNum
-                    });
-                }
-            }
-        } else if (key === 'DAIE') {
-            currentLinea = 'Electrónica General y Electrotecnia';
-            for (const r of rows) {
-                const cArea = getGVizCell(r, 1);
-                const cLinea = getGVizCell(r, 2);
-                const cDoc = getGVizCell(r, 3);
-                const cCond = getGVizCell(r, 4);
-                const cGrado = getGVizCell(r, 5);
-                const cCateg = getGVizCell(r, 6);
-                const cReg = getGVizCell(r, 7);
-
-                if (cDoc.includes('DOCENTE')) continue;
-                if (cArea && cArea.length > 2 && !cArea.includes('AREA')) {
-                    // Usar área como la línea temática principal limpia
-                    for (const pat of DAIE_AREA_PATTERNS) {
-                        if (pat.regex.test(cArea)) {
-                            currentLinea = pat.name;
-                            break;
-                        }
-                    }
-                    currentArea = cArea;
-                }
-                if (cDoc && cDoc.length > 3) {
-                    docentes.push({
-                        docente: cDoc,
-                        grado: cGrado,
-                        linea: currentLinea,
-                        area: currentArea || 'Área Académica',
-                        condicion: cCond,
-                        categoria: cCateg,
-                        regimen: cReg
-                    });
-                }
-            }
-        } else if (key === 'DAIEL') {
-            currentLinea = 'Generación Eléctrica: Planeamiento, Operación, Automatización y Mantenimiento';
-            for (const r of rows) {
-                const cLinea = getGVizCell(r, 0);
-                const cNum = getGVizCell(r, 1);
-                const cGrado = getGVizCell(r, 2);
-                const cDoc = getGVizCell(r, 3);
-                const cCond = getGVizCell(r, 4);
-                const cCateg = getGVizCell(r, 5);
-                const cReg = getGVizCell(r, 6);
-
-                if (cDoc.includes('Docentes Adscritos') || cLinea.includes('DAIEL') || cLinea.includes('NOTA') || cLinea.includes('solicitará')) continue;
-                if (cLinea && cLinea.length > 2 && !cLinea.includes('Línea de Investig') && !cLinea.includes('NOTA') && !cLinea.includes('solicitará')) {
-                    for (const pat of DAIEL_LINE_PATTERNS) {
-                        if (pat.regex.test(cLinea)) {
-                            currentLinea = pat.name;
-                            break;
-                        }
-                    }
-                }
-                if (cDoc && cDoc.length > 3 && !cDoc.includes('Docentes') && !cDoc.includes('NOTA')) {
-                    docentes.push({
-                        docente: cDoc,
-                        grado: cGrado,
-                        linea: currentLinea,
-                        area: 'Líneas de Investigación',
-                        num: cNum,
-                        condicion: cCond,
-                        categoria: cCateg,
-                        regimen: cReg
-                    });
-                }
-            }
-        } else if (key === 'DAIME') {
-            currentLinea = 'Sistemas Mecánicos';
-            for (const r of rows) {
-                const cLinea = getGVizCell(r, 0);
-                const cDoc = getGVizCell(r, 2);
-
-                if (cDoc.includes('DOCENTES') || cLinea.includes('LÍNEAS')) continue;
-                if (cLinea && cLinea.length > 2 && !['ING.', 'MG.', 'DR.', 'DRA.', 'LÍNEAS'].some(kw => cLinea.includes(kw))) {
-                    currentLinea = formatTitleCase(cLinea);
-                }
-                if (cDoc && cDoc.length > 3 && !cDoc.includes('DOCENTES')) {
-                    let grado = 'Docente';
-                    let docName = cDoc;
-                    const m = cDoc.match(/^(DR\.|DRA\.|MG\.|ING\.)\s*(.*)$/i);
-                    if (m) {
-                        grado = m[1].toUpperCase();
-                        docName = m[2].trim();
-                    }
-                    docentes.push({
-                        docente: docName,
-                        grado: grado,
-                        linea: currentLinea || 'Sistemas Mecánicos',
-                        area: 'Líneas de Investigación'
-                    });
-                }
+            // Filtro de filas válidas de docentes
+            if (rawDoc && rawDoc.length > 3 && !rawDoc.toUpperCase().includes('DOCENTES ADSCRITOS')) {
+                const numClean = rawNum ? String(parseInt(rawNum) || rawNum) : '';
+                docentes.push({
+                    docente: cleanTeacherName(rawDoc),
+                    grado: formatGrado(rawGrado),
+                    linea: currentLinea || 'Línea de Investigación General',
+                    num: numClean
+                });
             }
         }
 
@@ -703,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const table = await fetchGoogleSheetGViz(carrera.drive_id);
-            const docentes = parseGVizCareerTable(carreraKey, table);
+            const docentes = parseUnifiedCareerTable(carreraKey, table);
 
             if (!docentes || docentes.length === 0) {
                 throw new Error("No se encontraron docentes en la hoja");
@@ -765,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 10. Botones de Sincronización & Reintento
+    // 11. Botones de Sincronización & Reintento
     // ==========================================================================
     if (btnSyncDrive) {
         btnSyncDrive.addEventListener('click', () => {
@@ -780,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 11. Arranque Inicial: Conexión 100% en Vivo con Google Drive
+    // 12. Arranque Inicial: Conexión 100% en Vivo con Google Drive
     // ==========================================================================
     // 1) Cargar primero y de forma exclusiva la carrera activa (Sistemas DAISI)
     switchCarrera('DAISI');
