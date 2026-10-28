@@ -130,12 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join(' ');
     }
 
-    function getTeacherInitials(name) {
-        if (!name) return 'D';
-        const words = name.trim().split(/\s+/).filter(Boolean);
-        if (words.length === 1) return words[0].charAt(0).toUpperCase();
-        return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
-    }
 
     // ==========================================================================
     // 3. Gestión de Tema (Oscuro / Claro)
@@ -374,24 +368,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderDocenteCard(doc) {
         const grado = doc.grado || 'Docente';
         const gradoClass = getGradoBadgeClass(grado);
-        const avatarClass = getGradoAvatarClass(grado);
         const cleanName = doc.docente;
-        const initials = getTeacherInitials(cleanName);
         const scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(cleanName + ' UNSA')}`;
 
         return `
         <div class="docente-card glass-panel">
             <div class="docente-card-top">
-                <div class="docente-avatar-box ${avatarClass}">
-                    <span>${escapeHtml(initials)}</span>
+                <div class="docente-meta-row">
+                    <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
                 </div>
-                <div class="docente-info">
-                    <div class="docente-meta-row">
-                        <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
-                        ${doc.num ? `<span class="docente-num-badge">N° ${escapeHtml(doc.num)}</span>` : ''}
-                    </div>
-                    <h4 class="docente-name" title="${escapeHtml(cleanName)}">${escapeHtml(cleanName)}</h4>
-                </div>
+                <h4 class="docente-name" title="${escapeHtml(cleanName)}">${escapeHtml(cleanName)}</h4>
             </div>
 
             <div class="docente-card-footer">
@@ -413,14 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (g.includes('MG') || g.includes('MAG')) return 'badge-mg';
         if (g.includes('ING')) return 'badge-ing';
         return 'badge-default';
-    }
-
-    function getGradoAvatarClass(grado) {
-        const g = (grado || '').toUpperCase();
-        if (g.includes('DR') || g.includes('DRA')) return 'avatar-dr';
-        if (g.includes('MG') || g.includes('MAG')) return 'avatar-mg';
-        if (g.includes('ING')) return 'avatar-ing';
-        return 'avatar-default';
     }
 
     function escapeHtml(str) {

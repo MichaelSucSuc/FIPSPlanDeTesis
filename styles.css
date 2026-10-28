@@ -2647,95 +2647,24 @@ button {
 
 .docente-card-top {
     display: flex;
-    align-items: flex-start;
-    gap: 0.95rem;
-}
-
-.docente-avatar-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-family: var(--font-heading);
-    font-size: 0.96rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    user-select: none;
-    transition: transform var(--transition-fast);
-}
-
-.docente-card:hover .docente-avatar-box {
-    transform: scale(1.05);
-}
-
-.avatar-dr {
-    background: rgba(139, 0, 0, 0.08);
-    color: var(--color-primary);
-    border: 1px solid rgba(139, 0, 0, 0.22);
-}
-
-[data-theme="dark"] .avatar-dr {
-    background: rgba(239, 68, 68, 0.16);
-    color: #fca5a5;
-    border-color: rgba(239, 68, 68, 0.35);
-}
-
-.avatar-mg {
-    background: rgba(37, 99, 235, 0.08);
-    color: #2563eb;
-    border: 1px solid rgba(37, 99, 235, 0.22);
-}
-
-[data-theme="dark"] .avatar-mg {
-    background: rgba(59, 130, 246, 0.16);
-    color: #93c5fd;
-    border-color: rgba(59, 130, 246, 0.35);
-}
-
-.avatar-ing {
-    background: rgba(16, 185, 129, 0.08);
-    color: #059669;
-    border: 1px solid rgba(16, 185, 129, 0.22);
-}
-
-[data-theme="dark"] .avatar-ing {
-    background: rgba(16, 185, 129, 0.16);
-    color: #6ee7b7;
-    border-color: rgba(16, 185, 129, 0.35);
-}
-
-.avatar-default {
-    background: rgba(100, 116, 139, 0.08);
-    color: var(--color-text-muted);
-    border: 1px solid rgba(100, 116, 139, 0.22);
-}
-
-.docente-info {
-    display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    min-width: 0;
-    flex: 1;
+    gap: 0.55rem;
 }
 
 .docente-meta-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
     align-items: center;
 }
 
 .grado-badge {
     font-size: 0.72rem;
     font-weight: 800;
-    padding: 0.14rem 0.52rem;
+    padding: 0.16rem 0.55rem;
     border-radius: var(--radius-sm);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     line-height: 1.2;
+    display: inline-block;
 }
 
 .badge-dr {
@@ -2774,17 +2703,6 @@ button {
 .badge-default {
     background: rgba(148, 163, 184, 0.15);
     color: var(--color-text-muted);
-}
-
-.docente-num-badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--color-text-muted);
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    padding: 0.1rem 0.45rem;
-    border-radius: var(--radius-full);
-    letter-spacing: 0.02em;
 }
 
 .docente-name {
