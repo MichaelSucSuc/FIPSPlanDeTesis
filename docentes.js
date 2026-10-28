@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería de Sistemas',
             depto: 'Departamento Académico de Ingeniería de Sistemas e Informática',
             icon: 'laptop',
-            drive_id: '1LnJ_XgzQfcZi3gHHOCN61ThnkmYgD7LKtXT1ARD64B0',
-            drive_url: 'https://docs.google.com/spreadsheets/d/1LnJ_XgzQfcZi3gHHOCN61ThnkmYgD7LKtXT1ARD64B0/edit?usp=sharing',
+            drive_id: '1mm4t1oeJZbbQAz-5srWMO094Agcp_B0eNNYQjGeBRuY',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1mm4t1oeJZbbQAz-5srWMO094Agcp_B0eNNYQjGeBRuY/edit?usp=sharing',
             docentes: null
         },
         DAII: {
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Industrial',
             depto: 'Departamento Académico de Ingeniería Industrial',
             icon: 'factory',
-            drive_id: '1z6kWRxgaT40pNSaUOb9GRRNlLRVsra8uFyooznEuZ1U',
-            drive_url: 'https://docs.google.com/spreadsheets/d/1z6kWRxgaT40pNSaUOb9GRRNlLRVsra8uFyooznEuZ1U/edit?usp=sharing',
+            drive_id: '18lY89v-LqzC-jwuRbbG_1NpuPtNuAgPiRM525MatIwA',
+            drive_url: 'https://docs.google.com/spreadsheets/d/18lY89v-LqzC-jwuRbbG_1NpuPtNuAgPiRM525MatIwA/edit?usp=sharing',
             docentes: null
         },
         DAIE: {
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Electrónica',
             depto: 'Departamento Académico de Ingeniería Electrónica',
             icon: 'cpu',
-            drive_id: '1FGs4n3ioVhXAKKeY4Kw1625Af2qa_GjWqJXdJBB994c',
-            drive_url: 'https://docs.google.com/spreadsheets/d/1FGs4n3ioVhXAKKeY4Kw1625Af2qa_GjWqJXdJBB994c/edit?usp=sharing',
+            drive_id: '1Aq8Em6RPryg4OkMj4nbnRN_iMvcz0tUNwha559QktFc',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1Aq8Em6RPryg4OkMj4nbnRN_iMvcz0tUNwha559QktFc/edit?usp=sharing',
             docentes: null
         },
         DAIEL: {
@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Eléctrica',
             depto: 'Departamento Académico de Ingeniería Eléctrica',
             icon: 'zap',
-            drive_id: '1sxJ53ZQy-ZbU_ME7kUZUFFsHCh4tl9r_8BMHZcTcnZU',
-            drive_url: 'https://docs.google.com/spreadsheets/d/1sxJ53ZQy-ZbU_ME7kUZUFFsHCh4tl9r_8BMHZcTcnZU/edit?usp=sharing',
+            drive_id: '1vVXsedy4u2NzkazNT-Lf4sOB9AKzZ6XK2tWs2bKsvbM',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1vVXsedy4u2NzkazNT-Lf4sOB9AKzZ6XK2tWs2bKsvbM/edit?usp=sharing',
             docentes: null
         },
         DAIME: {
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Ingeniería Mecánica',
             depto: 'Departamento Académico de Ingeniería Mecánica',
             icon: 'cog',
-            drive_id: '1WKKLwITbHF63VnGZ6CPFiDH10BWj1LRTmAYQWYdDWZQ',
-            drive_url: 'https://docs.google.com/spreadsheets/d/1WKKLwITbHF63VnGZ6CPFiDH10BWj1LRTmAYQWYdDWZQ/edit?usp=sharing',
+            drive_id: '1cq2fxtjHvYkJydFDexPswKomXQeefZHXvwztGUmg8D4',
+            drive_url: 'https://docs.google.com/spreadsheets/d/1cq2fxtjHvYkJydFDexPswKomXQeefZHXvwztGUmg8D4/edit?usp=sharing',
             docentes: null
         }
     };
