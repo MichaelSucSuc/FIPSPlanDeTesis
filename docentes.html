@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docentes y Líneas de Investigación | FIPS - UNSA</title>
+    <meta name="description" content="Directorio interactivo de docentes adscritos y líneas de investigación oficiales de las 5 escuelas profesionales de la FIPS - UNSA en vivo desde Google Drive.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Favicon (University Shield Logo) -->
+    <link rel="icon" type="image/png" href="Logos/LogoUnsaSquare.png">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-container">
+            <a href="index.html" class="logo-area" title="Volver a la Guía Principal">
+                <img src="Logos/LogoUnsaFIPS.png" alt="UNSA FIPS Logo" class="logo-img">
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <i data-lucide="arrow-left" class="nav-icon-sm"></i> Volver a la Guía
+                </a>
+                <a href="#directorio" class="nav-link active">Directorio de Docentes</a>
+                <a href="https://drive.google.com/drive/folders/1DgQ1kDeZg3ID4k91Mll_yl5dmZwnxGFd?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link nav-link-special">
+                    <i data-lucide="folder-open" class="nav-icon-sm"></i> Carpeta Drive
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Alternar tema claro/oscuro">
+                    <i data-lucide="moon" class="toggle-icon-moon"></i>
+                    <i data-lucide="sun" class="toggle-icon-sun"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="docentes-main-content">
+        <!-- Hero Header -->
+        <section class="docentes-hero-section">
+            <div class="container text-center">
+                <div class="hero-badge animate-fade-in">
+                    <span class="badge-dot"></span>
+                    <span>Paso 00 · Fundamento Previo de Investigación</span>
+                </div>
+                <h1 class="docentes-hero-title animate-slide-up">
+                    Docentes & Líneas de Investigación <span class="gradient-text">FIPS 2025</span>
+                </h1>
+                <p class="docentes-hero-subtitle animate-slide-up">
+                    Consulta en vivo los docentes adscritos y las líneas de investigación oficiales aprobadas para tu plan de tesis, sincronizados directamente con las hojas de cálculo oficiales de Google Drive.
+                </p>
+
+                <div class="docentes-hero-actions">
+                    <a href="https://drive.google.com/drive/folders/1DgQ1kDeZg3ID4k91Mll_yl5dmZwnxGFd?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Abrir carpeta compartida en Google Drive">
+                        <i data-lucide="cloud"></i>
+                        <span>Ver Excels en Google Drive</span>
+                        <i data-lucide="external-link"></i>
+                    </a>
+                    <button id="btnSyncDrive" class="btn btn-outline-glass btn-sm" title="Reconsultar archivos en la nube">
+                        <i data-lucide="refresh-cw" id="syncIcon"></i>
+                        <span id="syncText">Sincronizar en Vivo</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Directory Section -->
+        <section class="docentes-directory-section" id="directorio">
+            <div class="container">
+                
+                <!-- 5 Career Selector Buttons -->
+                <div class="career-tabs-wrapper">
+                    <div class="career-tabs-header">
+                        <span class="section-tag"><i data-lucide="graduation-cap"></i> Escuelas Profesionales FIPS</span>
+                        <span class="career-hint">Haz clic en una carrera para consultar sus docentes en vivo</span>
+                    </div>
+                    <div class="career-tabs-grid" id="careerTabsContainer">
+                        <!-- Button 1: Sistemas -->
+                        <button class="career-tab-card active" data-carrera="DAISI">
+                            <div class="tab-icon-box icon-sistemas">
+                                <i data-lucide="laptop"></i>
+                            </div>
+                            <div class="tab-info">
+                                <h3 class="tab-name">Ingeniería de Sistemas</h3>
+                                <span class="tab-depto">DAISI</span>
+                                <span class="tab-count-badge" id="badge-count-DAISI">Cargando...</span>
+                            </div>
+                        </button>
+
+                        <!-- Button 2: Industrial -->
+                        <button class="career-tab-card" data-carrera="DAII">
+                            <div class="tab-icon-box icon-industrial">
+                                <i data-lucide="factory"></i>
+                            </div>
+                            <div class="tab-info">
+                                <h3 class="tab-name">Ingeniería Industrial</h3>
+                                <span class="tab-depto">DAII</span>
+                                <span class="tab-count-badge" id="badge-count-DAII">Cargando...</span>
+                            </div>
+                        </button>
+
+                        <!-- Button 3: Electrónica -->
+                        <button class="career-tab-card" data-carrera="DAIE">
+                            <div class="tab-icon-box icon-electronica">
+                                <i data-lucide="cpu"></i>
+                            </div>
+                            <div class="tab-info">
+                                <h3 class="tab-name">Ingeniería Electrónica</h3>
+                                <span class="tab-depto">DAIE</span>
+                                <span class="tab-count-badge" id="badge-count-DAIE">Cargando...</span>
+                            </div>
+                        </button>
+
+                        <!-- Button 4: Eléctrica -->
+                        <button class="career-tab-card" data-carrera="DAIEL">
+                            <div class="tab-icon-box icon-electrica">
+                                <i data-lucide="zap"></i>
+                            </div>
+                            <div class="tab-info">
+                                <h3 class="tab-name">Ingeniería Eléctrica</h3>
+                                <span class="tab-depto">DAIEL</span>
+                                <span class="tab-count-badge" id="badge-count-DAIEL">Cargando...</span>
+                            </div>
+                        </button>
+
+                        <!-- Button 5: Mecánica -->
+                        <button class="career-tab-card" data-carrera="DAIME">
+                            <div class="tab-icon-box icon-mecanica">
+                                <i data-lucide="cog"></i>
+                            </div>
+                            <div class="tab-info">
+                                <h3 class="tab-name">Ingeniería Mecánica</h3>
+                                <span class="tab-depto">DAIME</span>
+                                <span class="tab-count-badge" id="badge-count-DAIME">Cargando...</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Career Header Banner -->
+                <div class="career-banner" id="careerBanner">
+                    <div class="career-banner-left">
+                        <div class="career-banner-icon" id="bannerIcon">
+                            <i data-lucide="laptop"></i>
+                        </div>
+                        <div>
+                            <span class="career-banner-subtitle" id="bannerDepto">Departamento Académico de Ingeniería de Sistemas e Informática</span>
+                            <h2 class="career-banner-title" id="bannerTitle">Ingeniería de Sistemas</h2>
+                        </div>
+                    </div>
+                    <div class="career-banner-right">
+                        <a href="https://drive.google.com/file/d/1S4ss9Qzk36JsUynJutjDDgZoiQvIkXrN/view?usp=sharing" id="bannerDriveLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Abrir Excel de esta carrera en Google Drive">
+                            <i data-lucide="file-spreadsheet"></i>
+                            <span>Abrir Excel en Drive</span>
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive Filters Bar -->
+                <div class="docentes-toolbar glass-panel">
+                    <div class="search-input-wrapper">
+                        <i data-lucide="search" class="toolbar-search-icon"></i>
+                        <input type="text" id="docentesSearchInput" placeholder="Buscar por nombre de docente, grado académico o línea..." class="toolbar-search-input" aria-label="Buscar docentes">
+                        <button id="btnClearDocSearch" class="toolbar-clear-btn" aria-label="Limpiar búsqueda" style="display: none;">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-filter-select-wrapper">
+                        <i data-lucide="filter" class="toolbar-filter-icon"></i>
+                        <select id="lineFilterSelect" class="toolbar-select" aria-label="Filtrar por línea de investigación">
+                            <option value="all">Todas las Líneas de Investigación</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-stats-pill" id="toolbarStats">
+                        <span id="statsDocCount">0</span> docentes encontrados
+                    </div>
+                </div>
+
+                <!-- Loading State (En Vivo desde Google Drive) -->
+                <div class="docentes-loading-state" id="docentesLoadingState" style="text-align: center; padding: 4rem 1rem;">
+                    <div class="loading-spinner-circle" style="width: 44px; height: 44px; border: 4px solid rgba(212, 175, 55, 0.2); border-top-color: var(--color-accent-gold); border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 1.25rem;"></div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--color-text);">Conectando con Google Drive en vivo...</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.92rem; max-width: 480px; margin: 0.4rem auto 0;">Obteniendo los docentes y líneas de investigación oficiales directamente desde la nube.</p>
+                </div>
+
+                <!-- Error / Fallback State (Si no carga el en vivo) -->
+                <div class="docentes-error-state" id="docentesErrorState" style="display: none; text-align: center; padding: 3rem 1.5rem; background: var(--color-bg-alt); border: 2px dashed rgba(239, 68, 68, 0.4); border-radius: var(--radius-lg); margin-top: 1.5rem;">
+                    <div style="width: 56px; height: 56px; background: rgba(239, 68, 68, 0.12); color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.6rem;">
+                        <i data-lucide="cloud-off"></i>
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.4rem;">No se pudo conectar con Google Drive</h3>
+                    <p style="color: var(--color-text-muted); font-size: 0.92rem; max-width: 520px; margin: 0 auto 1.5rem; line-height: 1.5;">
+                        La hoja de cálculo no pudo descargarse en vivo. Pero puedes abrir y consultar el archivo oficial directamente en Google Drive:
+                    </p>
+                    <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
+                        <a id="btnErrorDriveFile" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: var(--color-primary); color: #ffffff; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border-radius: var(--radius-md); text-decoration: none;">
+                            <i data-lucide="external-link"></i>
+                            <span>Abrir Excel en Google Drive</span>
+                        </a>
+                        <a href="https://drive.google.com/drive/folders/1DgQ1kDeZg3ID4k91Mll_yl5dmZwnxGFd?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border-radius: var(--radius-md); text-decoration: none;">
+                            <i data-lucide="folder-open"></i>
+                            <span>Abrir Carpeta Completa</span>
+                        </a>
+                        <button id="btnRetrySync" class="btn btn-secondary" style="font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem; border-radius: var(--radius-md);">
+                            <i data-lucide="refresh-cw"></i>
+                            <span>Reintentar en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Stage -->
+                <div class="docentes-results-container" id="docentesResultsContainer" style="display: none;">
+                    <!-- Dynamic groups rendered here -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-search-state" id="emptyDocState" style="display: none;">
+                    <i data-lucide="users" class="empty-icon"></i>
+                    <h3>No se encontraron docentes con ese criterio</h3>
+                    <p>Intenta buscando solo por apellido, grado ("Dr.", "Mg.") o selecciona "Todas las Líneas de Investigación".</p>
+                    <button class="btn btn-secondary btn-sm" id="btnResetDocFilter">Restaurar filtros</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-col brand-col">
+                <img src="Logos/LogoUnsaFIPS.png" alt="UNSA FIPS Logo" class="footer-logo">
+                <p class="footer-desc">Directorio oficial de docentes y líneas de investigación para la formulación del Plan de Tesis en la FIPS - Universidad Nacional de San Agustín de Arequipa. Conectado en vivo con Google Drive.</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Facultad de Ingeniería de Producción y Servicios - UNSA. Sincronizado en vivo con Google Drive.</p>
+                <div class="footer-links-quick">
+                    <a href="index.html">Guía de Plan de Tesis</a> · 
+                    <a href="https://drive.google.com/drive/folders/1DgQ1kDeZg3ID4k91Mll_yl5dmZwnxGFd?usp=sharing" target="_blank" rel="noopener noreferrer">Carpeta Drive</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-notification"></div>
+
+    <!-- Scripts -->
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- SheetJS CDN (optional helper for Excel formats) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Docentes Live Controller (Zero local data - 100% Google Drive) -->
+    <script src="docentes.js"></script>
+</body>
+</html>

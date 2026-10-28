@@ -2122,3 +2122,748 @@ button {
     font-size: 1rem;
 }
 
+
+
+/* ==========================================================================
+   PASO 00: DOCENTES & LÍNEAS DE INVESTIGACIÓN FIPS
+   ========================================================================== */
+.step-node-zero .node-circle-zero {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent)) !important;
+    color: #ffffff !important;
+    border-color: var(--color-accent-gold) !important;
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+}
+
+.badge-zero {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: #ffffff !important;
+    font-weight: 800;
+}
+
+.icon-zero {
+    background: rgba(212, 175, 55, 0.15) !important;
+    color: var(--color-accent-gold) !important;
+    border: 1px solid var(--color-accent-gold) !important;
+}
+
+.card-step-zero {
+    border: 2px solid var(--color-accent-gold) !important;
+    background: linear-gradient(135deg, var(--color-bg-alt), rgba(212, 175, 55, 0.05)) !important;
+    grid-column: 1 / -1; /* spans full width in the structure grid */
+}
+
+.card-action-box {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed var(--color-border);
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-docentes-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.6rem;
+    font-weight: 700;
+    font-size: 0.98rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(139, 0, 0, 0.25);
+    transition: all var(--transition-fast);
+}
+
+.btn-docentes-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(139, 0, 0, 0.35);
+}
+
+.nav-link-special {
+    background: rgba(139, 0, 0, 0.1);
+    color: var(--color-primary) !important;
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.8rem !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+[data-theme="dark"] .nav-link-special {
+    background: rgba(165, 42, 42, 0.2);
+    color: #ffa4a4 !important;
+    border-color: rgba(165, 42, 42, 0.4);
+}
+
+.nav-icon-sm {
+    width: 16px;
+    height: 16px;
+}
+
+/* ==========================================================================
+   DIRECTORIO DE DOCENTES PAGE (docentes.html)
+   ========================================================================== */
+.docentes-main-content {
+    padding-top: 72px; /* space for fixed header */
+    min-height: 80vh;
+}
+
+.docentes-hero-section {
+    padding: 3.5rem 1.5rem 2rem;
+    background: radial-gradient(circle at 50% 20%, rgba(139, 0, 0, 0.08) 0%, transparent 70%);
+}
+
+.docentes-hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--color-text);
+    margin: 1rem 0;
+    letter-spacing: -0.025em;
+}
+
+.docentes-hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin: 0 auto 1.8rem;
+    line-height: 1.6;
+}
+
+.docentes-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+}
+
+.btn-outline-glass {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+}
+
+.btn-outline-glass:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* 5 Career Tabs Selector */
+.career-tabs-wrapper {
+    margin: 2rem 0 1.5rem;
+}
+
+.career-tabs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.career-hint {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.career-tabs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.career-tab-card {
+    background: var(--color-bg-alt);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.career-tab-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.career-tab-card.active {
+    border-color: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-bg-alt), rgba(139, 0, 0, 0.05));
+    box-shadow: 0 4px 18px rgba(139, 0, 0, 0.18);
+}
+
+.career-tab-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: var(--color-primary);
+}
+
+.tab-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.career-tab-card:hover .tab-icon-box {
+    transform: scale(1.08);
+}
+
+.icon-sistemas { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.icon-industrial { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.icon-electronica { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+.icon-electrica { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.icon-mecanica { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+.tab-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.tab-name {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+}
+
+.tab-depto {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.tab-count-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    background: rgba(139, 0, 0, 0.08);
+    color: var(--color-primary);
+    margin-top: 0.35rem;
+    width: fit-content;
+}
+
+[data-theme="dark"] .tab-count-badge {
+    background: rgba(165, 42, 42, 0.2);
+    color: #ffa4a4;
+}
+
+/* Career Banner */
+.career-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.8rem;
+    margin: 1.5rem 0;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+}
+
+.career-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.career-banner-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: rgba(139, 0, 0, 0.1);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.career-banner-subtitle {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+}
+
+.career-banner-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-text);
+    margin: 0;
+}
+
+/* Toolbar */
+.docentes-toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.2rem 1.4rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.toolbar-search-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-muted);
+    pointer-events: none;
+}
+
+.toolbar-search-input {
+    width: 100%;
+    padding: 0.75rem 2.4rem 0.75rem 2.6rem;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.toolbar-search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+}
+
+.toolbar-clear-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.toolbar-clear-btn:hover {
+    color: var(--color-primary);
+}
+
+.toolbar-filter-select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-filter-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-muted);
+    pointer-events: none;
+}
+
+.toolbar-select {
+    padding: 0.75rem 1rem 0.75rem 2.3rem;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+    max-width: 420px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.toolbar-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.15);
+}
+
+.toolbar-select option {
+    background: var(--color-bg-card, #ffffff);
+    color: var(--color-text, #1a1a1a);
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+[data-theme="dark"] .toolbar-select option {
+    background: #1e1e24;
+    color: #e2e8f0;
+}
+
+.toolbar-stats-pill {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    padding: 0.5rem 0.9rem;
+    background: var(--color-bg);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+}
+
+.toolbar-stats-pill span {
+    color: var(--color-primary);
+    font-weight: 800;
+}
+
+/* Line Groups */
+.linea-group-block {
+    margin-bottom: 2.8rem;
+}
+
+.linea-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid var(--color-border);
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.linea-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.linea-icon {
+    color: var(--color-primary);
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.linea-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.linea-count-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-full);
+    background: rgba(139, 0, 0, 0.08);
+    color: var(--color-primary);
+    border: 1px solid rgba(139, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .linea-count-tag {
+    background: rgba(165, 42, 42, 0.2);
+    color: #ffa4a4;
+    border-color: rgba(165, 42, 42, 0.3);
+}
+
+/* Cards Grid */
+.docentes-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.2rem;
+}
+
+.docente-card {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all var(--transition-fast);
+    position: relative;
+    box-shadow: var(--shadow-sm);
+}
+
+.docente-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.docente-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 0.9rem;
+}
+
+.docente-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background: rgba(139, 0, 0, 0.08);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.docente-title-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.docente-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.grado-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.badge-dr {
+    background: rgba(139, 0, 0, 0.12);
+    color: var(--color-primary);
+    border: 1px solid rgba(139, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .badge-dr {
+    background: rgba(165, 42, 42, 0.25);
+    color: #ffa4a4;
+}
+
+.badge-mg {
+    background: rgba(59, 130, 246, 0.12);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+[data-theme="dark"] .badge-mg {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+}
+
+.badge-ing {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+[data-theme="dark"] .badge-ing {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+}
+
+.badge-default {
+    background: rgba(148, 163, 184, 0.15);
+    color: var(--color-text-muted);
+}
+
+.tag-condicion, .tag-categoria, .tag-regimen {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+.docente-name {
+    font-family: var(--font-heading);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.3;
+    margin: 0;
+    word-break: break-word;
+}
+
+.docente-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.8rem 0 1.1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--color-border);
+}
+
+.docente-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+.detail-icon {
+    width: 15px;
+    height: 15px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.detail-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.area-item {
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.docente-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.btn-doc-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 0.7rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-doc-action i {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-doc-action:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(139, 0, 0, 0.06);
+}
+
+.btn-scholar:hover {
+    color: #2563eb;
+    border-color: #2563eb;
+    background: rgba(37, 99, 235, 0.08);
+}
+
+/* Toast */
+.toast-notification {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--color-secondary);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.8rem 1.6rem;
+    border-radius: var(--radius-full);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    opacity: 0;
+    transition: all var(--transition-normal);
+    pointer-events: none;
+}
+
+.toast-notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Docentes */
+@media (max-width: 900px) {
+    .docentes-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar-select {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .career-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

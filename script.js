@@ -351,7 +351,7 @@ function initRoadmapSync() {
 
     // Scroll tracker to sync active timeline states
     window.addEventListener('scroll', () => {
-        let currentStep = 1;
+        let currentStep = 0;
         const triggerPoint = window.innerHeight / 2;
 
         cards.forEach(card => {
@@ -373,7 +373,7 @@ function initRoadmapSync() {
 
         // Update progress line length (0% at first circle center, 100% at last circle center)
         if (progress) {
-            const percent = ((currentStep - 1) / (nodes.length - 1)) * 100;
+            const percent = Math.max(0, Math.min(100, (currentStep / (nodes.length - 1)) * 100));
             progress.style.width = `${percent}%`;
         }
 
