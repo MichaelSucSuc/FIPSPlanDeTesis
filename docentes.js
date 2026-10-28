@@ -168,8 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const bannerDriveLink = document.getElementById('bannerDriveLink');
     const searchInput = document.getElementById('docentesSearchInput');
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
-    const degreePillsContainer = document.getElementById('degreePillsContainer');
-    const linesChipsContainer = document.getElementById('linesChipsContainer');
+    const lineDropdownWrapper = document.getElementById('lineDropdownWrapper');
+    const lineDropdownBtn = document.getElementById('lineDropdownBtn');
+    const lineDropdownSelectedText = document.getElementById('lineDropdownSelectedText');
+    const lineDropdownMenu = document.getElementById('lineDropdownMenu');
+    const gradoDropdownWrapper = document.getElementById('gradoDropdownWrapper');
+    const gradoDropdownBtn = document.getElementById('gradoDropdownBtn');
+    const gradoDropdownSelectedText = document.getElementById('gradoDropdownSelectedText');
+    const gradoDropdownMenu = document.getElementById('gradoDropdownMenu');
     const statsDocCount = document.getElementById('statsDocCount');
     const loadingState = document.getElementById('docentesLoadingState');
     const errorState = document.getElementById('docentesErrorState');
@@ -207,11 +213,31 @@ document.addEventListener('DOMContentLoaded', () => {
             if (clearSearchBtn) clearSearchBtn.style.display = 'none';
         }
 
-        // Restaurar estado visual de los botones de grado
-        if (degreePillsContainer) {
-            degreePillsContainer.querySelectorAll('.degree-pill').forEach(p => {
+        // Restaurar estado visual de los desplegables
+        if (lineDropdownSelectedText) {
+            lineDropdownSelectedText.textContent = 'Todas las Líneas de Investigación';
+        }
+        if (lineDropdownMenu) {
+            lineDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(i => {
+                i.classList.toggle('active', i.getAttribute('data-line') === 'all');
+            });
+        }
+        if (lineDropdownWrapper) {
+            lineDropdownWrapper.classList.remove('open');
+            if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        if (gradoDropdownSelectedText) {
+            gradoDropdownSelectedText.textContent = 'Todos los Grados';
+        }
+        if (gradoDropdownMenu) {
+            gradoDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(p => {
                 p.classList.toggle('active', p.getAttribute('data-grado') === 'all');
             });
+        }
+        if (gradoDropdownWrapper) {
+            gradoDropdownWrapper.classList.remove('open');
+            if (gradoDropdownBtn) gradoDropdownBtn.setAttribute('aria-expanded', 'false');
         }
 
         // Actualizar pestañas activas
@@ -237,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si ya fueron descargados los docentes de esta carrera, renderizar de inmediato
         if (data && data.docentes && data.docentes.length > 0) {
             showResults();
-            populateLineChips();
+            populateLineDropdown();
             renderDocentes();
         } else {
             // Cargar en vivo desde Google Drive (prioritario)
@@ -270,10 +296,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 6. Población del Filtro de Líneas (Chips Interactivos Horizontales)
+    // 6. Población del Desplegable Moderno de Líneas de Investigación
     // ==========================================================================
-    function populateLineChips() {
-        if (!linesChipsContainer) return;
+    function populateLineDropdown() {
+        if (!lineDropdownMenu) return;
         const data = FIPS_CARRERAS[currentCarreraKey];
         if (!data || !data.docentes) return;
 
@@ -292,25 +318,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let html = `
-            <button type="button" class="line-chip ${selectedLine === 'all' ? 'active' : ''}" data-line="all">
-                <i data-lucide="layers" class="chip-icon"></i>
-                <span class="chip-text">Todas las Líneas</span>
-                <span class="chip-badge">${data.docentes.length}</span>
-            </button>
+            <div class="custom-dropdown-item ${selectedLine === 'all' ? 'active' : ''}" data-line="all" data-label="Todas las Líneas de Investigación" role="option">
+                <i data-lucide="layers" class="item-icon"></i>
+                <span class="item-text">Todas las Líneas de Investigación</span>
+                <span class="item-badge">${data.docentes.length} docentes</span>
+            </div>
         `;
 
         linesArray.forEach(lineName => {
             const count = data.docentes.filter(d => d.linea === lineName).length;
             const isActive = (selectedLine === lineName);
             html += `
-            <button type="button" class="line-chip ${isActive ? 'active' : ''}" data-line="${escapeHtml(lineName)}" title="${escapeHtml(lineName)}">
-                <span class="chip-text">${escapeHtml(lineName)}</span>
-                <span class="chip-badge">${count}</span>
-            </button>
+            <div class="custom-dropdown-item ${isActive ? 'active' : ''}" data-line="${escapeHtml(lineName)}" data-label="${escapeHtml(lineName)}" role="option" title="${escapeHtml(lineName)}">
+                <i data-lucide="compass" class="item-icon"></i>
+                <span class="item-text">${escapeHtml(lineName)}</span>
+                <span class="item-badge">${count}</span>
+            </div>
             `;
         });
 
-        linesChipsContainer.innerHTML = html;
+        lineDropdownMenu.innerHTML = html;
         if (window.lucide) {
             lucide.createIcons();
         }
@@ -480,33 +507,88 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (linesChipsContainer) {
-        linesChipsContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('.line-chip');
-            if (!btn) return;
-            const line = btn.getAttribute('data-line');
-            if (line) {
-                selectedLine = line;
-                linesChipsContainer.querySelectorAll('.line-chip').forEach(c => {
-                    c.classList.toggle('active', c.getAttribute('data-line') === line);
-                });
-                renderDocentes();
+    // Toggle dropdown de Líneas
+    if (lineDropdownBtn && lineDropdownWrapper) {
+        lineDropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = lineDropdownWrapper.classList.contains('open');
+            if (gradoDropdownWrapper) {
+                gradoDropdownWrapper.classList.remove('open');
+                if (gradoDropdownBtn) gradoDropdownBtn.setAttribute('aria-expanded', 'false');
             }
+            lineDropdownWrapper.classList.toggle('open', !isOpen);
+            lineDropdownBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
         });
     }
 
-    if (degreePillsContainer) {
-        degreePillsContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('.degree-pill');
-            if (!btn) return;
-            const grado = btn.getAttribute('data-grado');
-            if (grado) {
-                selectedGrado = grado;
-                degreePillsContainer.querySelectorAll('.degree-pill').forEach(p => {
-                    p.classList.toggle('active', p.getAttribute('data-grado') === grado);
-                });
-                renderDocentes();
+    // Toggle dropdown de Grados
+    if (gradoDropdownBtn && gradoDropdownWrapper) {
+        gradoDropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = gradoDropdownWrapper.classList.contains('open');
+            if (lineDropdownWrapper) {
+                lineDropdownWrapper.classList.remove('open');
+                if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
             }
+            gradoDropdownWrapper.classList.toggle('open', !isOpen);
+            gradoDropdownBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        });
+    }
+
+    // Cerrar desplegables al hacer clic fuera
+    document.addEventListener('click', (e) => {
+        if (lineDropdownWrapper && !lineDropdownWrapper.contains(e.target)) {
+            lineDropdownWrapper.classList.remove('open');
+            if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
+        }
+        if (gradoDropdownWrapper && !gradoDropdownWrapper.contains(e.target)) {
+            gradoDropdownWrapper.classList.remove('open');
+            if (gradoDropdownBtn) gradoDropdownBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Selección en desplegable de Líneas
+    if (lineDropdownMenu) {
+        lineDropdownMenu.addEventListener('click', (e) => {
+            const item = e.target.closest('.custom-dropdown-item');
+            if (!item) return;
+            const line = item.getAttribute('data-line') || 'all';
+            const label = item.getAttribute('data-label') || 'Todas las Líneas de Investigación';
+            selectedLine = line;
+            if (lineDropdownSelectedText) {
+                lineDropdownSelectedText.textContent = label;
+            }
+            lineDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(i => {
+                i.classList.toggle('active', i.getAttribute('data-line') === line);
+            });
+            if (lineDropdownWrapper) {
+                lineDropdownWrapper.classList.remove('open');
+                if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
+            }
+            renderDocentes();
+        });
+    }
+
+    // Selección en desplegable de Grados
+    if (gradoDropdownMenu) {
+        gradoDropdownMenu.addEventListener('click', (e) => {
+            const item = e.target.closest('.custom-dropdown-item');
+            if (!item) return;
+            const grado = item.getAttribute('data-grado') || 'all';
+            selectedGrado = grado;
+            const textSpan = item.querySelector('span:not(.dot-indicator)');
+            const label = textSpan ? textSpan.textContent.trim() : 'Todos los Grados';
+            if (gradoDropdownSelectedText) {
+                gradoDropdownSelectedText.textContent = label;
+            }
+            gradoDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(p => {
+                p.classList.toggle('active', p.getAttribute('data-grado') === grado);
+            });
+            if (gradoDropdownWrapper) {
+                gradoDropdownWrapper.classList.remove('open');
+                if (gradoDropdownBtn) gradoDropdownBtn.setAttribute('aria-expanded', 'false');
+            }
+            renderDocentes();
         });
     }
 
@@ -519,14 +601,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchInput.value = '';
                 if (clearSearchBtn) clearSearchBtn.style.display = 'none';
             }
-            if (degreePillsContainer) {
-                degreePillsContainer.querySelectorAll('.degree-pill').forEach(p => {
-                    p.classList.toggle('active', p.getAttribute('data-grado') === 'all');
+            if (lineDropdownSelectedText) {
+                lineDropdownSelectedText.textContent = 'Todas las Líneas de Investigación';
+            }
+            if (lineDropdownMenu) {
+                lineDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(i => {
+                    i.classList.toggle('active', i.getAttribute('data-line') === 'all');
                 });
             }
-            if (linesChipsContainer) {
-                linesChipsContainer.querySelectorAll('.line-chip').forEach(c => {
-                    c.classList.toggle('active', c.getAttribute('data-line') === 'all');
+            if (gradoDropdownSelectedText) {
+                gradoDropdownSelectedText.textContent = 'Todos los Grados';
+            }
+            if (gradoDropdownMenu) {
+                gradoDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(p => {
+                    p.classList.toggle('active', p.getAttribute('data-grado') === 'all');
                 });
             }
             renderDocentes();
@@ -678,7 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si el usuario sigue en esta carrera, renderizar de inmediato
             if (currentCarreraKey === carreraKey) {
                 showResults();
-                populateLineChips();
+                populateLineDropdown();
                 renderDocentes();
             }
         } catch (err) {

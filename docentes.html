@@ -164,54 +164,65 @@
                     </div>
                 </div>
 
-                <!-- Modern Interactive Filters Hub (Didáctico & Anti-oficina) -->
-                <div class="docentes-filter-hub glass-panel">
-                    <!-- Top Search Bar & Counter -->
-                    <div class="filter-top-bar">
-                        <div class="search-input-modern-wrapper">
-                            <i data-lucide="search" class="search-icon-modern"></i>
-                            <input type="text" id="docentesSearchInput" placeholder="Buscar por docente, apellido o tema de tesis..." class="search-input-modern" aria-label="Buscar docentes">
-                            <button id="btnClearDocSearch" class="search-clear-modern" aria-label="Limpiar búsqueda" style="display: none;">
-                                <i data-lucide="x"></i>
-                            </button>
-                        </div>
-                        <div class="filter-stats-badge" id="toolbarStats">
-                            <i data-lucide="users"></i>
-                            <span><strong id="statsDocCount">0</strong> docentes activos</span>
+                <!-- Modern Toolbar with Sleek Custom Dropdowns (Desplegables Didácticos) -->
+                <div class="docentes-toolbar glass-panel">
+                    <!-- Search Input -->
+                    <div class="toolbar-search-wrapper">
+                        <i data-lucide="search" class="toolbar-search-icon"></i>
+                        <input type="text" id="docentesSearchInput" placeholder="Buscar por docente o tema de tesis..." class="toolbar-search-input" aria-label="Buscar docentes">
+                        <button id="btnClearDocSearch" class="toolbar-clear-btn" aria-label="Limpiar búsqueda" style="display: none;">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+
+                    <!-- Custom Dropdown: Línea de Investigación -->
+                    <div class="custom-dropdown-wrapper" id="lineDropdownWrapper">
+                        <button type="button" class="custom-dropdown-btn" id="lineDropdownBtn" aria-haspopup="listbox" aria-expanded="false" title="Filtrar por línea de investigación">
+                            <div class="dropdown-btn-content">
+                                <i data-lucide="compass" class="dropdown-btn-icon"></i>
+                                <span class="dropdown-btn-text" id="lineDropdownSelectedText">Todas las Líneas de Investigación</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="dropdown-btn-arrow"></i>
+                        </button>
+
+                        <div class="custom-dropdown-menu" id="lineDropdownMenu" role="listbox" aria-label="Líneas de investigación">
+                            <!-- Inyectado dinámicamente -->
                         </div>
                     </div>
 
-                    <!-- Degree Quick Filters (Didáctico: Identificar Asesores) -->
-                    <div class="filter-pills-section">
-                        <span class="filter-section-label">Filtrar por Grado Académico:</span>
-                        <div class="degree-pills-row" id="degreePillsContainer">
-                            <button type="button" class="degree-pill active" data-grado="all">
+                    <!-- Custom Dropdown: Grado Académico -->
+                    <div class="custom-dropdown-wrapper" id="gradoDropdownWrapper">
+                        <button type="button" class="custom-dropdown-btn" id="gradoDropdownBtn" aria-haspopup="listbox" aria-expanded="false" title="Filtrar por grado académico">
+                            <div class="dropdown-btn-content">
+                                <i data-lucide="graduation-cap" class="dropdown-btn-icon"></i>
+                                <span class="dropdown-btn-text" id="gradoDropdownSelectedText">Todos los Grados</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="dropdown-btn-arrow"></i>
+                        </button>
+
+                        <div class="custom-dropdown-menu" id="gradoDropdownMenu" role="listbox" aria-label="Grados académicos">
+                            <div class="custom-dropdown-item active" data-grado="all" role="option">
                                 <span>Todos los Grados</span>
-                            </button>
-                            <button type="button" class="degree-pill pill-dr" data-grado="dr">
+                            </div>
+                            <div class="custom-dropdown-item" data-grado="dr" role="option">
                                 <span class="dot-indicator dot-dr"></span>
                                 <span>Doctores (Dr./Dra.)</span>
-                            </button>
-                            <button type="button" class="degree-pill pill-mg" data-grado="mg">
+                            </div>
+                            <div class="custom-dropdown-item" data-grado="mg" role="option">
                                 <span class="dot-indicator dot-mg"></span>
                                 <span>Magísteres (Mg.)</span>
-                            </button>
-                            <button type="button" class="degree-pill pill-ing" data-grado="ing">
+                            </div>
+                            <div class="custom-dropdown-item" data-grado="ing" role="option">
                                 <span class="dot-indicator dot-ing"></span>
                                 <span>Ingenieros (Ing.)</span>
-                            </button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Research Lines Chips Bar (Explorador Horizontal Interactivo) -->
-                    <div class="filter-lines-section">
-                        <div class="filter-lines-header">
-                            <span class="filter-section-label">Líneas de Investigación Aprobadas:</span>
-                            <span class="filter-lines-hint">Haz clic en una línea para ver solo sus docentes</span>
-                        </div>
-                        <div class="lines-chips-wrapper" id="linesChipsContainer">
-                            <!-- Inyectado dinámicamente según la carrera -->
-                        </div>
+                    <!-- Live Counter Badge -->
+                    <div class="toolbar-stats-pill" id="toolbarStats">
+                        <i data-lucide="users"></i>
+                        <span><strong id="statsDocCount">0</strong> docentes</span>
                     </div>
                 </div>
 
