@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const PIXELS_PER_SECOND = 32; // Velocidad pausada (~32px/s)
     let lastFrameTime = performance.now();
     let currentScrollPos = 0;
-    let autoScrollPauseUntil = performance.now() + 2000;
+    let autoScrollPauseUntil = 0; // Moverse de inmediato desde el arranque inicial
     const gradoDropdownWrapper = document.getElementById('gradoDropdownWrapper');
     const gradoDropdownBtn = document.getElementById('gradoDropdownBtn');
     const gradoDropdownSelectedText = document.getElementById('gradoDropdownSelectedText');
@@ -401,10 +401,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return fallbacks[idx % fallbacks.length];
     }
 
-    function populateLineTabs() {
+    function populateLineTabs(preserveScroll = false) {
         if (!linesTabsContainer) return;
         const data = FIPS_CARRERAS[currentCarreraKey];
         if (!data || !data.docentes) return;
+
+        const savedScroll = preserveScroll ? currentScrollPos : 0;
 
         const linesSet = new Set();
         data.docentes.forEach(d => {
@@ -456,10 +458,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         linesTabsContainer.innerHTML = html;
-        linesTabsContainer.scrollLeft = 0;
-        currentScrollPos = 0;
-        autoScrollDirection = 1;
-        autoScrollPauseUntil = performance.now() + 1800; // Pausa inicial de 1.8s al cargar
+        if (preserveScroll && savedScroll > 0) {
+            linesTabsContainer.scrollLeft = savedScroll;
+            currentScrollPos = savedScroll;
+        } else {
+            linesTabsContainer.scrollLeft = 0;
+            currentScrollPos = 0;
+            autoScrollDirection = 1;
+        }
+        autoScrollPauseUntil = 0; // Moverse de inmediato sin pausas artificiales
         if (window.lucide) {
             lucide.createIcons();
         }
@@ -1021,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si el usuario sigue en esta carrera, renderizar de inmediato
             if (currentCarreraKey === carreraKey) {
                 showResults();
-                populateLineTabs();
+                populateLineTabs(true);
                 renderDocentes();
             }
         } catch (err) {
