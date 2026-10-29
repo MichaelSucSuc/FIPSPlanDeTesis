@@ -2483,8 +2483,7 @@ button {
     display: flex;
     gap: 1rem;
     overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
+    scroll-behavior: auto;
     padding: 0.4rem 0.25rem 0.85rem 0.25rem;
     scrollbar-width: none;
     -ms-overflow-style: none;

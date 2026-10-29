@@ -169,10 +169,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const liveStatusPill = document.getElementById('liveStatusPill');
     const searchInput = document.getElementById('docentesSearchInput');
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
+    const linesSectionWrapper = document.getElementById('linesSectionWrapper');
     const linesTabsContainer = document.getElementById('linesTabsContainer');
     const btnLinesCarouselPrev = document.getElementById('btnLinesCarouselPrev');
     const btnLinesCarouselNext = document.getElementById('btnLinesCarouselNext');
     const linesCarouselViewport = document.getElementById('linesCarouselViewport');
+
+    // Estado del Auto-Scroll Lento del Carrusel
+    let autoScrollId = null;
+    let isCarouselHovered = false;
+    let isCarouselDragging = false;
+    let autoScrollDirection = 1; // 1 = derecha, -1 = izquierda
+    const PIXELS_PER_SECOND = 32; // Velocidad pausada (~32px/s)
+    let lastFrameTime = performance.now();
+    let currentScrollPos = 0;
+    let autoScrollPauseUntil = performance.now() + 2000;
     const gradoDropdownWrapper = document.getElementById('gradoDropdownWrapper');
     const gradoDropdownBtn = document.getElementById('gradoDropdownBtn');
     const gradoDropdownSelectedText = document.getElementById('gradoDropdownSelectedText');
@@ -446,6 +457,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         linesTabsContainer.innerHTML = html;
         linesTabsContainer.scrollLeft = 0;
+        currentScrollPos = 0;
+        autoScrollDirection = 1;
+        autoScrollPauseUntil = performance.now() + 1800; // Pausa inicial de 1.8s al cargar
         if (window.lucide) {
             lucide.createIcons();
         }
@@ -634,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 8. Carrusel de Líneas de Investigación (Navegación & Drag)
+    // 8. Carrusel de Líneas de Investigación (Navegación, Auto-scroll Lento & Drag)
     // ==========================================================================
     function updateLinesCarouselButtons() {
         if (!linesTabsContainer || !btnLinesCarouselPrev || !btnLinesCarouselNext) return;
@@ -644,21 +658,96 @@ document.addEventListener('DOMContentLoaded', () => {
         btnLinesCarouselNext.disabled = (sl >= maxSl);
     }
 
+    function autoScrollLoop(currentTime) {
+        if (!linesTabsContainer) return;
+
+        if (!lastFrameTime) lastFrameTime = currentTime;
+        const deltaSeconds = Math.min((currentTime - lastFrameTime) / 1000, 0.1);
+        lastFrameTime = currentTime;
+
+        const maxScroll = linesTabsContainer.scrollWidth - linesTabsContainer.clientWidth - 4;
+
+        if (maxScroll > 10 && !isCarouselHovered && !isCarouselDragging && currentTime >= autoScrollPauseUntil) {
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion) {
+                currentScrollPos += (PIXELS_PER_SECOND * deltaSeconds * autoScrollDirection);
+
+                // Control suave de límites con pausa en cada extremo
+                if (autoScrollDirection === 1 && currentScrollPos >= maxScroll - 1) {
+                    currentScrollPos = maxScroll;
+                    autoScrollDirection = -1;
+                    autoScrollPauseUntil = currentTime + 2200; // Pausa de 2.2s al llegar al final
+                } else if (autoScrollDirection === -1 && currentScrollPos <= 2) {
+                    currentScrollPos = 0;
+                    autoScrollDirection = 1;
+                    autoScrollPauseUntil = currentTime + 2000; // Pausa de 2.0s al volver al inicio
+                }
+
+                linesTabsContainer.scrollLeft = currentScrollPos;
+                updateLinesCarouselButtons();
+            }
+        }
+
+        autoScrollId = requestAnimationFrame(autoScrollLoop);
+    }
+
+    function startAutoScroll() {
+        if (autoScrollId) {
+            cancelAnimationFrame(autoScrollId);
+        }
+        lastFrameTime = performance.now();
+        autoScrollId = requestAnimationFrame(autoScrollLoop);
+    }
+
     if (btnLinesCarouselPrev && linesTabsContainer) {
         btnLinesCarouselPrev.addEventListener('click', () => {
             linesTabsContainer.scrollBy({ left: -290, behavior: 'smooth' });
+            autoScrollPauseUntil = performance.now() + 3000;
+            setTimeout(() => {
+                if (linesTabsContainer) currentScrollPos = linesTabsContainer.scrollLeft;
+            }, 350);
         });
     }
 
     if (btnLinesCarouselNext && linesTabsContainer) {
         btnLinesCarouselNext.addEventListener('click', () => {
             linesTabsContainer.scrollBy({ left: 290, behavior: 'smooth' });
+            autoScrollPauseUntil = performance.now() + 3000;
+            setTimeout(() => {
+                if (linesTabsContainer) currentScrollPos = linesTabsContainer.scrollLeft;
+            }, 350);
+        });
+    }
+
+    // Pausar auto-scroll al pasar el cursor por cualquier parte del carrusel o sus controles
+    if (linesSectionWrapper) {
+        linesSectionWrapper.addEventListener('mouseenter', () => {
+            isCarouselHovered = true;
+        });
+        linesSectionWrapper.addEventListener('mouseleave', () => {
+            isCarouselHovered = false;
+            autoScrollPauseUntil = performance.now() + 1200;
+            if (linesTabsContainer) currentScrollPos = linesTabsContainer.scrollLeft;
         });
     }
 
     if (linesTabsContainer) {
         linesTabsContainer.addEventListener('scroll', () => {
             updateLinesCarouselButtons();
+            if (Math.abs(linesTabsContainer.scrollLeft - currentScrollPos) > 4) {
+                currentScrollPos = linesTabsContainer.scrollLeft;
+            }
+        }, { passive: true });
+
+        // Eventos táctiles para móviles y tablets
+        linesTabsContainer.addEventListener('touchstart', () => {
+            isCarouselHovered = true;
+        }, { passive: true });
+
+        linesTabsContainer.addEventListener('touchend', () => {
+            isCarouselHovered = false;
+            autoScrollPauseUntil = performance.now() + 2200;
+            if (linesTabsContainer) currentScrollPos = linesTabsContainer.scrollLeft;
         }, { passive: true });
 
         // Soporte de arrastre con mouse (Drag-to-Scroll suave)
@@ -669,6 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         linesTabsContainer.addEventListener('mousedown', (e) => {
             isDown = true;
+            isCarouselDragging = true;
             hasDragged = false;
             startX = e.pageX - linesTabsContainer.offsetLeft;
             scrollStart = linesTabsContainer.scrollLeft;
@@ -682,10 +772,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 hasDragged = true;
             }
             linesTabsContainer.scrollLeft = scrollStart - walk;
+            currentScrollPos = linesTabsContainer.scrollLeft;
         });
 
         window.addEventListener('mouseup', () => {
-            isDown = false;
+            if (isDown) {
+                isDown = false;
+                isCarouselDragging = false;
+                autoScrollPauseUntil = performance.now() + 2000;
+                if (linesTabsContainer) {
+                    currentScrollPos = linesTabsContainer.scrollLeft;
+                }
+            }
         });
 
         // Clic en tarjetas del carrusel de Líneas
@@ -698,8 +796,13 @@ document.addEventListener('DOMContentLoaded', () => {
             linesTabsContainer.querySelectorAll('.line-tab-card').forEach(c => {
                 c.classList.toggle('active', c.getAttribute('data-line') === line);
             });
+            // Pausar auto-scroll 4 segundos al seleccionar una línea
+            autoScrollPauseUntil = performance.now() + 4000;
             // Centrar suavemente la tarjeta seleccionada en el carrusel
             btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            setTimeout(() => {
+                if (linesTabsContainer) currentScrollPos = linesTabsContainer.scrollLeft;
+            }, 350);
             renderDocentes();
         });
     }
@@ -988,4 +1091,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadCareerLive(k, true).catch(() => {});
         });
     }, 800);
+
+    // 3) Iniciar el movimiento suave y continuo (auto-scroll) del carrusel de líneas
+    startAutoScroll();
 });
