@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bannerDepto = document.getElementById('bannerDepto');
     const bannerIcon = document.getElementById('bannerIcon');
     const bannerDriveLink = document.getElementById('bannerDriveLink');
+    const liveStatusPill = document.getElementById('liveStatusPill');
     const searchInput = document.getElementById('docentesSearchInput');
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
     const linesTabsContainer = document.getElementById('linesTabsContainer');
@@ -267,6 +268,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (errorState) errorState.style.display = 'none';
         if (resultsContainer) resultsContainer.style.display = 'none';
         if (emptyState) emptyState.style.display = 'none';
+        if (liveStatusPill) {
+            liveStatusPill.className = 'live-status-pill';
+            liveStatusPill.innerHTML = `
+                <span class="loading-spinner-circle" style="width: 10px; height: 10px; border-width: 2px; margin: 0; display: inline-block;"></span>
+                <span>Conectando...</span>
+            `;
+        }
     }
 
     function showError(driveUrl) {
@@ -276,14 +284,56 @@ document.addEventListener('DOMContentLoaded', () => {
         if (errorState) {
             errorState.style.display = 'block';
             if (btnErrorDriveFile) btnErrorDriveFile.href = driveUrl || '#';
-            if (window.lucide) lucide.createIcons();
         }
+
+        // Si la transmisión en vivo NO carga: MOSTRAR SÍ O SÍ EL BOTÓN DE GOOGLE DRIVE DE FORMA PROMINENTE
+        if (bannerDriveLink) {
+            bannerDriveLink.className = 'btn btn-primary btn-drive-prominent';
+            bannerDriveLink.style.display = 'inline-flex';
+            bannerDriveLink.innerHTML = `
+                <i data-lucide="external-link"></i>
+                <span>Abrir en Google Drive</span>
+                <i data-lucide="arrow-up-right"></i>
+            `;
+            if (driveUrl) bannerDriveLink.href = driveUrl;
+        }
+
+        if (liveStatusPill) {
+            liveStatusPill.className = 'live-status-pill offline';
+            liveStatusPill.innerHTML = `
+                <span class="live-status-dot offline"></span>
+                <span>Sin conexión en vivo</span>
+            `;
+        }
+
+        if (window.lucide) lucide.createIcons();
     }
 
     function showResults() {
         if (loadingState) loadingState.style.display = 'none';
         if (errorState) errorState.style.display = 'none';
         if (resultsContainer) resultsContainer.style.display = 'block';
+
+        // Ocultar un poco el botón de Google Drive cuando la transmisión en vivo está activa
+        if (bannerDriveLink) {
+            bannerDriveLink.className = 'btn-banner-drive-subtle';
+            bannerDriveLink.style.display = 'inline-flex';
+            bannerDriveLink.innerHTML = `
+                <i data-lucide="file-spreadsheet"></i>
+                <span>Hoja en Drive</span>
+                <i data-lucide="arrow-up-right" class="subtle-arrow"></i>
+            `;
+        }
+
+        if (liveStatusPill) {
+            liveStatusPill.className = 'live-status-pill online';
+            liveStatusPill.innerHTML = `
+                <span class="live-status-dot online"></span>
+                <span>En vivo</span>
+            `;
+        }
+
+        if (window.lucide) lucide.createIcons();
     }
 
     // ==========================================================================
