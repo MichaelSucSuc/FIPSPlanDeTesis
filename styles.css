@@ -2406,30 +2406,37 @@ button {
 .carousel-nav-controls {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.65rem;
 }
 
 .btn-carousel-nav {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-bg-alt);
-    border: 1.5px solid var(--color-border);
-    color: var(--color-text);
+    background: #ffffff;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
     cursor: pointer;
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-sm);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px rgba(139, 0, 0, 0.18);
     padding: 0;
+    position: relative;
+    flex-shrink: 0;
 }
 
-.btn-carousel-nav:hover {
+.btn-carousel-nav:hover:not(:disabled) {
     border-color: var(--color-primary);
-    color: var(--color-primary);
-    background: rgba(139, 0, 0, 0.06);
-    transform: scale(1.06);
+    color: #ffffff;
+    background: var(--color-primary);
+    transform: scale(1.12);
+    box-shadow: 0 6px 22px rgba(139, 0, 0, 0.35);
+}
+
+.btn-carousel-nav:active:not(:disabled) {
+    transform: scale(0.96);
 }
 
 .btn-carousel-nav:disabled,
@@ -2438,17 +2445,31 @@ button {
     cursor: not-allowed;
     pointer-events: none;
     transform: none;
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+    box-shadow: none;
 }
 
-[data-theme="dark"] .btn-carousel-nav:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 120, 120, 0.4);
-    color: #ffa4a4;
+[data-theme="dark"] .btn-carousel-nav {
+    background: #1f2937;
+    border-color: var(--color-accent-gold);
+    color: var(--color-accent-gold);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.22);
 }
 
-.btn-carousel-nav i {
-    width: 18px;
-    height: 18px;
+[data-theme="dark"] .btn-carousel-nav:hover:not(:disabled) {
+    background: var(--color-accent-gold);
+    border-color: var(--color-accent-gold);
+    color: #111827;
+    transform: scale(1.12);
+    box-shadow: 0 6px 22px rgba(212, 175, 55, 0.4);
+}
+
+.btn-carousel-nav i,
+.btn-carousel-nav svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.8;
 }
 
 .lines-carousel-viewport {
@@ -2716,19 +2737,230 @@ button {
     opacity: 1;
 }
 
-/* Botón Prominente de Google Drive (Si la transmisión en vivo NO carga) */
+/* Botón Prominente y SÚPER NOTORIO de Google Drive (Si la transmisión en vivo NO carga) */
+.btn-drive-super-notorio {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    padding: 0.85rem 1.65rem !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.03em !important;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #991b1b 100%) !important;
+    border: 2px solid #f87171 !important;
+    border-radius: var(--radius-md) !important;
+    text-decoration: none !important;
+    box-shadow: 0 0 24px rgba(220, 38, 38, 0.55), 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+    animation: superNotorioPulse 2.2s infinite ease-in-out !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease !important;
+}
+
+.btn-drive-super-notorio i,
+.btn-drive-super-notorio svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-drive-super-notorio:hover {
+    transform: translateY(-2px) scale(1.04) !important;
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 50%, #7f1d1d 100%) !important;
+    box-shadow: 0 0 35px rgba(220, 38, 38, 0.8), 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
 .btn-drive-prominent {
     background: var(--color-primary) !important;
     color: #ffffff !important;
     font-weight: 700 !important;
     box-shadow: 0 4px 14px rgba(139, 0, 0, 0.3) !important;
     border: none !important;
-    animation: attentionPulse 2s infinite;
+    animation: superNotorioPulse 2s infinite;
 }
 
-@keyframes attentionPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); }
+@keyframes superNotorioPulse {
+    0%, 100% {
+        box-shadow: 0 0 16px rgba(220, 38, 38, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 32px rgba(220, 38, 38, 0.8), 0 8px 24px rgba(0, 0, 0, 0.35);
+        transform: scale(1.04);
+    }
+}
+
+/* Fallback Card de Error (Super Notorio) */
+.docentes-error-state {
+    margin: 2rem 0;
+}
+
+.error-state-card {
+    background: var(--color-bg-alt);
+    border: 2px solid rgba(239, 68, 68, 0.5);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.error-state-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ef4444, #f59e0b, #ef4444);
+    background-size: 200% 100%;
+    animation: errorBarShimmer 3s ease infinite;
+}
+
+@keyframes errorBarShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.error-icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.error-icon-box i,
+.error-icon-box svg {
+    width: 32px;
+    height: 32px;
+}
+
+.error-badge-pill {
+    display: inline-block;
+    padding: 0.25rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #dc2626;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-full);
+    margin-bottom: 0.85rem;
+}
+
+.error-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-text);
+    margin-bottom: 0.65rem;
+}
+
+.error-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+}
+
+.error-actions-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-drive-secondary-notorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.btn-drive-secondary-notorio:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(139, 0, 0, 0.04);
+}
+
+.btn-retry-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-retry-live:hover {
+    border-color: var(--color-accent-gold);
+    color: var(--color-accent-gold);
+    background: rgba(212, 175, 55, 0.06);
+}
+
+/* Nota sutil al pie de resultados (para consultar Google Drive después de explorar en vivo) */
+.docentes-footer-footnote {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.docentes-footer-footnote i,
+.docentes-footer-footnote svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent-gold);
+}
+
+.docentes-footer-footnote .link-drive-footnote {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.docentes-footer-footnote .link-drive-footnote:hover {
+    text-decoration: underline;
+}
+
+[data-theme="dark"] .docentes-footer-footnote .link-drive-footnote {
+    color: var(--color-accent-gold);
 }
 
 /* ==========================================================================

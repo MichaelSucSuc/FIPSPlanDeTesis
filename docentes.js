@@ -170,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('docentesSearchInput');
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
     const linesTabsContainer = document.getElementById('linesTabsContainer');
-    const linesHeaderHint = document.getElementById('linesHeaderHint');
     const btnLinesCarouselPrev = document.getElementById('btnLinesCarouselPrev');
     const btnLinesCarouselNext = document.getElementById('btnLinesCarouselNext');
     const linesCarouselViewport = document.getElementById('linesCarouselViewport');
@@ -286,16 +285,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (emptyState) emptyState.style.display = 'none';
         if (errorState) {
             errorState.style.display = 'block';
-            if (btnErrorDriveFile) btnErrorDriveFile.href = driveUrl || '#';
+            if (btnErrorDriveFile) btnErrorDriveFile.href = driveUrl || 'https://drive.google.com/drive/folders/14-MzBTLtqE88neKI6udIfpNBN1jMR1Py?usp=sharing';
         }
 
-        // Si la transmisión en vivo NO carga: MOSTRAR SÍ O SÍ EL BOTÓN DE GOOGLE DRIVE DE FORMA PROMINENTE
+        // Si la transmisión en vivo NO carga: MOSTRAR SÍ O SÍ EL BOTÓN DE GOOGLE DRIVE DE FORMA SÚPER NOTORIA
         if (bannerDriveLink) {
-            bannerDriveLink.className = 'btn btn-primary btn-drive-prominent';
+            bannerDriveLink.className = 'btn-drive-super-notorio';
             bannerDriveLink.style.display = 'inline-flex';
             bannerDriveLink.innerHTML = `
                 <i data-lucide="external-link"></i>
-                <span>Abrir en Google Drive</span>
+                <span>ABRIR EN GOOGLE DRIVE</span>
                 <i data-lucide="arrow-up-right"></i>
             `;
             if (driveUrl) bannerDriveLink.href = driveUrl;
@@ -317,15 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (errorState) errorState.style.display = 'none';
         if (resultsContainer) resultsContainer.style.display = 'block';
 
-        // Ocultar un poco el botón de Google Drive cuando la transmisión en vivo está activa
+        // Ocultar botón de Google Drive en cabecera para que la transmisión en vivo sea lo primero a la mano
         if (bannerDriveLink) {
-            bannerDriveLink.className = 'btn-banner-drive-subtle';
-            bannerDriveLink.style.display = 'inline-flex';
-            bannerDriveLink.innerHTML = `
-                <i data-lucide="file-spreadsheet"></i>
-                <span>Hoja en Drive</span>
-                <i data-lucide="arrow-up-right" class="subtle-arrow"></i>
-            `;
+            bannerDriveLink.style.display = 'none';
         }
 
         if (liveStatusPill) {
@@ -550,6 +543,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             `;
         });
+
+        const currentData = FIPS_CARRERAS[currentCarreraKey];
+        const currentDriveUrl = currentData ? currentData.drive_url : 'https://drive.google.com/drive/folders/14-MzBTLtqE88neKI6udIfpNBN1jMR1Py?usp=sharing';
+        html += `
+            <div class="docentes-footer-footnote">
+                <i data-lucide="file-spreadsheet"></i>
+                <span>¿Deseas consultar la hoja original de ${escapeHtml(currentData ? currentData.name : 'esta carrera')}?</span>
+                <a href="${currentDriveUrl}" target="_blank" rel="noopener noreferrer" class="link-drive-footnote">
+                    <span>Abrir en Google Drive</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </a>
+            </div>
+        `;
 
         resultsContainer.innerHTML = html;
         if (window.lucide) {
