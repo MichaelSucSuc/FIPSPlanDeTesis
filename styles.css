@@ -2966,30 +2966,37 @@ button {
    Apartado de Respaldo Google Drive (En caso de que no cargue en vivo)
    ========================================================================== */
 .directorio-fallback-bar {
-    margin-top: 2.75rem;
-    padding: 1.4rem 1.75rem;
-    background: var(--color-bg-alt);
-    border: 1.5px dashed var(--color-border);
-    border-radius: var(--radius-lg);
+    max-width: 860px;
+    margin: 3.5rem auto 1.5rem;
+    padding: 0 1rem;
+}
+
+.fallback-card-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    flex-wrap: wrap;
+    padding: 1.5rem 1.85rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
 }
 
-.fallback-bar-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex: 1 1 340px;
+.fallback-card-wrapper:hover {
+    border-color: rgba(139, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
 }
 
-.fallback-bar-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
+[data-theme="dark"] .fallback-card-wrapper:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+.fallback-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     background: rgba(139, 0, 0, 0.08);
     color: var(--color-primary);
     display: flex;
@@ -2998,29 +3005,52 @@ button {
     flex-shrink: 0;
 }
 
-[data-theme="dark"] .fallback-bar-icon-box {
+[data-theme="dark"] .fallback-icon-badge {
     background: rgba(212, 175, 55, 0.12);
     color: var(--color-accent-gold);
 }
 
-.fallback-bar-icon-box i,
-.fallback-bar-icon-box svg {
-    width: 22px;
-    height: 22px;
+.fallback-icon-badge i,
+.fallback-icon-badge svg {
+    width: 24px;
+    height: 24px;
 }
 
-.fallback-bar-title {
-    font-size: 0.96rem;
+.fallback-content {
+    flex: 1 1 340px;
+}
+
+.fallback-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    margin-bottom: 0.3rem;
+}
+
+[data-theme="dark"] .fallback-tag {
+    color: var(--color-accent-gold);
+}
+
+.fallback-title {
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--color-text);
-    margin: 0 0 0.2rem 0;
+    margin: 0 0 0.35rem 0;
+    line-height: 1.35;
 }
 
-.fallback-bar-desc {
-    font-size: 0.86rem;
+.fallback-desc {
+    font-size: 0.88rem;
     color: var(--color-text-muted);
     margin: 0;
-    line-height: 1.45;
+    line-height: 1.5;
+}
+
+.fallback-action {
+    flex-shrink: 0;
 }
 
 .btn-fallback-drive {
@@ -3030,33 +3060,59 @@ button {
     padding: 0.75rem 1.35rem;
     font-size: 0.88rem;
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-primary);
     background: var(--color-bg);
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border: 1.5px solid var(--color-primary);
+    border-radius: var(--radius-full);
     text-decoration: none;
     transition: all var(--transition-fast);
-    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .btn-fallback-drive:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    background: rgba(139, 0, 0, 0.04);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+    background: var(--color-primary);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(139, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .btn-fallback-drive {
+    border-color: var(--color-accent-gold);
+    color: var(--color-accent-gold);
+    background: var(--color-bg-alt);
 }
 
 [data-theme="dark"] .btn-fallback-drive:hover {
-    border-color: var(--color-accent-gold);
-    color: var(--color-accent-gold);
-    background: rgba(212, 175, 55, 0.08);
+    background: var(--color-accent-gold);
+    color: #111827;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
 }
 
 .btn-fallback-drive i,
 .btn-fallback-drive svg {
     width: 17px;
     height: 17px;
+}
+
+@media (max-width: 768px) {
+    .fallback-card-wrapper {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1.25rem;
+    }
+
+    .fallback-icon-badge {
+        margin: 0 auto;
+    }
+
+    .fallback-action {
+        width: 100%;
+    }
+
+    .btn-fallback-drive {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ==========================================================================
