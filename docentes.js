@@ -196,9 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('docentesResultsContainer');
     const emptyState = document.getElementById('emptyDocState');
     const btnResetDocFilter = document.getElementById('btnResetDocFilter');
-    const btnSyncDrive = document.getElementById('btnSyncDrive');
-    const syncIcon = document.getElementById('syncIcon');
-    const syncText = document.getElementById('syncText');
     const toastNotification = document.getElementById('toastNotification');
 
     // ==========================================================================
@@ -1044,42 +1041,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Sincroniza todas las carreras en vivo
+     * Sincronización interna de todas las carreras (sin botones visibles, invocable por orden/código)
      */
     async function syncAllCareersLive() {
-        if (isSyncing) return;
+        if (isSyncing) {
+            console.log('[FIPS Live Sync] Ya hay una sincronización en progreso...');
+            return;
+        }
         isSyncing = true;
-
-        if (syncIcon) syncIcon.classList.add('spinning');
-        if (syncText) syncText.textContent = 'Consultando Drive...';
+        console.log('[FIPS Live Sync] Iniciando sincronización interna con Google Drive...');
 
         try {
             const keys = Object.keys(FIPS_CARRERAS);
             await Promise.allSettled(keys.map(k => loadCareerLive(k, k !== currentCarreraKey)));
-
-            if (syncIcon) syncIcon.classList.remove('spinning');
-            if (syncText) syncText.textContent = 'Actualizado en Vivo';
-            showToast('¡Docentes actualizados en vivo desde Google Drive!');
+            console.log('[FIPS Live Sync] Todas las carreras sincronizadas en vivo.');
+            showToast('Directorio sincronizado en vivo');
         } catch (e) {
-            if (syncIcon) syncIcon.classList.remove('spinning');
-            if (syncText) syncText.textContent = 'Sincronizar en Vivo';
+            console.error('[FIPS Live Sync] Error en sincronización interna:', e);
         } finally {
             isSyncing = false;
-            setTimeout(() => {
-                if (syncText) syncText.textContent = 'Sincronizar en Vivo';
-            }, 3000);
         }
     }
 
-    // ==========================================================================
-    // 11. Botones de Sincronización & Reintento
-    // ==========================================================================
-    if (btnSyncDrive) {
-        btnSyncDrive.addEventListener('click', () => {
-            syncAllCareersLive();
-        });
-    }
+    // Exponer orden de sincronización interna para consola / scripts administrativos
+    window.fipsSyncLive = syncAllCareersLive;
+    window.syncAllCareersLive = syncAllCareersLive;
 
+    // ==========================================================================
+    // 11. Botón de Reintento de Conexión en Fallback
+    // ==========================================================================
     if (btnRetrySync) {
         btnRetrySync.addEventListener('click', () => {
             loadCareerLive(currentCarreraKey, false);

@@ -2963,6 +2963,103 @@ button {
 }
 
 /* ==========================================================================
+   Apartado de Respaldo Google Drive (En caso de que no cargue en vivo)
+   ========================================================================== */
+.directorio-fallback-bar {
+    margin-top: 2.75rem;
+    padding: 1.4rem 1.75rem;
+    background: var(--color-bg-alt);
+    border: 1.5px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+}
+
+.fallback-bar-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1 1 340px;
+}
+
+.fallback-bar-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(139, 0, 0, 0.08);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .fallback-bar-icon-box {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--color-accent-gold);
+}
+
+.fallback-bar-icon-box i,
+.fallback-bar-icon-box svg {
+    width: 22px;
+    height: 22px;
+}
+
+.fallback-bar-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 0.2rem 0;
+}
+
+.fallback-bar-desc {
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.45;
+}
+
+.btn-fallback-drive {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.75rem 1.35rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.btn-fallback-drive:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(139, 0, 0, 0.04);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .btn-fallback-drive:hover {
+    border-color: var(--color-accent-gold);
+    color: var(--color-accent-gold);
+    background: rgba(212, 175, 55, 0.08);
+}
+
+.btn-fallback-drive i,
+.btn-fallback-drive svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* ==========================================================================
    Modern Toolbar with Custom Dropdowns (Anti-oficina / Sleek UX)
    ========================================================================== */
 .docentes-toolbar {

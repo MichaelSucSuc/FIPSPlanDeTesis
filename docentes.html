@@ -28,9 +28,6 @@
                     <i data-lucide="arrow-left" class="nav-icon-sm"></i> Volver a la Guía
                 </a>
                 <a href="#directorio" class="nav-link active">Directorio de Docentes</a>
-                <a href="https://drive.google.com/drive/folders/14-MzBTLtqE88neKI6udIfpNBN1jMR1Py?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link nav-link-special">
-                    <i data-lucide="folder-open" class="nav-icon-sm"></i> Carpeta Drive
-                </a>
             </nav>
 
             <div class="header-actions">
@@ -56,18 +53,6 @@
                 <p class="docentes-hero-subtitle animate-slide-up">
                     Consulta en vivo los docentes adscritos y las líneas de investigación oficiales aprobadas para tu plan de tesis, sincronizados directamente con las hojas de cálculo oficiales de Google Drive.
                 </p>
-
-                <div class="docentes-hero-actions">
-                    <a href="https://drive.google.com/drive/folders/14-MzBTLtqE88neKI6udIfpNBN1jMR1Py?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Abrir carpeta compartida en Google Drive">
-                        <i data-lucide="cloud"></i>
-                        <span>Abrir Carpeta en Google Drive</span>
-                        <i data-lucide="external-link"></i>
-                    </a>
-                    <button id="btnSyncDrive" class="btn btn-outline-glass btn-sm" title="Reconsultar archivos en la nube">
-                        <i data-lucide="refresh-cw" id="syncIcon"></i>
-                        <span id="syncText">Sincronizar en Vivo</span>
-                    </button>
-                </div>
             </div>
         </section>
 
@@ -374,6 +359,24 @@
                     <h3>No se encontraron docentes con ese criterio</h3>
                     <p>Intenta buscando solo por apellido, grado ("Dr.", "Mg.") o selecciona "Todas las Líneas de Investigación".</p>
                     <button class="btn btn-secondary btn-sm" id="btnResetDocFilter">Restaurar filtros</button>
+                </div>
+
+                <!-- Apartado de Respaldo Google Drive (en caso de que no cargue la transmisión en vivo) -->
+                <div class="directorio-fallback-bar" id="directorioFallbackBar">
+                    <div class="fallback-bar-info">
+                        <div class="fallback-bar-icon-box">
+                            <i data-lucide="life-buoy"></i>
+                        </div>
+                        <div class="fallback-bar-text">
+                            <h4 class="fallback-bar-title">¿Problemas para visualizar la transmisión en vivo?</h4>
+                            <p class="fallback-bar-desc">En caso de que no cargue la conexión directa con las hojas de cálculo, puedes consultar los archivos oficiales completos directamente en Google Drive:</p>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/14-MzBTLtqE88neKI6udIfpNBN1jMR1Py?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-fallback-drive" title="Abrir carpeta compartida en Google Drive en caso de problemas de conexión">
+                        <i data-lucide="folder-open"></i>
+                        <span>Abrir Carpeta en Google Drive (en caso de que no cargue)</span>
+                        <i data-lucide="external-link"></i>
+                    </a>
                 </div>
 
             </div>
