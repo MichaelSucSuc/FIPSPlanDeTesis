@@ -164,7 +164,18 @@
                     </div>
                 </div>
 
-                <!-- Modern Toolbar with Sleek Custom Dropdowns (Desplegables Didácticos) -->
+                <!-- Líneas de Investigación (Formato de Tarjetas idéntico a Escuelas Profesionales) -->
+                <div class="lines-tabs-wrapper" id="linesSectionWrapper">
+                    <div class="career-tabs-header">
+                        <span class="section-tag"><i data-lucide="compass"></i> Líneas de Investigación Oficiales</span>
+                        <span class="career-hint" id="linesHeaderHint">Selecciona una línea para filtrar los docentes adscritos</span>
+                    </div>
+                    <div class="lines-tabs-grid" id="linesTabsContainer">
+                        <!-- Generado dinámicamente con formato idéntico a Escuelas Profesionales -->
+                    </div>
+                </div>
+
+                <!-- Modern Toolbar with Search and Grado Dropdown Filter -->
                 <div class="docentes-toolbar glass-panel">
                     <!-- Search Input -->
                     <div class="toolbar-search-wrapper">
@@ -173,21 +184,6 @@
                         <button id="btnClearDocSearch" class="toolbar-clear-btn" aria-label="Limpiar búsqueda" style="display: none;">
                             <i data-lucide="x"></i>
                         </button>
-                    </div>
-
-                    <!-- Custom Dropdown: Línea de Investigación -->
-                    <div class="custom-dropdown-wrapper" id="lineDropdownWrapper">
-                        <button type="button" class="custom-dropdown-btn" id="lineDropdownBtn" aria-haspopup="listbox" aria-expanded="false" title="Filtrar por línea de investigación">
-                            <div class="dropdown-btn-content">
-                                <i data-lucide="compass" class="dropdown-btn-icon"></i>
-                                <span class="dropdown-btn-text" id="lineDropdownSelectedText">Todas las Líneas de Investigación</span>
-                            </div>
-                            <i data-lucide="chevron-down" class="dropdown-btn-arrow"></i>
-                        </button>
-
-                        <div class="custom-dropdown-menu" id="lineDropdownMenu" role="listbox" aria-label="Líneas de investigación">
-                            <!-- Inyectado dinámicamente -->
-                        </div>
                     </div>
 
                     <!-- Custom Dropdown: Grado Académico -->

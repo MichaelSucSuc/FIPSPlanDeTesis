@@ -168,10 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bannerDriveLink = document.getElementById('bannerDriveLink');
     const searchInput = document.getElementById('docentesSearchInput');
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
-    const lineDropdownWrapper = document.getElementById('lineDropdownWrapper');
-    const lineDropdownBtn = document.getElementById('lineDropdownBtn');
-    const lineDropdownSelectedText = document.getElementById('lineDropdownSelectedText');
-    const lineDropdownMenu = document.getElementById('lineDropdownMenu');
+    const linesTabsContainer = document.getElementById('linesTabsContainer');
+    const linesHeaderHint = document.getElementById('linesHeaderHint');
     const gradoDropdownWrapper = document.getElementById('gradoDropdownWrapper');
     const gradoDropdownBtn = document.getElementById('gradoDropdownBtn');
     const gradoDropdownSelectedText = document.getElementById('gradoDropdownSelectedText');
@@ -213,18 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (clearSearchBtn) clearSearchBtn.style.display = 'none';
         }
 
-        // Restaurar estado visual de los desplegables
-        if (lineDropdownSelectedText) {
-            lineDropdownSelectedText.textContent = 'Todas las Líneas de Investigación';
-        }
-        if (lineDropdownMenu) {
-            lineDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(i => {
-                i.classList.toggle('active', i.getAttribute('data-line') === 'all');
+        // Restaurar estado visual del selector de líneas y desplegable de grados
+        if (linesTabsContainer) {
+            linesTabsContainer.querySelectorAll('.line-tab-card').forEach(c => {
+                c.classList.toggle('active', c.getAttribute('data-line') === 'all');
             });
-        }
-        if (lineDropdownWrapper) {
-            lineDropdownWrapper.classList.remove('open');
-            if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
         }
 
         if (gradoDropdownSelectedText) {
@@ -263,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si ya fueron descargados los docentes de esta carrera, renderizar de inmediato
         if (data && data.docentes && data.docentes.length > 0) {
             showResults();
-            populateLineDropdown();
+            populateLineTabs();
             renderDocentes();
         } else {
             // Cargar en vivo desde Google Drive (prioritario)
@@ -296,10 +287,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 6. Población del Desplegable Moderno de Líneas de Investigación
+    // 6. Población de Tarjetas de Líneas de Investigación (Formato Escuelas)
     // ==========================================================================
-    function populateLineDropdown() {
-        if (!lineDropdownMenu) return;
+    function getLineIconMeta(name, idx) {
+        const n = (name || '').toLowerCase();
+        if (n.includes('inteligencia') || n.includes('artificial') || /\bia\b/.test(n) || n.includes('machine learning')) {
+            return { icon: 'brain', colorClass: 'icon-line-ai' };
+        }
+        if (n.includes('gráfico') || n.includes('grafic') || n.includes('imagen') || n.includes('visión') || n.includes('vision') || n.includes('virtual')) {
+            return { icon: 'image', colorClass: 'icon-line-media' };
+        }
+        if (n.includes('base de datos') || n.includes('ciencia de datos') || n.includes('data') || n.includes('información') || n.includes('informacion') || n.includes('conocimiento')) {
+            return { icon: 'database', colorClass: 'icon-line-data' };
+        }
+        if (n.includes('software') || n.includes('programación') || n.includes('programacion') || n.includes('algoritmo') || n.includes('código')) {
+            return { icon: 'code-2', colorClass: 'icon-line-code' };
+        }
+        if (n.includes('red') || n.includes('telecomunicac') || n.includes('distribuid') || n.includes('comunicación')) {
+            return { icon: 'network', colorClass: 'icon-line-network' };
+        }
+        if (n.includes('electrónic') || n.includes('electronic') || n.includes('electrotecnia') || n.includes('circuito') || n.includes('micro') || n.includes('hardware')) {
+            return { icon: 'cpu', colorClass: 'icon-line-cpu' };
+        }
+        if (n.includes('eléctric') || n.includes('electric') || n.includes('potencia') || n.includes('energía') || n.includes('energia') || n.includes('renovable') || n.includes('generación') || n.includes('generacion') || n.includes('térmica') || n.includes('termica')) {
+            return { icon: 'zap', colorClass: 'icon-line-energy' };
+        }
+        if (n.includes('mecánic') || n.includes('mecanic') || n.includes('máquina') || n.includes('maquina') || n.includes('hidromecánic') || n.includes('hidro')) {
+            return { icon: 'cog', colorClass: 'icon-line-mech' };
+        }
+        if (n.includes('automatiz') || n.includes('control') || n.includes('robótic') || n.includes('robotic') || n.includes('domótica') || n.includes('instrumentación') || n.includes('instrumentacion')) {
+            return { icon: 'bot', colorClass: 'icon-line-robot' };
+        }
+        if (n.includes('gestión') || n.includes('gestion') || n.includes('operacion') || n.includes('operación') || n.includes('proceso') || n.includes('estrateg') || n.includes('financier') || n.includes('inversión') || n.includes('inversion') || n.includes('emprend')) {
+            return { icon: 'briefcase', colorClass: 'icon-line-biz' };
+        }
+        if (n.includes('calidad') || n.includes('seguridad') || n.includes('ambiente') || n.includes('mantenimiento')) {
+            return { icon: 'shield-check', colorClass: 'icon-line-shield' };
+        }
+        if (n.includes('manufactura') || n.includes('producción') || n.includes('produccion') || n.includes('diseño') || n.includes('industrial')) {
+            return { icon: 'factory', colorClass: 'icon-line-prod' };
+        }
+        if (n.includes('sistemas')) {
+            return { icon: 'layers', colorClass: 'icon-line-code' };
+        }
+        if (n.includes('informática') || n.includes('informatica') || n.includes('computación') || n.includes('computacion')) {
+            return { icon: 'terminal', colorClass: 'icon-line-cpu' };
+        }
+
+        const fallbacks = [
+            { icon: 'compass', colorClass: 'icon-line-default' },
+            { icon: 'sparkles', colorClass: 'icon-line-ai' },
+            { icon: 'layers', colorClass: 'icon-line-data' },
+            { icon: 'cpu', colorClass: 'icon-line-cpu' },
+            { icon: 'activity', colorClass: 'icon-line-energy' }
+        ];
+        return fallbacks[idx % fallbacks.length];
+    }
+
+    function populateLineTabs() {
+        if (!linesTabsContainer) return;
         const data = FIPS_CARRERAS[currentCarreraKey];
         if (!data || !data.docentes) return;
 
@@ -318,26 +364,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let html = `
-            <div class="custom-dropdown-item ${selectedLine === 'all' ? 'active' : ''}" data-line="all" data-label="Todas las Líneas de Investigación" role="option">
-                <i data-lucide="layers" class="item-icon"></i>
-                <span class="item-text">Todas las Líneas de Investigación</span>
-                <span class="item-badge">${data.docentes.length} docentes</span>
-            </div>
+            <button type="button" class="line-tab-card ${selectedLine === 'all' ? 'active' : ''}" data-line="all">
+                <div class="tab-icon-box icon-line-all">
+                    <i data-lucide="layers"></i>
+                </div>
+                <div class="tab-info">
+                    <h4 class="tab-name">Todas las Líneas</h4>
+                    <span class="tab-depto">${escapeHtml(currentCarreraKey)} · General</span>
+                    <span class="tab-count-badge">${data.docentes.length} Docentes</span>
+                </div>
+            </button>
         `;
 
-        linesArray.forEach(lineName => {
+        linesArray.forEach((lineName, idx) => {
             const count = data.docentes.filter(d => d.linea === lineName).length;
             const isActive = (selectedLine === lineName);
+            const lineNum = extractLineNumber(lineName);
+            const lineNumStr = lineNum < 999 ? `Línea ${String(lineNum).padStart(2, '0')}` : `Línea ${String(idx + 1).padStart(2, '0')}`;
+            const cleanName = cleanRawLineName(lineName);
+            const iconMeta = getLineIconMeta(cleanName, idx);
+
             html += `
-            <div class="custom-dropdown-item ${isActive ? 'active' : ''}" data-line="${escapeHtml(lineName)}" data-label="${escapeHtml(lineName)}" role="option" title="${escapeHtml(lineName)}">
-                <i data-lucide="compass" class="item-icon"></i>
-                <span class="item-text">${escapeHtml(lineName)}</span>
-                <span class="item-badge">${count}</span>
-            </div>
+            <button type="button" class="line-tab-card ${isActive ? 'active' : ''}" data-line="${escapeHtml(lineName)}" title="${escapeHtml(cleanName)}">
+                <div class="tab-icon-box ${iconMeta.colorClass}">
+                    <i data-lucide="${iconMeta.icon}"></i>
+                </div>
+                <div class="tab-info">
+                    <h4 class="tab-name">${escapeHtml(cleanName)}</h4>
+                    <span class="tab-depto">${escapeHtml(lineNumStr)}</span>
+                    <span class="tab-count-badge">${count} Docentes</span>
+                </div>
+            </button>
             `;
         });
 
-        lineDropdownMenu.innerHTML = html;
+        linesTabsContainer.innerHTML = html;
         if (window.lucide) {
             lucide.createIcons();
         }
@@ -507,17 +568,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Toggle dropdown de Líneas
-    if (lineDropdownBtn && lineDropdownWrapper) {
-        lineDropdownBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isOpen = lineDropdownWrapper.classList.contains('open');
-            if (gradoDropdownWrapper) {
-                gradoDropdownWrapper.classList.remove('open');
-                if (gradoDropdownBtn) gradoDropdownBtn.setAttribute('aria-expanded', 'false');
-            }
-            lineDropdownWrapper.classList.toggle('open', !isOpen);
-            lineDropdownBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+    // Clic en tarjetas de Líneas de Investigación (Formato Escuelas)
+    if (linesTabsContainer) {
+        linesTabsContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.line-tab-card');
+            if (!btn) return;
+            const line = btn.getAttribute('data-line') || 'all';
+            selectedLine = line;
+            linesTabsContainer.querySelectorAll('.line-tab-card').forEach(c => {
+                c.classList.toggle('active', c.getAttribute('data-line') === line);
+            });
+            renderDocentes();
         });
     }
 
@@ -526,48 +587,18 @@ document.addEventListener('DOMContentLoaded', () => {
         gradoDropdownBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             const isOpen = gradoDropdownWrapper.classList.contains('open');
-            if (lineDropdownWrapper) {
-                lineDropdownWrapper.classList.remove('open');
-                if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
-            }
             gradoDropdownWrapper.classList.toggle('open', !isOpen);
             gradoDropdownBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
         });
     }
 
-    // Cerrar desplegables al hacer clic fuera
+    // Cerrar desplegable al hacer clic fuera
     document.addEventListener('click', (e) => {
-        if (lineDropdownWrapper && !lineDropdownWrapper.contains(e.target)) {
-            lineDropdownWrapper.classList.remove('open');
-            if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
-        }
         if (gradoDropdownWrapper && !gradoDropdownWrapper.contains(e.target)) {
             gradoDropdownWrapper.classList.remove('open');
             if (gradoDropdownBtn) gradoDropdownBtn.setAttribute('aria-expanded', 'false');
         }
     });
-
-    // Selección en desplegable de Líneas
-    if (lineDropdownMenu) {
-        lineDropdownMenu.addEventListener('click', (e) => {
-            const item = e.target.closest('.custom-dropdown-item');
-            if (!item) return;
-            const line = item.getAttribute('data-line') || 'all';
-            const label = item.getAttribute('data-label') || 'Todas las Líneas de Investigación';
-            selectedLine = line;
-            if (lineDropdownSelectedText) {
-                lineDropdownSelectedText.textContent = label;
-            }
-            lineDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(i => {
-                i.classList.toggle('active', i.getAttribute('data-line') === line);
-            });
-            if (lineDropdownWrapper) {
-                lineDropdownWrapper.classList.remove('open');
-                if (lineDropdownBtn) lineDropdownBtn.setAttribute('aria-expanded', 'false');
-            }
-            renderDocentes();
-        });
-    }
 
     // Selección en desplegable de Grados
     if (gradoDropdownMenu) {
@@ -601,12 +632,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchInput.value = '';
                 if (clearSearchBtn) clearSearchBtn.style.display = 'none';
             }
-            if (lineDropdownSelectedText) {
-                lineDropdownSelectedText.textContent = 'Todas las Líneas de Investigación';
-            }
-            if (lineDropdownMenu) {
-                lineDropdownMenu.querySelectorAll('.custom-dropdown-item').forEach(i => {
-                    i.classList.toggle('active', i.getAttribute('data-line') === 'all');
+            if (linesTabsContainer) {
+                linesTabsContainer.querySelectorAll('.line-tab-card').forEach(c => {
+                    c.classList.toggle('active', c.getAttribute('data-line') === 'all');
                 });
             }
             if (gradoDropdownSelectedText) {
@@ -766,7 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si el usuario sigue en esta carrera, renderizar de inmediato
             if (currentCarreraKey === carreraKey) {
                 showResults();
-                populateLineDropdown();
+                populateLineTabs();
                 renderDocentes();
             }
         } catch (err) {

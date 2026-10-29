@@ -2379,6 +2379,88 @@ button {
     color: #ffa4a4;
 }
 
+/* ==========================================================================
+   Líneas de Investigación Tabs (Formato Idéntico a Escuelas Profesionales)
+   ========================================================================== */
+.lines-tabs-wrapper {
+    margin: 1.5rem 0 2rem;
+}
+
+.lines-tabs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.line-tab-card {
+    background: var(--color-bg-alt);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.line-tab-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.line-tab-card.active {
+    border-color: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-bg-alt), rgba(139, 0, 0, 0.05));
+    box-shadow: 0 4px 18px rgba(139, 0, 0, 0.18);
+}
+
+.line-tab-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: var(--color-primary);
+}
+
+.line-tab-card:hover .tab-icon-box {
+    transform: scale(1.08);
+}
+
+.line-tab-card .tab-name {
+    font-size: 0.9rem;
+    line-height: 1.25;
+    margin-bottom: 0.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.25em;
+}
+
+/* Icon Palette for Research Lines */
+.icon-line-all { background: rgba(139, 0, 0, 0.12); color: var(--color-primary); }
+.icon-line-ai { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+.icon-line-code { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.icon-line-data { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+.icon-line-network { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.icon-line-media { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+.icon-line-cpu { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+.icon-line-energy { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.icon-line-mech { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+.icon-line-robot { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }
+.icon-line-biz { background: rgba(100, 116, 139, 0.15); color: #64748b; }
+.icon-line-shield { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.icon-line-prod { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+.icon-line-default { background: rgba(139, 0, 0, 0.12); color: var(--color-primary); }
+
 /* Career Banner */
 .career-banner {
     display: flex;
@@ -3012,5 +3094,14 @@ button {
     .career-banner {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .lines-tabs-grid {
+        grid-template-columns: 1fr;
+    }
+    .line-tab-card {
+        padding: 0.95rem 1rem;
     }
 }
