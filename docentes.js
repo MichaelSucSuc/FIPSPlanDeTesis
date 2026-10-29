@@ -489,8 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
-                <div class="docentes-horizontal-list">
-                    ${docs.map(doc => renderDocenteRow(doc)).join('')}
+                <div class="docentes-cards-grid">
+                    ${docs.map(doc => renderDocenteCard(doc)).join('')}
                 </div>
             </div>
             `;
@@ -502,23 +502,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function renderDocenteRow(doc) {
+    function renderDocenteCard(doc) {
         const grado = doc.grado || 'Docente';
         const gradoClass = getGradoBadgeClass(grado);
         const cleanName = doc.docente;
         const scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(cleanName + ' UNSA')}`;
 
         return `
-        <div class="docente-row">
-            <div class="docente-row-main">
-                <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
-                <span class="docente-row-name">${escapeHtml(cleanName)}</span>
+        <div class="docente-card">
+            <div class="docente-card-top">
+                <div class="docente-meta-row">
+                    <span class="grado-badge ${gradoClass}">${escapeHtml(grado)}</span>
+                </div>
+                <h4 class="docente-name" title="${escapeHtml(cleanName)}">${escapeHtml(cleanName)}</h4>
             </div>
-            <div class="docente-row-action">
-                <a href="${scholarUrl}" target="_blank" rel="noopener noreferrer" class="btn-scholar-row" title="Ver publicaciones e investigaciones de ${escapeHtml(cleanName)} en Google Académico">
-                    <i data-lucide="graduation-cap"></i>
-                    <span>Google Académico</span>
-                    <i data-lucide="arrow-up-right" class="row-arrow"></i>
+            <div class="docente-card-footer">
+                <a href="${scholarUrl}" target="_blank" rel="noopener noreferrer" class="btn-scholar-card" title="Ver publicaciones e investigaciones de ${escapeHtml(cleanName)} en Google Académico">
+                    <div class="btn-scholar-label">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Google Académico</span>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="scholar-arrow"></i>
                 </a>
             </div>
         </div>

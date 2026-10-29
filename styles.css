@@ -2924,108 +2924,149 @@ button {
     color: var(--color-text-muted);
 }
 
-/* Horizontal List of Rows */
-.docentes-horizontal-list {
+/* ==========================================================================
+   Grid de Cajitas de Docentes (Compacto, Múltiples Columnas & Altura Uniforme)
+   ========================================================================== */
+.docentes-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 0.9rem;
+    padding: 1.25rem 1.4rem;
+    align-items: stretch;
+}
+
+.docente-card {
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 148px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.docente-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    box-shadow: 0 6px 16px -4px rgba(139, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .docente-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+}
+
+[data-theme="dark"] .docente-card:hover {
+    border-color: rgba(255, 120, 120, 0.45);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.docente-card-top {
     display: flex;
     flex-direction: column;
 }
 
-.docente-row {
+.docente-meta-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.85rem 1.6rem;
-    border-bottom: 1px solid var(--color-border);
-    background: transparent;
-    transition: background-color var(--transition-fast), padding-left var(--transition-fast);
-    gap: 1.2rem;
+    justify-content: flex-start;
+    margin-bottom: 0.55rem;
 }
 
-.docente-row:last-child {
-    border-bottom: none;
-}
-
-.docente-row:hover {
-    background-color: rgba(139, 0, 0, 0.035);
-    padding-left: 1.85rem;
-}
-
-[data-theme="dark"] .docente-row:hover {
-    background-color: rgba(255, 255, 255, 0.03);
-}
-
-.docente-row-main {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    min-width: 0;
-    flex: 1;
-}
-
-.docente-row-name {
+.docente-name {
     font-family: var(--font-heading);
-    font-size: 0.98rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--color-text);
     line-height: 1.35;
+    margin: 0 0 0.85rem 0;
+    min-height: 2.7em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     word-break: break-word;
 }
 
-.docente-row-action {
-    flex-shrink: 0;
+.docente-card-footer {
+    margin-top: auto;
 }
 
-.btn-scholar-row {
-    display: inline-flex;
+.btn-scholar-card {
+    display: flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.38rem 0.85rem;
-    border-radius: var(--radius-full);
-    font-size: 0.8rem;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.45rem 0.75rem;
+    background: rgba(139, 0, 0, 0.04);
+    color: var(--color-primary);
+    border: 1px solid rgba(139, 0, 0, 0.14);
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--color-text-muted);
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
     text-decoration: none;
     transition: all var(--transition-fast);
-    white-space: nowrap;
 }
 
-.btn-scholar-row i {
+.btn-scholar-card:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+}
+
+.btn-scholar-card .btn-scholar-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn-scholar-card .btn-scholar-label i {
     width: 14px;
     height: 14px;
-    color: #2563eb;
-    transition: transform var(--transition-fast);
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
 }
 
-[data-theme="dark"] .btn-scholar-row i {
-    color: #60a5fa;
+.btn-scholar-card:hover .btn-scholar-label i {
+    color: #ffffff;
 }
 
-.btn-scholar-row .row-arrow {
-    opacity: 0.55;
+.btn-scholar-card .scholar-arrow {
+    width: 13px;
+    height: 13px;
+    opacity: 0.7;
     transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
-.btn-scholar-row:hover {
-    color: #2563eb;
-    background: rgba(37, 99, 235, 0.08);
-    border-color: rgba(37, 99, 235, 0.35);
-}
-
-[data-theme="dark"] .btn-scholar-row:hover {
-    color: #93c5fd;
-    background: rgba(59, 130, 246, 0.15);
-    border-color: rgba(59, 130, 246, 0.4);
-}
-
-.btn-scholar-row:hover .row-arrow {
+.btn-scholar-card:hover .scholar-arrow {
     transform: translate(2px, -2px);
     opacity: 1;
 }
 
-.btn-scholar-row:hover i:first-child {
-    transform: scale(1.1);
+[data-theme="dark"] .btn-scholar-card {
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffa4a4;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .btn-scholar-card .btn-scholar-label i {
+    color: #ffa4a4;
+}
+
+[data-theme="dark"] .btn-scholar-card:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .btn-scholar-card:hover .btn-scholar-label i {
+    color: #ffffff;
 }
 
 @media (max-width: 640px) {
@@ -3035,16 +3076,21 @@ button {
     .linea-section-header {
         padding: 1rem;
     }
-    .docente-row {
-        padding: 0.75rem 1rem;
-        gap: 0.8rem;
+    .docentes-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        padding: 0.85rem;
+        gap: 0.65rem;
     }
-    .btn-scholar-row span {
-        display: none;
+    .docente-card {
+        padding: 0.85rem;
+        min-height: 138px;
     }
-    .btn-scholar-row {
-        padding: 0.4rem;
-        border-radius: var(--radius-sm);
+    .docente-name {
+        font-size: 0.85rem;
+    }
+    .btn-scholar-card {
+        padding: 0.4rem 0.55rem;
+        font-size: 0.74rem;
     }
 }
 
