@@ -168,14 +168,26 @@
                     </div>
                 </div>
 
-                <!-- Líneas de Investigación (Formato de Tarjetas idéntico a Escuelas Profesionales) -->
-                <div class="lines-tabs-wrapper" id="linesSectionWrapper">
-                    <div class="career-tabs-header">
-                        <span class="section-tag"><i data-lucide="compass"></i> Líneas de Investigación Oficiales</span>
-                        <span class="career-hint" id="linesHeaderHint">Selecciona una línea para filtrar los docentes adscritos</span>
+                <!-- Líneas de Investigación (Carrusel Interactivo de Tarjetas) -->
+                <div class="lines-carousel-wrapper" id="linesSectionWrapper">
+                    <div class="lines-carousel-header">
+                        <div class="lines-header-left">
+                            <span class="section-tag"><i data-lucide="compass"></i> Líneas de Investigación Oficiales</span>
+                            <span class="career-hint" id="linesHeaderHint">Desliza el carrusel o usa las flechas para explorar y seleccionar una línea</span>
+                        </div>
+                        <div class="carousel-nav-controls">
+                            <button type="button" class="btn-carousel-nav" id="btnLinesCarouselPrev" aria-label="Líneas anteriores" title="Desplazar a la izquierda">
+                                <i data-lucide="chevron-left"></i>
+                            </button>
+                            <button type="button" class="btn-carousel-nav" id="btnLinesCarouselNext" aria-label="Líneas siguientes" title="Desplazar a la derecha">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="lines-tabs-grid" id="linesTabsContainer">
-                        <!-- Generado dinámicamente con formato idéntico a Escuelas Profesionales -->
+                    <div class="lines-carousel-viewport" id="linesCarouselViewport">
+                        <div class="lines-carousel-track" id="linesTabsContainer">
+                            <!-- Generado dinámicamente con formato de tarjetas en carrusel -->
+                        </div>
                     </div>
                 </div>
 

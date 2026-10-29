@@ -171,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearSearchBtn = document.getElementById('btnClearDocSearch');
     const linesTabsContainer = document.getElementById('linesTabsContainer');
     const linesHeaderHint = document.getElementById('linesHeaderHint');
+    const btnLinesCarouselPrev = document.getElementById('btnLinesCarouselPrev');
+    const btnLinesCarouselNext = document.getElementById('btnLinesCarouselNext');
+    const linesCarouselViewport = document.getElementById('linesCarouselViewport');
     const gradoDropdownWrapper = document.getElementById('gradoDropdownWrapper');
     const gradoDropdownBtn = document.getElementById('gradoDropdownBtn');
     const gradoDropdownSelectedText = document.getElementById('gradoDropdownSelectedText');
@@ -449,9 +452,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         linesTabsContainer.innerHTML = html;
+        linesTabsContainer.scrollLeft = 0;
         if (window.lucide) {
             lucide.createIcons();
         }
+        setTimeout(updateLinesCarouselButtons, 60);
     }
 
     // ==========================================================================
@@ -622,9 +627,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Clic en tarjetas de Líneas de Investigación (Formato Escuelas)
+    // ==========================================================================
+    // 8. Carrusel de Líneas de Investigación (Navegación & Drag)
+    // ==========================================================================
+    function updateLinesCarouselButtons() {
+        if (!linesTabsContainer || !btnLinesCarouselPrev || !btnLinesCarouselNext) return;
+        const sl = linesTabsContainer.scrollLeft;
+        const maxSl = linesTabsContainer.scrollWidth - linesTabsContainer.clientWidth - 4;
+        btnLinesCarouselPrev.disabled = (sl <= 2);
+        btnLinesCarouselNext.disabled = (sl >= maxSl);
+    }
+
+    if (btnLinesCarouselPrev && linesTabsContainer) {
+        btnLinesCarouselPrev.addEventListener('click', () => {
+            linesTabsContainer.scrollBy({ left: -290, behavior: 'smooth' });
+        });
+    }
+
+    if (btnLinesCarouselNext && linesTabsContainer) {
+        btnLinesCarouselNext.addEventListener('click', () => {
+            linesTabsContainer.scrollBy({ left: 290, behavior: 'smooth' });
+        });
+    }
+
     if (linesTabsContainer) {
+        linesTabsContainer.addEventListener('scroll', () => {
+            updateLinesCarouselButtons();
+        }, { passive: true });
+
+        // Soporte de arrastre con mouse (Drag-to-Scroll suave)
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+        let hasDragged = false;
+
+        linesTabsContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            hasDragged = false;
+            startX = e.pageX - linesTabsContainer.offsetLeft;
+            scrollStart = linesTabsContainer.scrollLeft;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDown || !linesTabsContainer) return;
+            const x = e.pageX - linesTabsContainer.offsetLeft;
+            const walk = (x - startX) * 1.35;
+            if (Math.abs(walk) > 5) {
+                hasDragged = true;
+            }
+            linesTabsContainer.scrollLeft = scrollStart - walk;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        // Clic en tarjetas del carrusel de Líneas
         linesTabsContainer.addEventListener('click', (e) => {
+            if (hasDragged) return; // Si fue arrastre para ver más tarjetas, ignorar selección
             const btn = e.target.closest('.line-tab-card');
             if (!btn) return;
             const line = btn.getAttribute('data-line') || 'all';
@@ -632,6 +692,8 @@ document.addEventListener('DOMContentLoaded', () => {
             linesTabsContainer.querySelectorAll('.line-tab-card').forEach(c => {
                 c.classList.toggle('active', c.getAttribute('data-line') === line);
             });
+            // Centrar suavemente la tarjeta seleccionada en el carrusel
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             renderDocentes();
         });
     }
@@ -690,6 +752,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 linesTabsContainer.querySelectorAll('.line-tab-card').forEach(c => {
                     c.classList.toggle('active', c.getAttribute('data-line') === 'all');
                 });
+                linesTabsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                setTimeout(updateLinesCarouselButtons, 100);
             }
             if (gradoDropdownSelectedText) {
                 gradoDropdownSelectedText.textContent = 'Todos los Grados';

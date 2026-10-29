@@ -2380,19 +2380,109 @@ button {
 }
 
 /* ==========================================================================
-   Líneas de Investigación Tabs (Formato Idéntico a Escuelas Profesionales)
+   Carrusel de Líneas de Investigación (Scroll Horizontal & Navegación)
    ========================================================================== */
-.lines-tabs-wrapper {
+.lines-carousel-wrapper {
     margin: 1.5rem 0 2rem;
+    position: relative;
 }
 
-.lines-tabs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+.lines-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
     gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.lines-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.carousel-nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn-carousel-nav {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-alt);
+    border: 1.5px solid var(--color-border);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    padding: 0;
+}
+
+.btn-carousel-nav:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(139, 0, 0, 0.06);
+    transform: scale(1.06);
+}
+
+.btn-carousel-nav:disabled,
+.btn-carousel-nav.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+}
+
+[data-theme="dark"] .btn-carousel-nav:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 120, 120, 0.4);
+    color: #ffa4a4;
+}
+
+.btn-carousel-nav i {
+    width: 18px;
+    height: 18px;
+}
+
+.lines-carousel-viewport {
+    position: relative;
+    overflow: hidden;
+    padding: 0.25rem 0;
+}
+
+.lines-carousel-track,
+.lines-tabs-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 0.4rem 0.25rem 0.85rem 0.25rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    user-select: none;
+}
+
+.lines-carousel-track:active {
+    cursor: grabbing;
+}
+
+.lines-carousel-track::-webkit-scrollbar {
+    display: none;
 }
 
 .line-tab-card {
+    flex: 0 0 270px;
+    width: 270px;
+    scroll-snap-align: start;
     background: var(--color-bg-alt);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -2405,7 +2495,6 @@ button {
     transition: all var(--transition-fast);
     position: relative;
     overflow: hidden;
-    width: 100%;
 }
 
 .line-tab-card:hover {
@@ -3275,10 +3364,9 @@ button {
 }
 
 @media (max-width: 640px) {
-    .lines-tabs-grid {
-        grid-template-columns: 1fr;
-    }
     .line-tab-card {
+        flex: 0 0 240px;
+        width: 240px;
         padding: 0.95rem 1rem;
     }
 }
