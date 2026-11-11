@@ -380,7 +380,7 @@ function initRoadmapSync() {
         // Center active node inside scroll wrapper for a comfortable visual experience
         const activeNode = document.querySelector(`.roadmap-step-node[data-step="${currentStep}"]`);
         const scrollWrapper = document.querySelector('.roadmap-scroll-wrapper');
-        if (activeNode && scrollWrapper) {
+        if (activeNode && scrollWrapper && !scrollWrapper.classList.contains('is-dragging')) {
             const wrapperWidth = scrollWrapper.offsetWidth;
             const nodeLeft = activeNode.offsetLeft;
             const nodeWidth = activeNode.offsetWidth;
@@ -407,6 +407,101 @@ function initRoadmapSync() {
             }
         });
     });
+
+    // ==========================================
+    // Slider Buttons & Drag-to-Scroll Controls
+    // ==========================================
+    const scrollWrapper = document.querySelector('.roadmap-scroll-wrapper');
+    const prevBtn = document.getElementById('roadmapPrevBtn');
+    const nextBtn = document.getElementById('roadmapNextBtn');
+
+    if (scrollWrapper) {
+        const getScrollStep = () => Math.max(300, Math.floor(scrollWrapper.clientWidth * 0.65));
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                scrollWrapper.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                scrollWrapper.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+            });
+        }
+
+        const updateButtonStates = () => {
+            if (!prevBtn || !nextBtn) return;
+            const maxScroll = scrollWrapper.scrollWidth - scrollWrapper.clientWidth;
+            if (maxScroll <= 5) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                return;
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+
+            if (scrollWrapper.scrollLeft <= 5) {
+                prevBtn.classList.add('is-disabled');
+            } else {
+                prevBtn.classList.remove('is-disabled');
+            }
+
+            if (scrollWrapper.scrollLeft >= maxScroll - 5) {
+                nextBtn.classList.add('is-disabled');
+            } else {
+                nextBtn.classList.remove('is-disabled');
+            }
+        };
+
+        scrollWrapper.addEventListener('scroll', updateButtonStates, { passive: true });
+        window.addEventListener('resize', updateButtonStates);
+        setTimeout(updateButtonStates, 150);
+
+        // Mouse Drag-to-Scroll
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+        let hasDragged = false;
+
+        scrollWrapper.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            isDown = true;
+            hasDragged = false;
+            startX = e.pageX;
+            scrollStart = scrollWrapper.scrollLeft;
+            scrollWrapper.classList.add('is-dragging');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            const delta = e.pageX - startX;
+            if (Math.abs(delta) > 5) {
+                hasDragged = true;
+            }
+            scrollWrapper.scrollLeft = scrollStart - delta;
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDown) return;
+            isDown = false;
+            scrollWrapper.classList.remove('is-dragging');
+            setTimeout(() => {
+                hasDragged = false;
+            }, 80);
+        });
+
+        // Prevent clicking step nodes if user was dragging
+        scrollWrapper.addEventListener('click', (e) => {
+            if (hasDragged) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, true);
+    }
 }
 
 /* ==========================================================================

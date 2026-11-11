@@ -121,7 +121,10 @@
         </div>
 
         <div class="roadmap-container">
-            <div class="roadmap-scroll-wrapper">
+            <button type="button" class="roadmap-nav-btn roadmap-prev" id="roadmapPrevBtn" aria-label="Deslizar a la izquierda" title="Deslizar a la izquierda">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <div class="roadmap-scroll-wrapper" id="roadmapScrollWrapper">
                 <div class="roadmap-steps-grid" id="roadmapStepsGrid">
                     <div class="roadmap-line">
                         <div class="roadmap-progress-indicator" id="roadmapProgress"></div>
@@ -240,6 +243,9 @@
                     </div>
                 </div>
             </div>
+            <button type="button" class="roadmap-nav-btn roadmap-next" id="roadmapNextBtn" aria-label="Deslizar a la derecha" title="Deslizar a la derecha">
+                <i data-lucide="chevron-right"></i>
+            </button>
         </div>
     </section>
 

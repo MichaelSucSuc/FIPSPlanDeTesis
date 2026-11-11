@@ -773,7 +773,68 @@ button {
     position: relative;
     max-width: 1100px;
     margin: 64px auto 0 auto;
-    padding: 0 40px;
+    padding: 0 44px;
+}
+
+.roadmap-nav-btn {
+    position: absolute;
+    top: 85px;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    border: 2px solid var(--color-border);
+    color: var(--color-primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.roadmap-nav-btn:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.12);
+    box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.35);
+}
+
+.roadmap-nav-btn:active {
+    transform: translateY(-50%) scale(0.96);
+}
+
+.roadmap-prev {
+    left: 0;
+}
+
+.roadmap-next {
+    right: 0;
+}
+
+.roadmap-nav-btn.is-disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: translateY(-50%);
+    box-shadow: none;
+}
+
+[data-theme="dark"] .roadmap-nav-btn {
+    background: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-accent-gold);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .roadmap-nav-btn:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
 }
 
 .roadmap-line {
@@ -800,10 +861,24 @@ button {
     padding-top: 60px; /* Provides breathing room for tooltips and circle scales */
     padding-bottom: 30px;
     -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    scrollbar-width: none;
 }
 
 .roadmap-scroll-wrapper::-webkit-scrollbar {
     display: none; /* Hide scrollbar for cleaner look */
+}
+
+.roadmap-scroll-wrapper.is-dragging {
+    cursor: grabbing !important;
+    scroll-behavior: auto !important;
+}
+
+.roadmap-scroll-wrapper.is-dragging * {
+    cursor: grabbing !important;
+    pointer-events: none;
 }
 
 .roadmap-steps-grid {
@@ -2020,6 +2095,25 @@ button {
     .advisory-form-container {
         padding: 24px;
     }
+    .roadmap-container {
+        padding: 0 28px;
+        margin-top: 40px;
+    }
+    .roadmap-nav-btn {
+        width: 38px;
+        height: 38px;
+    }
+    .roadmap-nav-btn svg,
+    .roadmap-nav-btn i {
+        width: 20px;
+        height: 20px;
+    }
+    .roadmap-prev {
+        left: -4px;
+    }
+    .roadmap-next {
+        right: -4px;
+    }
 }
 
 /* Mobile Breakpoints */
@@ -2033,6 +2127,24 @@ button {
     }
     .hero-ctas .btn {
         width: 100%;
+    }
+    .roadmap-container {
+        padding: 0 20px;
+    }
+    .roadmap-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+    .roadmap-nav-btn svg,
+    .roadmap-nav-btn i {
+        width: 16px;
+        height: 16px;
+    }
+    .roadmap-prev {
+        left: -6px;
+    }
+    .roadmap-next {
+        right: -6px;
     }
 }
 
